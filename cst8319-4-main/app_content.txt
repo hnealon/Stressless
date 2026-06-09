@@ -1,0 +1,468 @@
+Part 1: Core Application Screens
+
+This section covers the primary screens accessible from the main navigation.
+
+ 1.1 Home Screen (`/home`)
+
+   App Title: StressLess
+   Headline: Helping caregivers support children's stress and distress.
+   Sub-headline: Practice emotionally supportive responses using guidance based on Emotion-Focused Family Therapy (EFFT).
+   Primary Button: "Start Practice Session"
+   Section: Why StressLess?
+       Body: Caregivers often learn emotional support strategies through workshops or educational materials, but applying these techniques in stressful moments can be difficult. StressLess helps caregivers rehearse emotionally supportive responses through short, structured practice scenarios.
+   Section: How Practice Works
+       Step 1: Identify your automatic response
+       Step 2: Practice validation skills
+       Step 3: Identify emotional support sentences
+       Step 4: Consider practical support strategies
+
+ 1.2 Learn Screen (`/learn`)
+
+   Screen Title: LEARN
+   Headline: The EFFT framework, explained.
+   Sub-headline: Tap any topic to learn more. Each section is a short, focused read.
+
+   Topic 1: The EFFT Framework
+       Section: A small shift can change the moment
+           Body: When children are stressed or distressed, their ability to think clearly and problem-solve becomes limited. Validation and support can help move things forward in a good way.
+           Callout: The validation and support framework is quick, learnable and can help bring your child's brain to a more flexible state.
+       Section: What caregivers gain
+           Body: When you validate before you fix or reassure, something can shift for your child and for you.
+           Bullets:
+               More flexibility and cooperation over time
+               More confidence handling big emotions, yours and theirs
+               A stronger sense of connection, even in difficult moments
+       Section: The 45-second loop
+           Body: The full Validation and Support framework can take as little as 45 seconds. It has two steps: validate first, then support. That's it. The more you practise, the more natural it becomes.
+       Section: Why Order Matters
+           Body: The order of operations is essential for success. Validation -> Emotional Support -> Practical Support follows the neural requirements for moving from a state of stress or threat to a state of increased connectedness and flexibility.
+           Body 2: If the order is reversed (e.g., giving advice before validation), the brain’s threat detection remains active, and the thinking brain (or pre-frontal cortex) never fully engages, leading to unproductive conversation and increased distress.
+       Section: Adapting the Framework
+           Body: We suggest you learn the framework, then adapt its delivery depending on your child’s personality, sensitivities, etc., including where they are at on the continuum of need:
+           Bullets:
+               Sometimes a quick validation + 1 because-statement can be enough to shift things in a meaningful direction. Other times, you might need to do a few rounds of because-statements, + emotional and practical support for your child to de-escalate and trust your efforts.
+               “Drive-thru” validation with just one because-statement (and nothing more) might be the place to start for some kids who feel awkward with validation or emotion-talk. 
+Whichever is true for you, our suggestion is for you to learn the framework to acquire the skill anddevelop fluency and then the capacity for discernment in its application will come with time and practice.
+
+   Topic 2: Automatic Responses
+       Section: What is an automatic response?
+           Body: It is common for caregivers to engage in automatic responses when a child is upset. These are deeply conditioned, and can feel natural, but they aren't always effective and can sometimes cause problems.
+       Section: Common automatic responses
+           Body: You might recognise one or more of these in yourself:
+           Bullets:
+               Reassuring: "You'll be fine! You're so good at this."
+               Problem-solving: "Let's make a plan right now."
+               Rationalising: "It's not as bad as it seems."
+               Distraction: "How about we watch a movie?"
+               Cheerleading: "You've got this! I believe in you."
+               Looking on the bright side: "At least..."
+               "But"-ing: "I hear you, but..."
+           Callout: These reactions aren't wrong, but they work better after your child's brain is in a more flexible state.
+       Section: Why noticing matters
+           Body: The first step in reducing your reliance on automatic responses is simply awareness. Once you notice your tendency to go there, you have a choice to try validation instead. Once validation opens the door, you can then consider one of the above-responses and it is likely to go better.
+
+   Topic 3: Step 1: Validation
+       Section: Help Their Brain Feel Safe
+           Body: When a child is upset, no matter the reason, their brain becomes activated and they can't think (as) clearly. Validation sends a simple signal:” I get it, I'm not against you”. Especially when using a tentative, caring tone ("I can understand you might be frustrated because..."), a validating statementhelps them begin to process what they're experiencing as well. When they feel your genuine attempt to understand what’s going on for them, even if you are off the mark, they are more likely to be more open and maybe even more flexible too.
+       Section: What validation really means
+           Body: Validation involves making an effort to understand your child's experience, whether it's an emotion, a thought, an urge, a behaviour, or a state, and from their point of view.
+           Callout: You're not necessarily agreeing with them. You're showing you get why it makes sense from inside of their experience. That opens the door.
+       Section: More than just feelings
+           Body: Most caregivers think validation means has to do with emotions. But you can validate almost anything:
+           Bullets:
+               Feelings: “I feel sad, mad, ashamed, lonely, afraid”
+               Attitudes: "This is stupid." "There's no point."
+               Urges: "I want to quit." "I don't want to go."
+               Behaviours: outbursts, withdrawal, aggression
+               States: overwhelm, fatigue, silence, sensory overload
+       Section: How to build a validation statement
+           Body: Start with a sentence starter, add a verb, and then three because-statements to convey your effort to understand their experience from their point of view.
+       Section: Sentence starters
+           Body: Choose one that feels authentic to you:
+           Bullets:
+               "I could understand you might..."
+               "I can imagine you..."
+               "No wonder you..."
+               "It makes sense that you..."
+               "I will never fully understand, but when I try to put myself in your shoes, I imagine you..."
+               "When I try to see it from your perspective, I imagine you might..."
+       Section: Followed by a verb
+           Body: feel / think / want to / don’t want to / not want to
+           Callout: Example: "I can imagine you don’t want to stop playing on your tablet..."
+       Section: The power of because-statements
+           Body: Because-statements are the heart of validation. They show your child that you've thought about their experience from the inside.
+           Bullets:
+               Aim for 3 because-statements
+               End each one with a downward tone, not a question
+               The most powerful ones reflect your child’s normal urge to increase good feelings, decrease hard feelings and increase feelings of connection                When in doubt, use the 3 Hs: "it's hard", "it's heavy", "it hurts"
+           Callout: "No wonder you feel that way because it's hard, and it's heavy, and it might really hurt."
+
+   Topic 4: Step 2A: Emotional Support
+       Section: Build the Bridge
+           Body: Once they're a little calmer, or feel like you're on the same team, they need to feel your warmth before they can open up further. Communications of comfort, encouragement, reassurance and togetherness are great options. Without this step, any suggestion you offer may feel like pressure, or unwelcome, or just too soon.
+       Section: Choose 2–3 of these options
+           Body: These emotional support sentences will let your child know that they are not alone.
+           Bullets:
+               Comfort / Love - Loving words, a hug, or a hand on the shoulder
+               Reassurance / Instillation of hope - "It's going to be okay." / "I believe it will get easier."
+               Positive regard - "I know you're doing the best you can right now."
+               Belief in them - "I believe in you." / "I know you can do this."
+               Togetherness - "We're in this together." / "I want the best for you too."
+               Sharing a perspective - "Did you know...?" / "From my end, I..."
+               Space with a plan - "Why don't we take 5 and come back to it?"
+           Callout: When it comes to the number of emotional sentences, follow your child's lead. Some moments call for a one or two emotional support sentences, others for longer presence.
+
+   Topic 5: Step 2B: Practical Support
+       Section: Getting Practical
+           Body: Practical support works best once your child feels heard and feels connected. Offered too early, even the most helpful suggestion can feel like you're skipping over their experience, and their walls can go up or they can retreat in their shell.. When a child feels both understood and feels connected, even if just a bit, they become more open to thinking through the problem with you, or hearing what you have to say - whether that's finding a solution, trying something new, or simply shifting gears with a transition.
+       Section: Types of practical support
+           Body: Choose 1–2 of these options:
+           Bullets:
+               A behavioural plan or next step
+               A soothing activity (a walk, music, a movie)
+               A plan to reconnect or spend time together
+               Sharing a skill, brainstorming, or offering to take over
+               Naming a limit or a behavioural expectation
+       Section: Sometimes nothing more is needed
+           Body: Once a child feels validated and emotionally supported, the moment may already be complete. resence alone can be the most powerful thing you offer.
+           Callout: "Right now, I can just be with you." This is a complete and valid response.
+
+   Topic 6: Questions vs. Suggestions
+       Section: Questions are great... and...
+           Body: This framework uses educated guesses (e.g. "I can imagine you might feel...") instead of questions ("How do you feel?") for a specific reason. Here are some potential benefits of making educated guesses or suggestions:
+       Section: Benefits for Validation
+           Body: Suggestions can be helpful when a child has:
+           Bullets:
+               A limited vocabulary for emotions or lacks clarity about their internal experience
+               Clarity about their internal experience, but feels embarassed expressing what’s inside
+       Section: Benefits for Support
+           Body: Suggestions can also be helpful for support when a child has:
+           Bullets:
+               A lack of clarity about what they need
+               Clarity about needing support, but feels embarassed asking for it
+           Callout: That said, questions are not wrong. Feel free to use questions if they feel useful to you and your child.
+
+ 1.3 Practice Screen (`/practice`)
+
+   Headline: Supporting your child in a new way starts with practice.
+   Sub-headline: Short daily practice sessions to help you build new supportive habits with your child.
+   Intro Card Title: 3 to 5 minutes per session
+   Intro Card Body: Each practice scenario walks you through a structured way of responding to your child's stress or distress. Like learning any new skill, the more you rehearse, the more natural it becomes.
+   Section: The EFFT Approach
+       Title: The EFFT Approach
+       Sub-title: The validation and support framework guides each session.
+       Step 1: Automatic Responses - Recognize automatic responses like fixing or reassuring.
+       Step 2: Validation - Help your child feel understood as a first step.
+       Step 3: Emotional Support - Offer warmth and presence through supportive language.
+       Step 4: Practical Support - Offer solutions or to help when your child is more open to receive.
+   Button: "Begin a Practice Session"
+   Disclaimer: StressLess is an educational tool based on the principles of emotional support from Emotino-Focused Family Therapy. It is not a crisis resource and does not replace professional mental health support.
+
+ 1.4 Script Builder Screen (`/script-builder`)
+
+   Screen Title: SCRIPT BUILDER
+   Headline: Build your own validation script.
+   Sub-headline: Follow the steps to create a supportive script. The script will build itself at the bottom of the page as you make selections.
+
+   Section: Step 1: Validation
+       Title: Help your child feel understood.
+       Sub-section: Sentence Starter
+           Title: Sentence Starter
+           Sub-title: Select a sentence starter.
+           Options:
+               "I could understand you might"
+               "I can imagine you"
+               "No wonder you"
+               "It makes sense that you"
+               "I will never fully understand, but when I try to put myself in your shoes, I imagine you"
+               "When I try to see it from your perspective, I imagine you might"
+       Sub-section: Verb
+           Title: Verb
+           Sub-title: Select a verb.
+           Options:
+               "feel"
+               "think"
+               "want to"
+               "don't want to"
+               "not want to"
+       Sub-section: Feeling/Action Phrase
+           Title: Feeling/Action Phrase
+           Sub-title: Describe your child’s feeling, thought or urge.
+           Placeholder: e.g., "really anxious about the test"
+       Sub-section: Because-statements
+           Title: Because-statements
+           Sub-title: Add 3 because-statements to complete the validation statement.
+           Placeholders:
+               e.g., "it is important to you that you do well"
+               e.g., "you've been studying for days"
+               e.g., "you might feel a lot of pressure"
+
+   Section: Step 2A: Emotional Support
+       Title: Offer warmth and presence. (Select up to 2)
+       Options:
+           "I'm here with you."
+           "I believe it’s going to be okay"
+           "I know you're doing the best you can right now."
+           "I believe in you."
+           "I know you can do this."
+           "We’re in this together."
+           "I want the best for you too."
+           "Why don’t we take 5 and try again?"
+           "Other (Write your own)"
+
+   Section: Step 2B: Practical Support
+       Title: Gently offer to help. (Select up to 2)
+       Options:
+           "Let's make a plan for how to handle this."
+           "How about we do something calming together, like listening to music?"
+           "Let's set aside some special time for just us later."
+           "Would you like me to help you brainstorm some ideas?"
+           "It's important that we finish this, but we can take a short break first."
+           "I'm here with you, and that's all that matters right now."
+           "Other (Write your own)"
+
+   Generated Script Section:
+       Title: Your Generated Script
+       Placeholder: Your script will appear here once all fields are complete...
+       Button: "Copy Script"
+
+ 1.5 About Screen (`/about`)
+
+   Screen Title: About StressLess
+   Headline: What is StressLess?
+   Body:
+       StressLess is a mobile learning tool designed to help caregivers practice emotionally supportive responses to children experiencing stress or distress.
+       The application uses short scenario-based practice sessions based on the emotional support module of Emotion-Focused Family Therapy (EFFT).
+   Info Card: EFFT Response Framework
+       Title: EFFT Response Framework
+       Body: Caregivers often react automatically during stressful moments. The first step is recognizing these reactions so you can respond more intentionally.
+   Info Card: Purpose of the App
+       Title: Purpose of the App
+       Body: The goal of StressLess is to help caregivers build new communication habits through short, repeatable practice sessions.
+   Info Card: Project Team
+       Title: Project Team
+       Body:
+           Developed by:
+               Matthew Miceli
+               Yeonhee Lee
+               Sheldon Maxwell
+               Prabhsimsan Kaur
+               Navleen Kaur
+           Algonquin College
+           Development Project
+
+---
+
+ Part 2: Practice Session Flow
+
+This section details the content for the scenario-based practice sessions.
+
+ 2.1 Choose a Scenario Screen (`/practice/scenarios`)
+
+   Screen Title: Choose a Scenario
+   Instructional Text: Each scenario is a short practice opportunity.
+   (Scenario-specific content is dynamically loaded)
+
+ 2.2 Session Screen (`/practice/session/{scenario_id}`)
+
+   Dialog: Leave this session?
+       Title: Leave this session?
+       Body: Your progress in this session won't be saved.
+       Actions: "Stay", "Leave"
+   Progress Bar Labels: Automatic, Validation, Emotional, Practical
+
+   Step 1: Automatic Response
+       Step Title: STEP 1 · AUTOMATIC RESPONSE
+       Headline: Notice your first instinct
+       Instruction: Based on your past experiences and current state, what is your most likely automatic reaction to this scenario? Don't overthink it.
+       Recap Card Title: SCENARIO RECAP
+       Question: What’s your automatic response likely to be?
+       Feedback Banner: Automatic responses are your automatic conditioned response. Recognizing it is the first step toward choosing a different way to engage with your child.
+
+   Step 2: Validation
+       Step Title: STEP 2 · VALIDATION
+       Headline: Validate your child's experience
+       Instruction: What validation means: making an effort to convey understanding of your child’s experience, without judging, fixing, or minimizing. Build your validation statement below.
+       Live Preview Placeholder: Your validation statement will appear here as you build it...
+       Section 1 Title: 1. Choose a sentence starter
+       Section 2 Title: 2. Choose 3 because-statements
+
+   Step 3: Emotional Support
+       Step Title: STEP 3 · EMOTIONAL SUPPORT
+       Headline: Offer warmth and presence
+       Instruction: These statements offer your child connection, reassurance, and acceptance, without trying to fix or change how they feel.
+       Validation Recap Title: Your validation so far
+       Selection Counter (example): You can select 1 more.
+
+   Step 4: Practical Support
+       Step Title: STEP 4 · PRACTICAL SUPPORT
+       Headline: Pivot to practical support
+       Instruction: Only once your child feels heard and safe, you can offer practical support suggestions. Sometimes, simply being present is all that's needed.
+       Selection Counter (example): Select 1 or 2 suggestions:
+       Next Button Label: "Finish & View Script"
+
+ 2.3 Script Screen (`/practice/session/{scenario_id}/script`)
+
+   Screen Title: Your Parenting Script
+   Section Title: Your final script:
+   Buttons:
+       "Copy Script"
+       "Finish Practice"
+   Snackbar Message: Script copied to clipboard
+
+---
+
+Part 3: Scenarios
+
+This section details the content for the scenario-based practice sessions.
+
+  Scenario 1: Worried About a Test
+
+    Child's Age: 9 years old
+    Emotion: Anxiety
+    Situation: Your child comes home from school looking upset. They just found out they have a big math test tomorrow.
+    Child's Statement: "I can't do this. I'm going to fail."
+    Automatic Responses:
+        "You'll be fine! You're so good at math!" (reassuring)
+        "Let's make a study plan right now and drill some problems." (problem-solving)
+        "A single test doesn't define you. It's not the end of the world." (rationalising)
+        "Don't worry about it. How about we watch a movie?" (distraction)
+    Validation Sentences:
+        "I could understand you might feel worried about your test"
+        "I can imagine you feel worried about your test"
+        "No wonder you feel worried about your test"
+        "It makes sense that you feel worried about your test"
+        "I will never fully understand, but when I try to put myself in your shoes, I imagine you feel worried about your test"
+        "When I try to see it from your perspective, I imagine you might feel worried about your test"
+    Because Statements:
+        "because you want to do well and it's important to you"
+        "because this test feels like a really big deal"
+        "because you care about what your teaching thinks"
+        "because it's hard when you don't know what to expect"
+        "because you want to make me proud"
+        "because you're feeling a lot of pressure right now"
+    Emotional Support Options:
+        "I'm here with you, and we can get through this together."
+        "Your feelings make complete sense to me."
+        "It's okay to feel scared. That feeling won't last forever."
+        "I love you, and that doesn't depend on how any test goes."
+        "You don't have to face this alone."
+    Practical Support Options:
+        "Right now, I can just be here with you."
+        "Would it help to look over the material together for a little while?"
+        "We could write down the things you do know to help you feel more ready."
+        "Would you like to talk through what worries you most about the test?"
+        "Let's make sure you get a good rest tonight so you feel your best."
+
+  Scenario 2: Left Out by Friends
+
+    Child's Age: 8 years old
+    Emotion: Sadness
+    Situation: Your child comes home quieter than usual. At dinner, they tell you they weren't included in a game at recess and sat alone.
+    Child's Statement: "Nobody likes me. I don't want to go to school anymore."
+    Automatic Responses:
+        "I'm sure they didn't mean to hurt your feelings." (rationalising)
+        "Well, who needs them anyway? You can find other friends." (by-passing)
+        "What did you do that made them not want to play with you?" (deflecting)
+        "Let's go get ice cream and forget all about it." (distraction)
+    Validation Sentences:
+        "I could understand you might feel left out by your friends"
+        "I can imagine you feel left out by your friends"
+        "No wonder you feel left out by your friends"
+        "It makes sense that you feel left out by your friends"
+        "I will never fully understand, but when I try to put myself in your shoes, I imagine you feel left out by your friends"
+        "When I try to see it from your perspective, I imagine you might feel left out by your friends"
+    Because Statements:
+        "because it can feel embarrassing to sit alone"
+        "because you were hoping for a fun time with your friends"
+        "because it's a heavy feeling to be with"
+        "because feeling connected is important"
+        "because it hurts to feel alone"
+        "because you might not be sure what to do when that happens"
+    Emotional Support Options:
+        "I'm so glad you told me how you're feeling."
+        "You don't have to carry this feeling alone."
+        "What you're feeling makes complete sense."
+        "I love you exactly as you are."
+        "Being left out is a really hard experience, and your hurt is real."
+    Practical Support Options:
+        "Right now, I can just be here with you."
+        "Would it help to talk about what happened today?"
+        "Is there anything you'd like from me right now?"
+        "Would you like some quiet time, or would you rather be with me for a bit?"
+        "We could think together, when you're ready, about how tomorrow might go."
+
+  Scenario 3: Angry at a Sibling
+
+    Child's Age: 7 years old
+    Emotion: Anger
+    Situation: Your younger child runs to you furious after their older sibling broke their favourite toy during an argument.
+    Child's Statement: "I hate them! They always ruin everything. It's not fair!"
+    Automatic Responses:
+        "It's just a toy. It's not a big deal." (minimizing)
+        "You need to learn to share your things better." (moralizing)
+“Let’s go talk to them right now” (problem-solving)
+        "I'll just buy you a new one." (fixing)
+    Validation Sentences:
+        "I could understand if you might feel angry at your sibling"
+        "I can imagine you feel angry at your sibling"
+        "No wonder you feel angry at your sibling"
+        "It makes sense that you feel angry at your sibling"
+        "I will never fully understand, but when I try to put myself in your shoes, I imagine you feel angry at your sibling"
+        "When I try to see it from your perspective, I imagine you might feel angry at your sibling"
+    Because Statements:
+        "because that toy was special to you"
+        "because it might feel like this happens too much"
+        "because you don’t know how to fix it"
+        "because it's hard when you feel like nobody is on your side"
+        "because it feels like your things aren't being respected"
+        "because you wanted to be able to play with your toy"
+    Emotional Support Options:
+        "Your anger makes complete sense to me."
+        "I'm with you, and I hear you."
+        "You're allowed to feel angry about this."
+        " You don't have to calm down right away."
+        "It's okay to have big feelings. I'm not going anywhere."
+    Practical Support Options:
+        "Right now, I can just be here with you and then we can sort out what next."
+        "When you're ready, we can talk about what happened."
+        "Why don’t we go downstairs, have a snack and then talk to (sibling)."
+        "Would it help to have some space right now, or do you want to stay with me?"
+
+  Scenario 4: Scared at Bedtime
+
+    Child's Age: 6 years old
+    Emotion: Fear
+    Situation: At bedtime, your child refuses to go to sleep alone and becomes increasingly distressed.
+    Child's Statement: " I'm too scared to go to sleep. Please don't leave me."
+    Automatic Responses:
+        "There's nothing to be scared of.." (rationalising)
+        "You're being a baby. Big kids aren't scared to go to sleep." (shaming)
+        "If you don't stay in bed, I'm taking away your tablet tomorrow." (consequencing)
+        "I already checked the room. There is nothing to be scared of." (reassuring)
+    Validation Sentences:
+        "I could understand if you might feel scared at bedtime"
+        "I can imagine you feel scared at bedtime"
+        "No wonder you feel scared at bedtime"
+        "It makes sense that you feel scared at bedtime"
+        "I will never fully understand, but when I try to put myself in your shoes, I imagine you feel scared at bedtime"
+        "When I try to see it from your perspective, I imagine you might feel scared at bedtime"
+    Because Statements:
+        "because the dark can feel scary"
+        "because your imagination can be strong at night"
+        "because you might need to know I'm nearby"
+        "because nighttime can sometimes feel lonely"
+        "because it feels better when we're together"
+        "because you want to feel safe and sound"
+    Emotional Support Options:
+        "I'm right here. You're not alone."
+        "It's okay to feel scared. Your feelings are real."
+        "I'll stay close until you feel more settled."
+        "Your feelings make sense to me, and I'm not going anywhere."
+        "Being scared at night is something a lot of children feel."
+    Practical Support Options:
+        "Right now, I can just be here with you."
+        "Would a nightlight help you feel safer?"
+        "I can sit with you until you feel sleepy."
+        "Would you like to keep the door open a little?"
+        "Let's think of something peaceful together to help you drift off."
