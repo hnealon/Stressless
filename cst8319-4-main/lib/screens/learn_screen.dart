@@ -283,7 +283,37 @@ const List<LearnTopic> _topics = [
       ),
     ],
   ),
+  LearnTopic(
+    id: 'therapeutic-apology',
+    title: 'Therapeutic Apology',
+    icon: Icons.favorite_outline,
+    color: Color(0xFF6C63FF),
+    sections: [
+      LearnSection(
+        heading: 'What is a Therapeutic Apology?',
+        body:
+        'Placeholder content. This text will be replaced with client-provided material.',
+      ),
+      LearnSection(
+        heading: 'Step 1: Taking Responsibility',
+        body:
+        'Placeholder explanation of taking responsibility.',
+      ),
+      LearnSection(
+        heading: 'Step 2: Acknowledging Impact',
+        body:
+        'Placeholder explanation of acknowledging impact.',
+      ),
+      LearnSection(
+        heading: 'Step 3: Repair and Reconnection',
+        body:
+        'Placeholder explanation of repair and reconnection.',
+      ),
+    ],
+  ),
 ];
+
+
 
 // --- Main Screen --------------------------------------------------------------
 
