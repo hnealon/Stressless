@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../theme.dart';
 import 'anger_script_builder_screen.dart';
+import 'silence_script_builder_screen.dart';
 
 class ScriptBuilderScreen extends StatefulWidget {
   const ScriptBuilderScreen({super.key});
@@ -179,6 +180,22 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
                         icon: const Icon(Icons.local_fire_department_outlined,
                             size: 18),
                         label: const Text('Anger Script Builder (Demo)'),
+                      ),
+                    ).animate().fadeIn(delay: 200.ms, duration: 400.ms),
+                    const SizedBox(height: 8),
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const SilenceScriptBuilderScreen(),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.volume_off_outlined, size: 18),
+                        label: const Text('Silence & Withdrawal Script Builder'),
                       ),
                     ).animate().fadeIn(delay: 200.ms, duration: 400.ms),
                     const SizedBox(height: 24),
