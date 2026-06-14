@@ -5,6 +5,7 @@ import 'learn_screen.dart';
 import 'about_screen.dart';
 import 'script_builder_screen.dart';
 import 'script_library_screen.dart';
+import 'apology_script_builder_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -22,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
     PracticeScreen(),
     ScriptBuilderScreen(),
     ScriptLibraryScreen(), // Khalil's screen
-    // TherapeuticApologyScreen(),  // Gohar's screen — add once filename confirmed
+    ApologyScriptBuilderScreen(),
     AboutScreen(),
   ];
 
@@ -60,10 +61,10 @@ class _MainScreenState extends State<MainScreen> {
             icon: Icon(Icons.library_books),
             label: 'Script Library',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.favorite),
-          //   label: 'Apology',
-          // ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_border),
+            label: 'Apology',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.info),
             label: 'About',
