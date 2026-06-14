@@ -197,7 +197,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
                         icon: const Icon(Icons.volume_off_outlined, size: 18),
                         label: const Text('Silence & Withdrawal Script Builder'),
                       ),
-                    ).animate().fadeIn(delay: 200.ms, duration: 400.ms),
+                    ).animate().fadeIn(delay: 220.ms, duration: 400.ms),
                     const SizedBox(height: 24),
                   ],
                 ),
