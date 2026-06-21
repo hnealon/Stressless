@@ -309,7 +309,7 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
           'Step 2: Emotional Support',
           'Choose at least ${example.emotionalCount} sentences.',
         ),
-        _buildMultiSelect(
+        _buildCategorizedMultiSelect(
           example.emotionalSupport,
           _libraryEmotional,
           example.emotionalSupport.length,
@@ -319,7 +319,7 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
           'Step 3: Practical Support',
           'Choose up to ${example.practicalCount} suggestions.',
         ),
-        _buildMultiSelect(
+        _buildCategorizedMultiSelect(
           example.practicalSupport,
           _libraryPractical,
           example.practicalCount,
@@ -334,6 +334,78 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  /// Groups categorized options under their category heading so caregivers
+  /// keep learning the underlying skill (per EFFT-EC_General_and_Micro-skills.docx).
+  Widget _buildCategorizedMultiSelect(
+      List<CategorizedOption> options,
+      List<String> selected,
+      int maxSelection,
+      ) {
+    final Map<String, List<CategorizedOption>> grouped = {};
+    for (final option in options) {
+      grouped.putIfAbsent(option.category, () => []).add(option);
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: grouped.entries.map((entry) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                entry.key,
+                style: GoogleFonts.nunito(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.primary,
+                  letterSpacing: 0.4,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Wrap(
+                spacing: 8,
+                runSpacing: 6,
+                children: entry.value.map((option) {
+                  final isSelected = selected.contains(option.text);
+                  return ChoiceChip(
+                    label: Text(option.text),
+                    selected: isSelected,
+                    onSelected: (_) {
+                      setState(() {
+                        if (isSelected) {
+                          selected.remove(option.text);
+                        } else if (selected.length < maxSelection) {
+                          selected.add(option.text);
+                        }
+                        _updateScript();
+                      });
+                    },
+                    backgroundColor: AppColors.surface,
+                    selectedColor: AppColors.primary,
+                    labelStyle: GoogleFonts.nunito(
+                      color: isSelected ? Colors.white : AppColors.textPrimary,
+                      fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
+                      fontSize: 13,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      side: BorderSide(
+                        color: isSelected ? AppColors.primary : AppColors.cardBorder,
+                      ),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
+        );
+      }).toList(),
     );
   }
 
