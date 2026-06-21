@@ -330,6 +330,37 @@ class LearnScreen extends StatelessWidget {
                         height: 1.6,
                       ),
                     ).animate().fadeIn(delay: 160.ms, duration: 400.ms),
+                    const SizedBox(height: 20),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: AppColors.validationCard,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: AppColors.cardBorder),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'A Note on Clinician Support with the Validation and Support Framework',
+                            style: GoogleFonts.nunito(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'These scripts were developed within Emotion-Focused Family Therapy (EFFT), and it is advised that this content be explored with the guidance of a therapist trained in this model. An EFFT therapist can help you identify which scripts are most relevant to your child and situation, work through any blocks that might get in the way of connecting with your child emotionally, and adapt the language to feel natural for your family. They can also support you through what can be a meaningful and sometimes emotionally complex process. This app was meant to serve as a resource alongside that professional support.',
+                            style: GoogleFonts.nunito(
+                              fontSize: 13,
+                              color: AppColors.textSecondary,
+                              height: 1.5,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ).animate().fadeIn(delay: 180.ms, duration: 400.ms),
                     const SizedBox(height: 24),
                   ],
                 ),

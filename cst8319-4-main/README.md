@@ -1,136 +1,167 @@
 # StressLess
 
-This is a Flutter application designed to help caregivers practice emotionally supportive responses based on Emotion-Focused Family Therapy (EFFT).
+A Flutter app that helps caregivers practice **validation and support** responses based on Emotion-Focused Family Therapy (EFFT).
 
-## Directory Structure
+## Overview
+
+StressLess includes guided learning, practice sessions, a general script builder, and a script library with pre-written examples from client source documents.
+
+| Tab | Purpose |
+|-----|---------|
+| **Home** | App introduction |
+| **Learn** | Validation and Support framework content |
+| **Practice** | Scenario-based practice sessions |
+| **Build** | General custom script builder |
+| **Library** | Pre-written Anger and Silence examples from client documents |
+| **About** | App information |
+
+## Script Library (Ren)
+
+The **Script Library** is a separate screen from the general Script Builder. It provides ready-made validation and support scripts that caregivers can customize by selecting phrases from each step.
+
+### Why it is separate from Script Builder
+
+Per client review, the general **Build** tab is for creating scripts from scratch. **Library** holds emotion-specific examples (Anger, Silence) sourced from the client Word document—not mixed into the general builder.
+
+### How it works
+
+1. Open the **Library** tab.
+2. Choose an **emotion** (Anger or Silence).
+3. Choose a **scenario**.
+4. Complete the script:
+   - **Step 1 — Validation:** select exactly **3** "because" statements
+   - **Step 2 — Emotional Support:** select at least 2 sentences
+   - **Step 3 — Practical Support:** select up to 2 suggestions
+5. The assembled script appears at the bottom as **Your Validation and Support Script**.
+6. Tap **Copy Script** to copy the result.
+
+### Included examples
+
+| Emotion | Scenarios | Source |
+|---------|-----------|--------|
+| **Anger** | 6 (Feeling Misunderstood, Feeling Powerless, A Boundary Was Crossed, Feeling Overwhelmed, Old Hurts Coming Up, Angry at Themselves) | `EC_Scripts_Youth_Ages_8-12.revised.docx` → ANGER |
+| **Silence** | 1 (When They Withdraw or Shut Down) | `EC_Scripts_Youth_Ages_8-12.revised.docx` → SHAME #5 |
+
+Each example includes a `sourceReference` field pointing to the exact section in the client document.
+
+### Key files
+
+```
+lib/
+├── data/
+│   └── script_library_data.dart       # Verbatim content from client docx
+├── models/
+│   └── script_library_example.dart    # Data model for library examples
+└── screens/
+    ├── script_library_screen.dart     # Library UI (emotion → scenario → build)
+    └── script_builder_screen.dart     # General custom builder only
+```
+
+### Content policy
+
+All Script Library wording comes **verbatim** from the client document (`EC_Scripts_Youth_Ages_8-12.revised.docx`). Do not replace or paraphrase with AI-generated text. When the client sends revised Word documents, update `script_library_data.dart` to match.
+
+## Script Builder (Build tab)
+
+The **Build** tab is the general-purpose script builder. Users pick sentence starters, verbs, because-statements, and support phrases to create a custom validation and support script from scratch. It does **not** include Anger or Silence library examples.
+
+## Directory structure
 
 ```
 .
-├── android
-├── ios
-├── lib
-│   ├── data
-│   │   └── scenario_data.dart
-│   ├── models
+├── lib/
+│   ├── data/
+│   │   ├── scenario_data.dart
+│   │   └── script_library_data.dart
+│   ├── models/
 │   │   ├── models.dart
+│   │   ├── script_library_example.dart
 │   │   └── session.dart
-│   ├── screens
-│   │   ├── about_screen.dart
-│   │   ├── home_screen.dart
-│   │   ├── home_screen_new.dart
-│   │   ├── learn_screen.dart
+│   ├── screens/
 │   │   ├── main_screen.dart
-│   │   ├── practice_screen.dart
-│   │   ├── scenario_list_screen.dart
 │   │   ├── script_builder_screen.dart
+│   │   ├── script_library_screen.dart
 │   │   ├── script_screen.dart
-│   │   ├── session_screen.dart
-│   │   ├── settings_screen.dart
-│   │   └── steps
-│   │       ├── step_automatic_response.dart
-│   │       ├── step_emotional_support.dart
-│   │       ├── step_knee_jerk_reaction.dart
-│   │       ├── step_practical_support.dart
-│   │       └── step_validation.dart
-│   ├── widgets
-│   │   ├── emotion_badge.dart
-│   │   └── shared_widgets.dart
+│   │   ├── practice_screen.dart
+│   │   ├── learn_screen.dart
+│   │   └── steps/
+│   ├── widgets/
 │   ├── main.dart
-│   ├── main_screen.dart
 │   └── theme.dart
-├── linux
-├── macos
-├── test
-│   └── widget_test.dart
-├── web
-├── windows
-├── .gitignore
-├── analysis_options.yaml
-├── app_content.txt
-├── blueprint.md
-├── blueprint.txt
-├── devtools_options.yaml
-├── flutter_native_splash.yaml
-├── pubspec.lock
-└── pubspec.yaml
+├── pubspec.yaml
+└── README.md
 ```
 
-## Implementation Instructions
+## Getting started
 
 ### Prerequisites
-cd
-*   Flutter SDK: Make sure you have the Flutter SDK installed and configured properly.
-*   Dart: Dart is included with Flutter.
 
-### Running the App
+- [Flutter SDK](https://docs.flutter.dev/get-started/install) (3.x or later)
+- Dart (included with Flutter)
+- Android Studio / Xcode for device emulators (optional)
 
-1.  Extract the zip file containing the project.
+### Run locally
 
-2.  Navigate to the project directory:
+```bash
+cd cst8319-4-main
+flutter pub get
+flutter run
+```
 
-    ```
-    cd stressless
-    ```
+### Analyze
 
-3.  Get the dependencies:
+```bash
+flutter analyze
+```
 
-    ```
-    flutter pub get
-    ```
+## Building for release
 
-4.  Run the app:
+**Android:**
 
-    ```
-    flutter run
-    ```
+```bash
+flutter build apk --release
+```
 
-## Transition to Production
+Output: `build/app/outputs/apk/release/`
 
-### Building the App for Production
+**iOS** (requires Apple Developer account):
 
-To build the app for production, you can use the following Flutter commands:
+```bash
+flutter build ios --release
+```
 
-*   **Android:**
+**Web:**
 
-    ```
-    flutter build apk --release
-    ```
+```bash
+flutter build web
+```
 
-    This will create a release APK file in the `build/app/outputs/apk/release` directory.
+Output: `build/web/`
 
-*   **iOS:**
+## Testing checklist
 
-    ```
-    flutter build ios --release
-    ```
+- [ ] App launches without errors
+- [ ] Bottom navigation works across all tabs
+- [ ] **Build** tab: custom script builder only (no Anger/Silence picker)
+- [ ] **Library** tab: Anger and Silence scenarios load and assemble scripts
+- [ ] Library requires 3 because-statements before showing a complete script
+- [ ] Finish screen title reads **Your validation and support script** (Practice flow)
+- [ ] Copy Script works in both Build and Library
 
-    This will create a release build for iOS. You will need to have a paid Apple Developer account to build and deploy to iOS devices.
+## Team ownership
 
-*   **Web:**
+| Feature | Owner |
+|---------|-------|
+| Script Library (Anger) | Ren |
+| Script Library (Silence) | Haleigh |
+| General Script Builder | Team |
+| Therapeutic Apology tab | Rachel |
+| Navigation / integration | Ramona |
+| App Store deployment research | Ren |
 
-    ```
-    flutter build web
-    ```
+## Related documents
 
-    This will create a `build/web` directory with the production-ready web app.
-
-### Deployment
-
-*   **Android:** You can upload the release APK to the Google Play Store.
-*   **iOS:** You can upload the release build to the Apple App Store.
-*   **Web:** You can deploy the `build/web` directory to any web hosting service.
-
-## Testing the Installation
-
-After installing the app on a device or deploying the web app, you should test the following:
-
-*   **App launch:** The app should launch without crashing.
-*   **Navigation:** You should be able to navigate between all the screens.
-*   **Functionality:** All the features of the app should work as expected. This includes:
-    *   Starting a practice session.
-    *   Viewing the learn content.
-    *   Building a script with the script builder.
-    *   Viewing the about screen.
-    *   Changing the settings.
-
-By following these instructions, you should be able to successfully implement, deploy, and test the StressLess application.
+| Document | Use |
+|----------|-----|
+| `EC_Scripts_Youth_Ages_8-12.revised.docx` | Script Library content (Anger + Silence) |
+| `TA.teaching.docx` | Therapeutic Apology tab (future) |
