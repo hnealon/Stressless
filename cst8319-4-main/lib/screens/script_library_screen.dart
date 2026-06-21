@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../data/script_library_data.dart';
+import '../models/script_library_example.dart';
 import '../theme.dart';
 
-// This screen is for SWF1: searchable script library.
-// It allows caregivers to search and browse placeholder scripts by situation.
 class ScriptLibraryScreen extends StatefulWidget {
   const ScriptLibraryScreen({super.key});
 
@@ -13,110 +14,79 @@ class ScriptLibraryScreen extends StatefulWidget {
 }
 
 class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
-  // Controller used to read what the user types in the search bar.
-  final TextEditingController _searchController = TextEditingController();
+  ScriptLibraryExample? _selectedExample;
+  String? _selectedEmotion;
+  final List<String> _libraryBecause = [];
+  final List<String> _libraryEmotional = [];
+  final List<String> _libraryPractical = [];
 
-  // Keeps track of the selected category chip.
-  String _selectedCategory = 'All';
+  String _generatedScript = '';
 
-  // Stores the search text in lowercase so searching is easier.
-  String _searchText = '';
-
-  // Categories based on the client requirement examples.
-  final List<String> _categories = [
-    'All',
-    'Refusal to Eat',
-    'Silence/Withdrawal',
-    'Anger',
-    'Body Image',
-    'Therapy Resistance',
-  ];
-
-  // Placeholder script data.
-  // The client can replace these with final approved scripts later.
-  final List<Map<String, String>> _scripts = [
-    {
-      'title': 'Refusal to Eat',
-      'category': 'Refusal to Eat',
-      'situation': 'When a child refuses to eat or feels overwhelmed at mealtime.',
-      'script':
-      'I can understand that eating feels really hard right now. It makes sense that you might feel overwhelmed because this moment feels like too much. I am here with you, and we can take this one step at a time.',
-    },
-    {
-      'title': 'Silence or Withdrawal',
-      'category': 'Silence/Withdrawal',
-      'situation': 'When a child becomes quiet, shuts down, or pulls away.',
-      'script':
-      'I can imagine that talking right now might feel difficult. It makes sense that you may need space because this feels heavy. I am here with you, and you do not have to explain everything right away.',
-    },
-    {
-      'title': 'Anger Response',
-      'category': 'Anger',
-      'situation': 'When a child reacts with anger, frustration, or yelling.',
-      'script':
-      'I can understand that you might feel really angry right now. No wonder this feels upsetting because something important is happening for you. I want to understand, and I am here to help when you are ready.',
-    },
-    {
-      'title': 'Body Image Concern',
-      'category': 'Body Image',
-      'situation': 'When a child is upset about their body or appearance.',
-      'script':
-      'I can imagine you are feeling really uncomfortable right now. I want you to know that I am listening, and I care about what this feels like for you. You do not have to handle this feeling alone.',
-    },
-    {
-      'title': 'Therapy Resistance',
-      'category': 'Therapy Resistance',
-      'situation': 'When a child does not want to attend therapy or accept support.',
-      'script':
-      'It makes sense that therapy might feel uncomfortable or frustrating. I can understand that part of you may not want to go because it feels hard to talk about these things. I am here with you, and we can figure out what support feels manageable.',
-    },
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-
-    // Every time the user types, update the search text and rebuild the list.
-    _searchController.addListener(() {
-      setState(() {
-        _searchText = _searchController.text.toLowerCase();
-      });
+  void _clearSelection() {
+    setState(() {
+      _selectedExample = null;
+      _selectedEmotion = null;
+      _libraryBecause.clear();
+      _libraryEmotional.clear();
+      _libraryPractical.clear();
+      _updateScript();
     });
   }
 
-  @override
-  void dispose() {
-    // Frees memory when this screen is closed.
-    _searchController.dispose();
-    super.dispose();
+  void _selectExample(ScriptLibraryExample example) {
+    setState(() {
+      _selectedExample = example;
+      _selectedEmotion = example.emotion;
+      _libraryBecause.clear();
+      _libraryEmotional.clear();
+      _libraryPractical.clear();
+      _updateScript();
+    });
   }
 
-  // Filters scripts by selected category and search text.
-  List<Map<String, String>> get _filteredScripts {
-    return _scripts.where((script) {
-      final matchesCategory =
-          _selectedCategory == 'All' || script['category'] == _selectedCategory;
+  void _updateScript() {
+    setState(() {
+      _generatedScript = _buildLibraryScript();
+    });
+  }
 
-      final matchesSearch =
-          script['title']!.toLowerCase().contains(_searchText) ||
-              script['category']!.toLowerCase().contains(_searchText) ||
-              script['situation']!.toLowerCase().contains(_searchText) ||
-              script['script']!.toLowerCase().contains(_searchText);
+  String _buildLibraryScript() {
+    final example = _selectedExample;
+    if (example == null ||
+        _libraryBecause.length < example.becauseCount ||
+        _libraryEmotional.length < example.emotionalCount) {
+      return '';
+    }
 
-      return matchesCategory && matchesSearch;
-    }).toList();
+    final becauses = List<String>.from(_libraryBecause);
+    final last = becauses.removeLast();
+    final becauseClause =
+        becauses.isEmpty ? last : '${becauses.join(', ')}, and $last';
+
+    final emotional = _libraryEmotional.join(' ');
+    final practical = _libraryPractical.join(' ');
+
+    return '${example.validationOpener} $becauseClause. $emotional $practical'
+        .trim();
+  }
+
+  bool get _hasCompleteScript {
+    final example = _selectedExample;
+    if (example == null) return false;
+    return _libraryBecause.length == example.becauseCount &&
+        _libraryEmotional.length >= example.emotionalCount &&
+        _generatedScript.isNotEmpty;
   }
 
   @override
   Widget build(BuildContext context) {
-    final filteredScripts = _filteredScripts;
+    final emotions = scriptLibraryEmotions;
 
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            // Header section.
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(24, 28, 24, 8),
@@ -134,7 +104,7 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
                     ).animate().fadeIn(duration: 300.ms),
                     const SizedBox(height: 4),
                     Text(
-                      'Browse parent-written scripts.',
+                      'Validation and support examples.',
                       style: GoogleFonts.cormorantGaramond(
                         fontSize: 34,
                         fontWeight: FontWeight.w600,
@@ -144,94 +114,275 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
                     ).animate().fadeIn(delay: 80.ms, duration: 400.ms),
                     const SizedBox(height: 10),
                     Text(
-                      'Search or browse scripts by topic. These are placeholder scripts until the client provides the final edited content.',
+                      'Choose an emotion and scenario from $kScriptLibrarySourceDocument. Your script assembles at the bottom as you go.',
                       style: GoogleFonts.nunito(
                         fontSize: 14,
                         color: AppColors.textSecondary,
                         height: 1.6,
                       ),
                     ).animate().fadeIn(delay: 160.ms, duration: 400.ms),
-                    const SizedBox(height: 20),
-                    _buildSearchField(),
-                    const SizedBox(height: 18),
-                    _buildCategoryChips(),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 24),
                   ],
                 ),
               ),
             ),
-
-            // Script list section.
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
-              sliver: filteredScripts.isEmpty
-                  ? SliverToBoxAdapter(child: _buildEmptyState())
-                  : SliverList(
-                delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                    final script = filteredScripts[index];
-                    return _buildScriptCard(script, index);
-                  },
-                  childCount: filteredScripts.length,
-                ),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate([
+                  Text(
+                    'Emotion',
+                    style: GoogleFonts.nunito(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 6,
+                    children: emotions.map((emotion) {
+                      final isSelected = _selectedEmotion == emotion;
+                      return ChoiceChip(
+                        label: Text(emotion),
+                        selected: isSelected,
+                        onSelected: (_) {
+                          setState(() {
+                            if (_selectedEmotion == emotion) {
+                              _clearSelection();
+                            } else {
+                              _selectedEmotion = emotion;
+                              _selectedExample = null;
+                              _libraryBecause.clear();
+                              _libraryEmotional.clear();
+                              _libraryPractical.clear();
+                              _updateScript();
+                            }
+                          });
+                        },
+                        backgroundColor: AppColors.surface,
+                        selectedColor: AppColors.primary,
+                        labelStyle: GoogleFonts.nunito(
+                          color:
+                              isSelected ? Colors.white : AppColors.textPrimary,
+                          fontWeight:
+                              isSelected ? FontWeight.w700 : FontWeight.w600,
+                          fontSize: 13,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          side: BorderSide(
+                            color: isSelected
+                                ? AppColors.primary
+                                : AppColors.cardBorder,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  if (_selectedEmotion != null) ...[
+                    const SizedBox(height: 20),
+                    Text(
+                      'Scenario',
+                      style: GoogleFonts.nunito(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    ...examplesForEmotion(_selectedEmotion!).map((example) {
+                      final isSelected = _selectedExample?.id == example.id;
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Material(
+                          color: isSelected
+                              ? AppColors.validationCard
+                              : AppColors.surface,
+                          borderRadius: BorderRadius.circular(12),
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(12),
+                            onTap: () => _selectExample(example),
+                            child: Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: isSelected
+                                      ? AppColors.primary
+                                      : AppColors.cardBorder,
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    example.title,
+                                    style: GoogleFonts.nunito(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w700,
+                                      color: AppColors.textPrimary,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    example.validationOpener,
+                                    style: GoogleFonts.nunito(
+                                      fontSize: 13,
+                                      color: AppColors.textSecondary,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+                  ],
+                  if (_selectedExample != null) ...[
+                    const SizedBox(height: 32),
+                    _buildExampleForm(_selectedExample!),
+                  ],
+                  const SizedBox(height: 32),
+                  _buildGeneratedScript(),
+                  const SizedBox(height: 32),
+                ]),
               ),
             ),
-
-            const SliverToBoxAdapter(child: SizedBox(height: 24)),
           ],
         ),
       ),
     );
   }
 
-  // Builds the search bar.
-  Widget _buildSearchField() {
-    return TextField(
-      controller: _searchController,
-      style: GoogleFonts.nunito(
-        fontSize: 14,
-        color: AppColors.textPrimary,
-      ),
-      decoration: InputDecoration(
-        hintText: 'Search by topic or situation...',
-        hintStyle: GoogleFonts.nunito(color: AppColors.textLight),
-        prefixIcon: const Icon(Icons.search, color: AppColors.primary),
-        filled: true,
-        fillColor: AppColors.surface,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColors.cardBorder),
+  Widget _buildExampleForm(ScriptLibraryExample example) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: AppColors.validationCard,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: AppColors.cardBorder),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Validation opener',
+                style: GoogleFonts.nunito(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.primary,
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                example.validationOpener,
+                style: GoogleFonts.nunito(
+                  fontSize: 15,
+                  color: AppColors.textPrimary,
+                  height: 1.5,
+                ),
+              ),
+            ],
+          ),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColors.cardBorder),
+        const SizedBox(height: 24),
+        _buildSectionTitle(
+          'Step 1: Validation',
+          'Choose ${example.becauseCount} "because" statements from the list below.',
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColors.primary, width: 1.5),
+        _buildMultiSelect(
+          example.becauseStatements,
+          _libraryBecause,
+          example.becauseCount,
         ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 14,
+        const SizedBox(height: 32),
+        _buildSectionTitle(
+          'Step 2: Emotional Support',
+          'Choose at least ${example.emotionalCount} sentences.',
         ),
-      ),
-    ).animate().fadeIn(delay: 220.ms, duration: 400.ms);
+        _buildMultiSelect(
+          example.emotionalSupport,
+          _libraryEmotional,
+          example.emotionalSupport.length,
+        ),
+        const SizedBox(height: 32),
+        _buildSectionTitle(
+          'Step 3: Practical Support',
+          'Choose up to ${example.practicalCount} suggestions.',
+        ),
+        _buildMultiSelect(
+          example.practicalSupport,
+          _libraryPractical,
+          example.practicalCount,
+        ),
+        const SizedBox(height: 16),
+        Text(
+          example.sourceReference,
+          style: GoogleFonts.nunito(
+            fontSize: 11,
+            color: AppColors.textLight,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+      ],
+    );
   }
 
-  // Builds the category filter buttons.
-  Widget _buildCategoryChips() {
+  Widget _buildSectionTitle(String title, String subtitle) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: GoogleFonts.nunito(
+            fontSize: 18,
+            fontWeight: FontWeight.w800,
+            color: AppColors.textPrimary,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          subtitle,
+          style: GoogleFonts.nunito(
+            fontSize: 14,
+            color: AppColors.textSecondary,
+          ),
+        ),
+        const SizedBox(height: 16),
+      ],
+    );
+  }
+
+  Widget _buildMultiSelect(
+    List<String> items,
+    List<String> selected,
+    int maxSelection,
+  ) {
     return Wrap(
       spacing: 8,
       runSpacing: 6,
-      children: _categories.map((category) {
-        final isSelected = category == _selectedCategory;
-
+      children: items.map((item) {
+        final isSelected = selected.contains(item);
         return ChoiceChip(
-          label: Text(category),
+          label: Text(item),
           selected: isSelected,
           onSelected: (_) {
             setState(() {
-              _selectedCategory = category;
+              if (isSelected) {
+                selected.remove(item);
+              } else if (selected.length < maxSelection) {
+                selected.add(item);
+              }
+              _updateScript();
             });
           },
           backgroundColor: AppColors.surface,
@@ -250,14 +401,12 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         );
       }).toList(),
-    ).animate().fadeIn(delay: 260.ms, duration: 400.ms);
+    );
   }
 
-  // Builds one expandable script card.
-  Widget _buildScriptCard(Map<String, String> script, int index) {
+  Widget _buildGeneratedScript() {
     return Container(
-      margin: const EdgeInsets.only(bottom: 14),
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
@@ -270,89 +419,67 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
           ),
         ],
       ),
-      child: ExpansionTile(
-        tilePadding: EdgeInsets.zero,
-        childrenPadding: const EdgeInsets.only(top: 12),
-        iconColor: AppColors.primary,
-        collapsedIconColor: AppColors.textSecondary,
-        title: Text(
-          script['title']!,
-          style: GoogleFonts.nunito(
-            fontSize: 16,
-            fontWeight: FontWeight.w800,
-            color: AppColors.textPrimary,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(
+                Icons.menu_book_rounded,
+                color: AppColors.primary,
+                size: 20,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                'Your Validation and Support Script',
+                style: GoogleFonts.nunito(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+            ],
           ),
-        ),
-        subtitle: Padding(
-          padding: const EdgeInsets.only(top: 6),
-          child: Text(
-            script['category']!,
+          const SizedBox(height: 12),
+          Text(
+            _hasCompleteScript
+                ? _generatedScript.trim().replaceAll(RegExp(r'\s+'), ' ')
+                : 'Your script will appear here once the required fields are complete...',
             style: GoogleFonts.nunito(
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              color: AppColors.primary,
+              fontSize: 15,
+              color:
+                  _hasCompleteScript ? AppColors.textPrimary : AppColors.textLight,
+              height: 1.6,
+              fontStyle:
+                  _hasCompleteScript ? FontStyle.normal : FontStyle.italic,
             ),
           ),
-        ),
-        children: [
-          _buildCardLabel('Situation'),
-          const SizedBox(height: 6),
-          _buildCardText(script['situation']!),
-          const SizedBox(height: 14),
-          _buildCardLabel('Placeholder Script'),
-          const SizedBox(height: 6),
-          _buildCardText(script['script']!),
+          const SizedBox(height: 20),
+          if (_hasCompleteScript)
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: () {
+                  Clipboard.setData(
+                    ClipboardData(
+                      text: _generatedScript.trim().replaceAll(
+                        RegExp(r'\s+'),
+                        ' ',
+                      ),
+                    ),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Script copied to clipboard'),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.copy_all_outlined, size: 18),
+                label: const Text('Copy Script'),
+              ),
+            ),
         ],
       ),
-    ).animate().fadeIn(delay: (120 * index).ms).slideY(begin: 0.08, end: 0);
-  }
-
-  // Small title used inside each script card.
-  Widget _buildCardLabel(String text) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Text(
-        text,
-        style: GoogleFonts.nunito(
-          fontSize: 14,
-          fontWeight: FontWeight.w800,
-          color: AppColors.textPrimary,
-        ),
-      ),
-    );
-  }
-
-  // Paragraph text used inside each script card.
-  Widget _buildCardText(String text) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Text(
-        text,
-        style: GoogleFonts.nunito(
-          fontSize: 14,
-          color: AppColors.textSecondary,
-          height: 1.6,
-        ),
-      ),
-    );
-  }
-
-  // Message shown when no script matches the search/category.
-  Widget _buildEmptyState() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.cardBorder),
-      ),
-      child: Text(
-        'No scripts found. Try another search or category.',
-        style: GoogleFonts.nunito(
-          fontSize: 14,
-          color: AppColors.textSecondary,
-        ),
-      ),
-    );
+    ).animate().fadeIn(delay: 400.ms).slideY(begin: 0.1, end: 0);
   }
 }

@@ -22,7 +22,7 @@ class _MainScreenState extends State<MainScreen> {
     LearnScreen(),
     PracticeScreen(),
     ScriptBuilderScreen(),
-    ScriptLibraryScreen(), // Khalil's screen
+    ScriptLibraryScreen(),
     ApologyScriptBuilderScreen(),
     AboutScreen(),
   ];
@@ -55,11 +55,11 @@ class _MainScreenState extends State<MainScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.edit_note),
-            label: 'Script Builder',
+            label: 'Build',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.library_books),
-            label: 'Script Library',
+            icon: Icon(Icons.menu_book),
+            label: 'Library',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite_border),
