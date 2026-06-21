@@ -3,6 +3,7 @@ import 'package:myapp/screens/home_screen_new.dart';
 import 'practice_screen.dart';
 import 'learn_screen.dart';
 import 'about_screen.dart';
+import 'apology_guide_screen.dart';
 import 'script_builder_screen.dart';
 import 'script_library_screen.dart';
 import 'apology_script_builder_screen.dart';
@@ -23,7 +24,7 @@ class _MainScreenState extends State<MainScreen> {
     PracticeScreen(),
     ScriptBuilderScreen(),
     ScriptLibraryScreen(),
-    ApologyScriptBuilderScreen(),
+   ApologyGuideScreen(),
     AboutScreen(),
   ];
 
