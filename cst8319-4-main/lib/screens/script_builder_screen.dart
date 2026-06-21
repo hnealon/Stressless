@@ -12,7 +12,6 @@ class ScriptBuilderScreen extends StatefulWidget {
 }
 
 class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
-  // State variables for selected options
   String? _selectedStarter;
   String? _selectedVerb;
   final TextEditingController _phraseController = TextEditingController();
@@ -21,12 +20,13 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   final TextEditingController _because3Controller = TextEditingController();
   final List<String> _selectedEmotionalSupports = [];
   final List<String> _selectedPracticalSupports = [];
-  final TextEditingController _customEmotionalSupportController = TextEditingController();
-  final TextEditingController _customPracticalSupportController = TextEditingController();
+  final TextEditingController _customEmotionalSupportController =
+      TextEditingController();
+  final TextEditingController _customPracticalSupportController =
+      TextEditingController();
 
   String _generatedScript = '';
 
-  // Data for choice chips
   final List<String> _starters = [
     "I could understand you might",
     "I can imagine you",
@@ -36,7 +36,13 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
     "When I try to see it from your perspective, I imagine you might",
   ];
 
-  final List<String> _verbs = ["feel", "think", "want to", "don't want to", "not want to"];
+  final List<String> _verbs = [
+    "feel",
+    "think",
+    "want to",
+    "don't want to",
+    "not want to",
+  ];
 
   final List<String> _emotionalStarters = [
     "I'm here with you.",
@@ -63,7 +69,6 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   @override
   void initState() {
     super.initState();
-    // Add listeners to text controllers to update the script
     _phraseController.addListener(_updateScript);
     _because1Controller.addListener(_updateScript);
     _because2Controller.addListener(_updateScript);
@@ -85,40 +90,56 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
 
   void _updateScript() {
     setState(() {
-      final starter = _selectedStarter ?? '[Starter]';
-      final verb = _selectedVerb != null ? _selectedVerb!.replaceAll('...', '') : '[verb]';
-      final phrase = _phraseController.text.isNotEmpty ? _phraseController.text : '...';
-
-      String becauseClause = '';
-      if (_because1Controller.text.isNotEmpty &&
-          _because2Controller.text.isNotEmpty &&
-          _because3Controller.text.isNotEmpty) {
-        becauseClause =
-            'because ${_because1Controller.text}, ${_because2Controller.text}, and ${_because3Controller.text}';
-      }
-
-      final emotional = _selectedEmotionalSupports.map((e) {
-        if (e == "Other (Write your own)") {
-          return _customEmotionalSupportController.text;
-        }
-        return e;
-      }).join(' ');
-
-      final practical = _selectedPracticalSupports.map((e) {
-        if (e == "Other (Write your own)") {
-          return _customPracticalSupportController.text;
-        }
-        return e;
-      }).join(' ');
-
-      String validationPart = '$starter $verb $phrase';
-      if (becauseClause.isNotEmpty) {
-        validationPart += ' $becauseClause';
-      }
-      validationPart += '.';
-
-      _generatedScript = '$validationPart ${emotional.isNotEmpty ? emotional : ''} ${practical.isNotEmpty ? practical : ''}';
+      _generatedScript = _buildCustomScript();
     });
+  }
+
+  String _buildCustomScript() {
+    final starter = _selectedStarter ?? '[Starter]';
+    final verb =
+        _selectedVerb != null ? _selectedVerb!.replaceAll('...', '') : '[verb]';
+    final phrase =
+        _phraseController.text.isNotEmpty ? _phraseController.text : '...';
+
+    String becauseClause = '';
+    if (_because1Controller.text.isNotEmpty &&
+        _because2Controller.text.isNotEmpty &&
+        _because3Controller.text.isNotEmpty) {
+      becauseClause =
+          'because ${_because1Controller.text}, ${_because2Controller.text}, and ${_because3Controller.text}';
+    }
+
+    final emotional = _selectedEmotionalSupports.map((e) {
+      if (e == "Other (Write your own)") {
+        return _customEmotionalSupportController.text;
+      }
+      return e;
+    }).join(' ');
+
+    final practical = _selectedPracticalSupports.map((e) {
+      if (e == "Other (Write your own)") {
+        return _customPracticalSupportController.text;
+      }
+      return e;
+    }).join(' ');
+
+    var validationPart = '$starter $verb $phrase';
+    if (becauseClause.isNotEmpty) {
+      validationPart += ' $becauseClause';
+    }
+    validationPart += '.';
+
+    return '$validationPart ${emotional.isNotEmpty ? emotional : ''} ${practical.isNotEmpty ? practical : ''}'
+        .trim();
+  }
+
+  bool get _hasCompleteScript {
+    return _selectedStarter != null &&
+        _selectedVerb != null &&
+        _phraseController.text.isNotEmpty &&
+        _because1Controller.text.isNotEmpty &&
+        _because2Controller.text.isNotEmpty &&
+        _because3Controller.text.isNotEmpty;
   }
 
   @override
@@ -145,7 +166,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
                     ).animate().fadeIn(duration: 300.ms),
                     const SizedBox(height: 4),
                     Text(
-                      'Build your own validation script.',
+                      'Build a validation and support script.',
                       style: GoogleFonts.cormorantGaramond(
                         fontSize: 34,
                         fontWeight: FontWeight.w600,
@@ -155,7 +176,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
                     ).animate().fadeIn(delay: 80.ms, duration: 400.ms),
                     const SizedBox(height: 10),
                     Text(
-                      'Follow the steps to create a supportive script. The script will build itself at the bottom of the page as you make selections.',
+                      'Build your own script from scratch. Your script assembles at the bottom as you go.',
                       style: GoogleFonts.nunito(
                         fontSize: 14,
                         color: AppColors.textSecondary,
@@ -171,77 +192,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
-                  _buildSectionTitle(
-                    'Step 1: Validation',
-                    'Help your child feel understood.',
-                  ),
-                  const SizedBox(height: 16),
-                  _buildSubSectionTitle(
-                    'Sentence Starter',
-                    'Select a sentence starter.',
-                  ),
-                  _buildChoiceChipGroup(_starters, _selectedStarter, (
-                    selected,
-                  ) {
-                    setState(() {
-                      _selectedStarter = selected;
-                      _updateScript();
-                    });
-                  }),
-                  const SizedBox(height: 24),
-                  _buildSubSectionTitle('Verb', 'Select a verb.'),
-                  _buildChoiceChipGroup(_verbs, _selectedVerb, (selected) {
-                    setState(() {
-                      _selectedVerb = selected;
-                      _updateScript();
-                    });
-                  }),
-                  const SizedBox(height: 24),
-                  _buildSubSectionTitle(
-                    'Feeling/Action Phrase',
-                    'Describe your child’s feeling, thought or urge.',
-                  ),
-                  _buildBecauseTextField(
-                    _phraseController,
-                    'e.g., "really anxious about the test"',
-                  ),
-                  const SizedBox(height: 24),
-                  _buildSubSectionTitle(
-                    'Because-statements',
-                    'Add 3 because-statements to complete the validation statement.',
-                  ),
-                  _buildBecauseTextField(
-                    _because1Controller,
-                    'e.g., "it is important to you that you do well"',
-                  ),
-                  const SizedBox(height: 12),
-                  _buildBecauseTextField(
-                    _because2Controller,
-                    'e.g., "you\'ve been studying for days"',
-                  ),
-                  const SizedBox(height: 12),
-                  _buildBecauseTextField(
-                    _because3Controller,
-                    'e.g., "you might feel a lot of pressure"',
-                  ),
-                  const SizedBox(height: 32),
-                  _buildSupportSection(
-                    'Step 2A: Emotional Support',
-                    'Offer warmth and presence. (Select up to 2)',
-                    _emotionalStarters,
-                    _selectedEmotionalSupports,
-                    _customEmotionalSupportController,
-                    2,
-                  ),
-                  const SizedBox(height: 32),
-                  _buildSupportSection(
-                    'Step 2B: Practical Support',
-                    'Gently offer to help. (Select up to 2)',
-                    _practicalStarters,
-                    _selectedPracticalSupports,
-                    _customPracticalSupportController,
-                    2,
-                  ),
+                  _buildCustomBuilderSection(),
                   const SizedBox(height: 32),
                   _buildGeneratedScript(),
                   const SizedBox(height: 32),
@@ -254,6 +205,78 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
     );
   }
 
+  Widget _buildCustomBuilderSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSubSectionTitle(
+          'Sentence Starter',
+          'Select a sentence starter.',
+        ),
+        _buildChoiceChipGroup(_starters, _selectedStarter, (selected) {
+          setState(() {
+            _selectedStarter = selected;
+            _updateScript();
+          });
+        }),
+        const SizedBox(height: 24),
+        _buildSubSectionTitle('Verb', 'Select a verb.'),
+        _buildChoiceChipGroup(_verbs, _selectedVerb, (selected) {
+          setState(() {
+            _selectedVerb = selected;
+            _updateScript();
+          });
+        }),
+        const SizedBox(height: 24),
+        _buildSubSectionTitle(
+          'Feeling/Action Phrase',
+          'Describe your child’s feeling, thought or urge.',
+        ),
+        _buildBecauseTextField(
+          _phraseController,
+          'e.g., "really anxious about the test"',
+        ),
+        const SizedBox(height: 24),
+        _buildSubSectionTitle(
+          'Because-statements',
+          'Add 3 because-statements to complete the validation statement.',
+        ),
+        _buildBecauseTextField(
+          _because1Controller,
+          'e.g., "it is important to you that you do well"',
+        ),
+        const SizedBox(height: 12),
+        _buildBecauseTextField(
+          _because2Controller,
+          'e.g., "you\'ve been studying for days"',
+        ),
+        const SizedBox(height: 12),
+        _buildBecauseTextField(
+          _because3Controller,
+          'e.g., "you might feel a lot of pressure"',
+        ),
+        const SizedBox(height: 32),
+        _buildSupportSection(
+          'Emotional Support',
+          'Offer warmth and presence. (Select up to 2)',
+          _emotionalStarters,
+          _selectedEmotionalSupports,
+          _customEmotionalSupportController,
+          2,
+        ),
+        const SizedBox(height: 32),
+        _buildSupportSection(
+          'Practical Support',
+          'Gently offer to help. (Select up to 2)',
+          _practicalStarters,
+          _selectedPracticalSupports,
+          _customPracticalSupportController,
+          2,
+        ),
+      ],
+    );
+  }
+
   Widget _buildSupportSection(
     String title,
     String subtitle,
@@ -262,7 +285,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
     TextEditingController customTextController,
     int maxSelection,
   ) {
-    bool showCustomField = selectedItems.contains("Other (Write your own)");
+    final showCustomField = selectedItems.contains("Other (Write your own)");
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -343,9 +366,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
         return ChoiceChip(
           label: Text(item),
           selected: isSelected,
-          onSelected: (selected) {
-            onSelected(item);
-          },
+          onSelected: (_) => onSelected(item),
           backgroundColor: AppColors.surface,
           selectedColor: AppColors.primary,
           labelStyle: GoogleFonts.nunito(
@@ -378,14 +399,12 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
         return ChoiceChip(
           label: Text(item),
           selected: isSelected,
-          onSelected: (selected) {
+          onSelected: (_) {
             setState(() {
               if (isSelected) {
                 selectedItems.remove(item);
-              } else {
-                if (selectedItems.length < maxSelection) {
-                  selectedItems.add(item);
-                }
+              } else if (selectedItems.length < maxSelection) {
+                selectedItems.add(item);
               }
               _updateScript();
             });
@@ -443,14 +462,6 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   }
 
   Widget _buildGeneratedScript() {
-    bool hasContent =
-        _selectedStarter != null &&
-        _selectedVerb != null &&
-        _phraseController.text.isNotEmpty &&
-        _because1Controller.text.isNotEmpty &&
-        _because2Controller.text.isNotEmpty &&
-        _because3Controller.text.isNotEmpty;
-
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -477,7 +488,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
               ),
               const SizedBox(width: 8),
               Text(
-                'Your Generated Script',
+                'Your Validation and Support Script',
                 style: GoogleFonts.nunito(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -488,23 +499,32 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
           ),
           const SizedBox(height: 12),
           Text(
-            hasContent
+            _hasCompleteScript
                 ? _generatedScript.trim().replaceAll(RegExp(r'\s+'), ' ')
-                : "Your script will appear here once all fields are complete...",
+                : 'Your script will appear here once the required fields are complete...',
             style: GoogleFonts.nunito(
               fontSize: 15,
-              color: hasContent ? AppColors.textPrimary : AppColors.textLight,
+              color:
+                  _hasCompleteScript ? AppColors.textPrimary : AppColors.textLight,
               height: 1.6,
-              fontStyle: hasContent ? FontStyle.normal : FontStyle.italic,
+              fontStyle:
+                  _hasCompleteScript ? FontStyle.normal : FontStyle.italic,
             ),
           ),
           const SizedBox(height: 20),
-          if (hasContent)
+          if (_hasCompleteScript)
             SizedBox(
               width: double.infinity,
               child: OutlinedButton.icon(
                 onPressed: () {
-                  Clipboard.setData(ClipboardData(text: _generatedScript));
+                  Clipboard.setData(
+                    ClipboardData(
+                      text: _generatedScript.trim().replaceAll(
+                        RegExp(r'\s+'),
+                        ' ',
+                      ),
+                    ),
+                  );
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Script copied to clipboard'),

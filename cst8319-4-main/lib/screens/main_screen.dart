@@ -4,6 +4,7 @@ import 'practice_screen.dart';
 import 'learn_screen.dart';
 import 'about_screen.dart';
 import 'script_builder_screen.dart';
+import 'script_library_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -20,6 +21,7 @@ class _MainScreenState extends State<MainScreen> {
     LearnScreen(),
     PracticeScreen(),
     ScriptBuilderScreen(),
+    ScriptLibraryScreen(),
     AboutScreen(),
   ];
 
@@ -51,7 +53,11 @@ class _MainScreenState extends State<MainScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.edit_note),
-            label: 'Script Builder',
+            label: 'Build',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu_book),
+            label: 'Library',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.info),
