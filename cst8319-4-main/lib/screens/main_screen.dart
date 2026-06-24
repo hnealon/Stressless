@@ -64,7 +64,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite_border),
-            label: 'Apology',
+            label: 'Advanced',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.info),
