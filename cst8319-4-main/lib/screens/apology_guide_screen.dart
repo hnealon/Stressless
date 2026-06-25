@@ -81,7 +81,7 @@ class _ApologyGuideScreenState extends State<ApologyGuideScreen> {
       exampleLabel: 'If they go quiet:',
     ),
     _StepData(
-      number: '6',
+      number: '',
       title: 'Two optional add-ons',
       body:
       'Once you\'ve been through the five steps, there are two things you can offer — neither is required, but either can be valuable depending on your situation and your child\'s needs..\n\n'
@@ -238,62 +238,6 @@ The therapeutic apology has a structure - and the structure matters. Each part d
             const Divider(),
             const SizedBox(height: 24),
 
-            // Steps section
-            Text('The 6 steps', style: AppTextStyles.heading.copyWith(fontSize: 18)),
-            const SizedBox(height: 6),
-            Text(
-              'Each step has a specific purpose. Tap a step to read about it.',
-              style: AppTextStyles.body.copyWith(color: Colors.grey.shade600),
-            ),
-            const SizedBox(height: 16),
-
-            // Step tab row
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: List.generate(_steps.length, (i) {
-                  final active = i == _selectedStep;
-                  return GestureDetector(
-                    onTap: () => setState(() => _selectedStep = i),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 150),
-                      margin: const EdgeInsets.only(right: 8),
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
-                      decoration: BoxDecoration(
-                        color: active ? AppColors.primary : Colors.grey.shade100,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: active ? AppColors.primary : Colors.grey.shade200,
-                        ),
-                      ),
-                      child: Text(
-                        'Step ${i + 1}',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                          color: active ? Colors.white : Colors.grey.shade600,
-                        ),
-                      ),
-                    ),
-                  );
-                }),
-              ),
-            ),
-            const SizedBox(height: 12),
-
-            // Step panel
-            AnimatedSwitcher(
-              duration: const Duration(milliseconds: 180),
-              child: _StepPanel(
-                key: ValueKey(_selectedStep),
-                data: _steps[_selectedStep],
-              ),
-            ),
-
-            const SizedBox(height: 32),
-            const Divider(),
-            const SizedBox(height: 24),
-
             // Section 6
             Text(
               'A Few Things to Keep in Mind',
@@ -323,6 +267,10 @@ The therapeutic apology has a structure - and the structure matters. Each part d
               body:
               'Your job is to deliver the apology clearly, genuinely, and without conditions, in whatever medium you feel they will respond to best (in person face-to-face, in person side-by-side, by text, over the phone, by email or in a letter). What your child does with it - and how quickly - is their own process. Some children respond right away. Others need days or weeks. Either is completely normal. The goal is the offering, and the impact it can have over time.',
             ),
+            const SizedBox(height: 32),
+            const Divider(),
+            const SizedBox(height: 24),
+
             const SizedBox(height: 16),
             Text(
               'With the support of your EFFT therapist, the script builder that follows will walk you through each step, one at a time.',
@@ -333,9 +281,64 @@ The therapeutic apology has a structure - and the structure matters. Each part d
               ),
             ),
 
+
+            // Steps section
+            Text('The 5 steps', style: AppTextStyles.heading.copyWith(fontSize: 18)),
+            const SizedBox(height: 6),
+            Text(
+              'Each step has a specific purpose. Tap a step to read about it.',
+              style: AppTextStyles.body.copyWith(color: Colors.grey.shade600),
+            ),
+            const SizedBox(height: 16),
+
+            // Step tab row
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: List.generate(_steps.length, (i) {
+                  final active = i == _selectedStep;
+                  return GestureDetector(
+                    onTap: () => setState(() => _selectedStep = i),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 150),
+                      margin: const EdgeInsets.only(right: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
+                      decoration: BoxDecoration(
+                        color: active ? AppColors.primary : Colors.grey.shade100,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: active ? AppColors.primary : Colors.grey.shade200,
+                        ),
+                      ),
+                      child: Text(
+                        i == _steps.length - 1 ? 'Optional' : 'Step ${i + 1}',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: active ? Colors.white : Colors.grey.shade600,
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+              ),
+            ),
+            const SizedBox(height: 12),
+
+            // Step panel
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 180),
+              child: _StepPanel(
+                key: ValueKey(_selectedStep),
+                data: _steps[_selectedStep],
+              ),
+            ),
+
             const SizedBox(height: 32),
             const Divider(),
             const SizedBox(height: 24),
+
+
 
             // CTA section
 

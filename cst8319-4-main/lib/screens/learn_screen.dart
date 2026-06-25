@@ -11,7 +11,7 @@ class LearnTopic {
   final IconData icon;
   final Color color;
   final List<LearnSection> sections;
-  final List<LearnTopic> subtopics; // NEW
+  final List<LearnTopic> subtopics;
 
   const LearnTopic({
     required this.id,
@@ -19,7 +19,7 @@ class LearnTopic {
     required this.icon,
     required this.color,
     required this.sections,
-    this.subtopics = const [], // NEW
+    this.subtopics = const [],
   });
 }
 
@@ -238,7 +238,7 @@ const List<LearnTopic> _topics = [
     title: 'The Validation and Support Framework',
     icon: Icons.hub_outlined,
     color: Color(0xFF4A7C6F),
-    subtopics: _overviewSubtopics, // nested sub-topics
+    subtopics: _overviewSubtopics,
     sections: [
       LearnSection(
         heading: 'A small shift can change the moment',
@@ -280,7 +280,6 @@ const List<LearnTopic> _topics = [
       ),
     ],
   ),
-
 ];
 
 // --- Main Screen -------------------------------------------------------------
@@ -290,12 +289,14 @@ class LearnScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final topic = _topics[0];
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            // --- Header ---------------------------------------
+            // --- Header -------------------------------------------
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(24, 28, 24, 8),
@@ -367,16 +368,47 @@ class LearnScreen extends StatelessWidget {
               ),
             ),
 
-            // --- Topic cards -----------------------------------
+            // --- Inline sections ----------------------------------
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
                       (context, index) {
-                    final topic = _topics[index];
-                    return _TopicCard(topic: topic, index: index);
+                    if (index < topic.sections.length) {
+                      final section = topic.sections[index];
+                      return _SectionBlock(
+                        section: section,
+                        accentColor: topic.color,
+                        index: index,
+                      );
+                    }
+
+                    final subIndex = index - topic.sections.length;
+
+                    if (subIndex == 0) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 8),
+                          Divider(color: AppColors.divider, height: 32),
+                          Text(
+                            'EXPLORE FURTHER',
+                            style: GoogleFonts.nunito(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.primary,
+                              letterSpacing: 1.4,
+                            ),
+                          ).animate().fadeIn(duration: 300.ms),
+                          const SizedBox(height: 12),
+                        ],
+                      );
+                    }
+
+                    final sub = topic.subtopics[subIndex - 1];
+                    return _SubtopicCard(subtopic: sub, index: subIndex - 1);
                   },
-                  childCount: _topics.length,
+                  childCount: topic.sections.length + 1 + topic.subtopics.length,
                 ),
               ),
             ),
@@ -385,86 +417,6 @@ class LearnScreen extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-// --- Topic Card (list item) --------------------------------------------------
-
-class _TopicCard extends StatelessWidget {
-  final LearnTopic topic;
-  final int index;
-
-  const _TopicCard({required this.topic, required this.index});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => _TopicDetailScreen(topic: topic)),
-        );
-      },
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.all(18),
-        decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppColors.cardBorder),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 46,
-              height: 46,
-              decoration: BoxDecoration(
-                color: topic.color.withAlpha(20),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(topic.icon, color: topic.color, size: 22),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    topic.title,
-                    style: GoogleFonts.nunito(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.textPrimary,
-                    ),
-                  ),
-                  // Show subtopic count badge if applicable
-                  if (topic.subtopics.isNotEmpty) ...[
-                    const SizedBox(height: 3),
-                    Text(
-                      '${topic.subtopics.length} subtopics',
-                      style: GoogleFonts.nunito(
-                        fontSize: 12,
-                        color: topic.color,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ],
-              ),
-            ),
-            const Icon(
-              Icons.arrow_forward_ios_rounded,
-              size: 14,
-              color: AppColors.textLight,
-            ),
-          ],
-        ),
-      )
-          .animate()
-          .fadeIn(delay: Duration(milliseconds: 100 + index * 70))
-          .slideX(begin: 0.06, end: 0),
     );
   }
 }
@@ -505,19 +457,13 @@ class _TopicDetailScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 14),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        topic.title,
-                        style: GoogleFonts.cormorantGaramond(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.textPrimary,
-                        ),
-                      ),
-                    ],
+                  child: Text(
+                    topic.title,
+                    style: GoogleFonts.cormorantGaramond(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
                   ),
                 ),
               ],
@@ -528,16 +474,14 @@ class _TopicDetailScreen extends StatelessWidget {
 
             // --- Sections -------------------------------------
             ...topic.sections.asMap().entries.map((entry) {
-              final i = entry.key;
-              final section = entry.value;
               return _SectionBlock(
-                section: section,
+                section: entry.value,
                 accentColor: topic.color,
-                index: i,
+                index: entry.key,
               );
             }),
 
-            // --- Subtopics section (if any) -------------------
+            // --- Subtopics ------------------------------------
             if (topic.subtopics.isNotEmpty) ...[
               const SizedBox(height: 8),
               Divider(color: AppColors.divider, height: 32),
@@ -552,9 +496,7 @@ class _TopicDetailScreen extends StatelessWidget {
               ).animate().fadeIn(duration: 300.ms),
               const SizedBox(height: 12),
               ...topic.subtopics.asMap().entries.map((entry) {
-                final i = entry.key;
-                final sub = entry.value;
-                return _SubtopicCard(subtopic: sub, index: i);
+                return _SubtopicCard(subtopic: entry.value, index: entry.key);
               }),
               const SizedBox(height: 8),
             ],
@@ -573,7 +515,7 @@ class _TopicDetailScreen extends StatelessWidget {
   }
 }
 
-// --- Subtopic Card (inside detail screen) ------------------------------------
+// --- Subtopic Card -----------------------------------------------------------
 
 class _SubtopicCard extends StatelessWidget {
   final LearnTopic subtopic;
