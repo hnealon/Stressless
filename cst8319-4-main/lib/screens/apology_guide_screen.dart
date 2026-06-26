@@ -17,82 +17,106 @@ class _ApologyGuideScreenState extends State<ApologyGuideScreen> {
       number: '1',
       title: 'Acknowledge the hurt',
       body:
-      'Start by naming what happened — the event, the pattern, or what was missing. '
+          'Start by naming what happened: the event, the pattern, or what was missing. '
           'Don\'t focus on your intentions. Even when you meant well, what matters most here is what your child '
           'actually experienced. Be specific. A focused apology about one real wound is far more powerful than a sweeping, vague one.',
       example:
-      '"I want to talk to you about the times I got really overwhelmed and raised my voice at you in ways that weren\'t okay."',
+          '"I want to talk to you about the times I got really overwhelmed and raised my voice at you in ways that weren\'t okay."',
     ),
     _StepData(
       number: '2',
       title: 'Validate What It Must Have Been Like',
-
       body:
-      'Step into your child\'s shoes. What did this experience feel like for them — not just one emotion, but across '
-      'different core ones? Consider what they might have felt in the moment, what they might have come to believe about '
-      'themselves, and what they might have been afraid to say. Try to name 2–3 different emotions: sadness, fear, anger, '
-      'loneliness. The more specific this '
-
-      'Now step into your child\'s shoes. What did this experience feel like for them? Not just with respect to one emotion, but across different core emotions. Think about what they might have felt in the moment, what they might have come to believe about themselves, what they might have wished were different, what they might have been afraid to say.',
+          'Now step into your child\'s shoes. What did this experience feel like for them? Not just with respect to one emotion, but across different core emotions. Think about what they might have felt in the moment, what they might have come to believe about themselves, what they might have wished were different, what they might have been afraid to say. '
+          'Try to name 2 to 3 different emotions: sadness, fear, anger, loneliness. The more specific this feels, the more your child will feel genuinely seen.',
       example:
-      '"I imagine there were times you felt scared and didn\'t know how to reach out. Maybe sad too, really wanting my support. '
+          '"I imagine there were times you felt scared and didn\'t know how to reach out. Maybe sad too, really wanting my support. '
           'It might have also made sense if you were angry, even if you didn\'t feel safe to show it."',
     ),
     _StepData(
       number: '3',
       title: 'Apologize',
-
       body:
-      'Now say it - directly and genuinely, and from a grounded place that holds both truths: you are a good person who did your best, and you are genuinely sorry for the impact on your child. '
-      'Let your child feel both your sorrow and your steadiness. '
-      'Cultural note: In some families or cultural traditions, a parent saying "I\'m sorry" to a child directly doesn\'t feel right or natural. '
-      'If that\'s true for you, you can simply skip this step and move on to the next. '
-      'Your efforts can come through your tone, your acknowledgment, your effort. There is no need to violate your family’s cultural norms. '
-      'What matters is that your child experiences your genuine sorrow - the exact words are secondary.',
-      example: '"I want you to know that I am so sorry for the pain this caused you."',
+          'Now say it - directly and genuinely, and from a grounded place that holds both truths: you are a good person who did your best, and you are genuinely sorry for the impact on your child. '
+          'Let your child feel both your sorrow and your steadiness. '
+          'Cultural note: In some families or cultural traditions, a parent saying "I\'m sorry" to a child directly doesn\'t feel right or natural. '
+          'If that\'s true for you, you can simply skip this step and move on to the next. '
+          'Your efforts can come through your tone, your acknowledgment, your effort. There is no need to violate your family\u2019s cultural norms. '
+          'What matters is that your child experiences your genuine sorrow - the exact words are secondary.',
+      example:
+          '"I want you to know that I am so sorry for the pain this caused you."',
     ),
     _StepData(
       number: '4',
       title: 'Name What They Needed, and What You\'ll Do Differently',
       body:
-      'This is one of the most healing parts of the entire apology. Tell your child - as clearly and honestly as you can - what you now understand they needed. Even if you couldn\'t have provided it at the time, naming it out has a powerful effect. It says: I see now.'
-          ' I get it. Then make a real, concrete statement about what you will do differently going forward: in how you show up, how you respond, how you handle the things that went wrong before.'
-      , example:
-      '"I see now that, whatever was going on, you needed me to slow down and really listen. I neede to just be with you in whatever you were feeling. Going forward, I want to work on doing that. When something\'s hard for you, I want to be the kind of parent you can come to"',
+          'This is one of the most healing parts of the entire apology. Tell your child - as clearly and honestly as you can - what you now understand they needed. Even if you couldn\'t have provided it at the time, naming it out has a powerful effect. It says: I see now.'
+          ' I get it. Then make a real, concrete statement about what you will do differently going forward: in how you show up, how you respond, how you handle the things that went wrong before.',
+      example:
+          '"I see now that, whatever was going on, you needed me to slow down and really listen. I needed to just be with you in whatever you were feeling. Going forward, I want to work on doing that. When something\'s hard for you, I want to be the kind of parent you can come to"',
     ),
     _StepData(
       number: '5',
-      title: '- Prepare for Their Reaction, validate their reaction and repeat Steps 3 and 4 ',
+      title:
+          'Prepare for Their Reaction, validate their reaction and repeat Steps 3 and 4',
       body:
-  'Your child might respond in any number of ways. They might push back. They might go very quiet. They might say "it\'s fine" or try to reassure you that everything\'s okay. They might cry. They might leave the room.'
-  'All of these reactions are valid, and all of them are normal.'
-  'Whatever comes up, your job is to first validate their reaction. For example:'
-  'If anger or silence: e.g. “I can understand why you would be angry. It probably feels like too little '
-  'too late...you’ve tried to get my attention on this issue many times…” '
-  'If reassurance: e.g. “I can understand why you would want to reassure me. You’ve seen '
-  'me hurting in the past and that’s been really hard…” '
-  ' If denial: e.g. “I can understand why you wouldn’t remember this / would want to deny this, it’s a hard truth in our family…” '
-   'If pain or grief: e.g. “I can understand why you’d feel pain. It’s an old wound that hasn’t received the attention it deserves…” '
-  'Then, repeat steps 3 and 4 by restate the apology and the commitment, calmly and steadily. Why the second pass? The first time you delivered the apology, your child may have been bracing - not quite able to take it in, or not quite trusting what was happening. Once their reaction to your apology has been expressed and you’ve validated the experience as normal, their walls can come down (at least somewhat), and therefore the words from Steps 3 and 4 are more likely to reach them, and more deeply, the second time around. '
-,
-      example:
-      '"I can understand this might be a lot to take in. You\'ve spent a long time figuring out how to handle things on your own, '
-          'and it makes sense it would take time to trust that something is different now."',
-      exampleLabel: 'If they go quiet:',
+          'Your child might respond in any number of ways. They might push back. They might go very quiet. They might say "it\'s fine" or try to reassure you that everything\'s okay. They might cry. They might leave the room. '
+          'All of these reactions are valid, and all of them are normal. Whatever comes up, your job is to first validate their reaction. For example:',
+      reactionExamples: [
+        _ReactionExample(
+          label: 'If anger or silence, try saying:',
+          quote:
+              '"I can understand why you would be angry. It probably feels like too little too late... you\u2019ve tried to get my attention on this issue many times..."',
+        ),
+        _ReactionExample(
+          label: 'If reassurance, try saying:',
+          quote:
+              '"I can understand why you would want to reassure me. You\u2019ve seen me hurting in the past and that\u2019s been really hard..."',
+        ),
+        _ReactionExample(
+          label: 'If denial, try saying:',
+          quote:
+              '"I can understand why you wouldn\u2019t remember this, or would want to deny this. It\u2019s a hard truth in our family..."',
+        ),
+        _ReactionExample(
+          label: 'If pain or grief, try saying:',
+          quote:
+              '"I can understand why you\u2019d feel pain. It\u2019s an old wound that hasn\u2019t received the attention it deserves..."',
+        ),
+      ],
+      bodyAfterExamples:
+          'Then, repeat steps 3 and 4 by restating the apology and the commitment, calmly and steadily. Why the second pass? The first time you delivered the apology, your child may have been bracing, not quite able to take it in, or not quite trusting what was happening. Once their reaction to your apology has been expressed and you\u2019ve validated the experience as normal, their walls can come down (at least somewhat), and therefore the words from Steps 3 and 4 are more likely to reach them, and more deeply, the second time around.',
+      example: '',
     ),
     _StepData(
-      number: '',
+      number: '+1',
       title: 'Two optional add-ons',
       body:
-      'Once you\'ve been through the five steps, there are two things you can offer — neither is required, but either can be valuable depending on your situation and your child\'s needs..\n\n'
-          'An invitation to share: Let your child know that you\'re still with them once it\'s delivered: "Your experience matters to me, and I\'m here to listen if you want to tell me more about what it was like for you. It could be now, two weeks from now, or a year from now. Whenever you\'re ready, I want to hear it. I want to be here for you in a different way."'
-          'Not every child will want to talk immediately. Some will need time to process what they\'ve heard before they can respond. This invitation tells them the door is open and on their timeline. '
-          'Permission to explain:If you feel a strong pull to help your child understand why things happened the way they did - the pressures you were under, what you were dealing with at the time - you can offer that. But offer it as a gift, and only offer it if you can genuinely accept a "no"'
-      'Some kids will want to hear that your intentions were good – or at least not bad – as it can provide them with a sense of comfort. Other kids will want to focus solely on the impact, and any focus on intention can actually feel bad. Both are normal and valid experiences and so it’s important to be flexible and responsive to what might feel best for your child.',
-      example:
-      '""If you\'d find it helpful to hear a little more about why things happened the way they did/why I said/did what I did, I\'m happy to share that. But not everyone wants that, and it\'s completely okay if you don\'t. Either way, it doesn\'t change that what happened wasn\'t what you needed, and I see that now."'
-      , exampleLabel: 'Invitation example:',
-
+          'Once you\'ve been through the five steps, there are two things you can offer; neither is required, but either can be valuable depending on your situation and your child\'s needs.',
+      reactionExamples: [
+        _ReactionExample(
+          label: 'An invitation to share \n try saying:',
+          quote:
+              '"Your experience matters to me, and I\'m here to listen if you want to tell me more about what it was like for you. '
+              'It could be now, two weeks from now, or a year from now. Whenever you\'re ready, I want to hear it. '
+              'I want to be here for you in a different way."',
+          footer:
+              'Not every child will want to talk immediately. Some will need time to process what they\'ve heard before they can respond. '
+              'This invitation tells them the door is open and on their timeline.',
+        ),
+        _ReactionExample(
+          label: 'Permission to explain \n try saying:',
+          intro:
+              'If you feel a strong pull to help your child understand why things happened the way they did, the pressures you were under, what you were dealing with at the time, you can offer that. But offer it as a gift, and only offer it if you can genuinely accept a "no":',
+          quote:
+              '"If you\'d find it helpful to hear a little more about why things happened the way they did/why I said/did what I did, I\'m happy to share that. But not everyone wants that, and it\'s completely okay if you don\'t. Either way, it doesn\'t change that what happened wasn\'t what you needed, and I see that now."',
+          footer:
+              'Some kids will want to hear that your intentions were good, or at least not bad, as it can provide them with a sense of comfort. Other kids will want to focus solely on the impact, and any focus on intention can actually feel bad. Both are normal and valid experiences, so it\u2019s important to be flexible and responsive to what might feel best for your child.',
+        ),
+      ],
+      //bodyAfterExamples:
+      //'Not every child will want to talk immediately. Some will need time to process what they\'ve heard before they can respond. The invitation tells them the door is open, on their timeline. For the permission to explain, offer it as a gift, and only offer it if you can genuinely accept a "no". Some kids will want to hear that your intentions were good, or at least not bad, as it can provide a sense of comfort. Other kids will want to focus solely on the impact, and any focus on intention can actually feel bad. Both are normal and valid, so it\u2019s important to be flexible and responsive to what feels best for your child.',
+      example: '',
     ),
   ];
 
@@ -114,7 +138,7 @@ class _ApologyGuideScreenState extends State<ApologyGuideScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.12),
+                color: AppColors.primary.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(
@@ -131,19 +155,33 @@ class _ApologyGuideScreenState extends State<ApologyGuideScreen> {
 
             // Page title
             Text(
-              'Therapeutic apology: a guide',
+              'Guide to therapeutic apology',
               style: AppTextStyles.heading.copyWith(fontSize: 22),
             ),
             const SizedBox(height: 10),
-            Text('What follows is a guide to one of the more meaningful things a parent or caregiver can offer a child: a structured, intentional apology to release old pain. This content will walk you through what a therapeutic apology is, why it works, how to prepare, and how to deliver it in a way that is most likely to lead to positive outcomes for you, your child, and your family as a whole.',
-              style: AppTextStyles.body.copyWith(color: Colors.grey.shade600, height: 1.6),
+            Text(
+              'Sometimes a moment calls for more than validation, it calls for repair. The Therapeutic Apology is an advanced validation and support technique from EFFT that builds on the foundational skills you\'ve already been practicing. It goes a step further, offering a structured way to heal ruptures, strengthen your relationship, and deepen the trust between you and your child. If you\'ve been working through the Validation & Support Framework and feel ready to go deeper, this is for you.',
+              style: AppTextStyles.body.copyWith(
+                color: Colors.grey.shade600,
+                height: 1.6,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'What follows is a guide to one of the more '
+              'meaningful things a parent or caregiver can offer a child: a structured, intentional apology to release old pain. '
+              'This content will walk you through what a therapeutic apology is, why it works, how to prepare, and how to deliver it in a way that is most likely to lead '
+              'to positive outcomes for you, your child, and your family as a whole.',
+              style: AppTextStyles.body.copyWith(
+                color: Colors.grey.shade600,
+                height: 1.6,
+              ),
             ),
             const SizedBox(height: 24),
 
             // Info cards
             _InfoCard(
               title: 'What is a therapeutic apology?',
-
               body: '''
 Most of us grew up with a fairly simple idea of what an apology is: you did something wrong, you say you're sorry, and you move on. Some of us learned that apologizing was risky - that admitting fault meant getting in trouble. Others learned it was a one-and-done moment, something to say to end a fight rather than truly repair one.
 
@@ -151,9 +189,9 @@ A therapeutic apology works differently. It isn't about resolving a conflict or 
 
 At its heart, a therapeutic apology is a form of deep validation. It says: I see what happened. I understand how it affected you. I'm truly sorry. And I want to do things differently. It brings together three things:
 
-• Emotional: Real sorrow or soreness about what happened or what was missing  
-• Cognitive: A genuine understanding that your child needed something different from what they got, even if it wasn’t possible in that moment  
-• Behavioral: A commitment to building a bridge somewhere new together  
+\u2022 Emotional: Real sorrow or soreness about what happened or what was missing  
+\u2022 Cognitive: A genuine understanding that your child needed something different from what they got, even if it wasn\u2019t possible in that moment  
+\u2022 Behavioral: A commitment to building a bridge somewhere new together  
 
 One important thing to know up front: a therapeutic apology is not about resolving a conflict, assigning blame, or reaching an agreement. It's a one-way gift to your child. You're offering them something that will help them to settle or let go of an old hurt. In other words, you're not looking for a specific response or asking them to meet you halfway.
 
@@ -162,28 +200,25 @@ A moment to reflect: Before reading on, it can help to notice your own relations
             ),
             const SizedBox(height: 12),
 
-                _InfoCard(
-                  title: "Why it's worth it",
-                  body: '''
+            _InfoCard(
+              title: "Why it's worth it",
+              body: '''
 Parents often wonder whether bringing up old wounds is really a good idea. Won't it just stir things up? Won't my child feel worse, or use it against me? These are understandable questions. But the research and clinical experience behind this approach is optimistic: when done well, a therapeutic apology can be very healing for all involved.
 
 Here is what a therapeutic apology can do:
 
-• HEAL OLD WOUNDS. Children - even children who seem fine - can carry pain from experiences that weren't fully acknowledged. A therapeutic apology gives that pain a place to transform.
+\u2022 Heal old wounds. Children - even children who seem fine - can carry pain from experiences that weren't fully acknowledged. A therapeutic apology gives that pain a place to transform.
+\u2022 Strengthen your relationship. When your child sees that you can hold what happened and take responsibility for it, something shifts between you. Trust deepens and the relationship becomes safer.
+\u2022 Relieve your child's burden. Some children carry both hurt but self-blame \u2013 including an immature belief that what happened was somehow their fault. A therapeutic apology can help to lift that burden.
+\u2022 Release resentment. Unacknowledged pain often turns into anger, withdrawal, or acting out. When the wound is named and validated, there is often less need for those reactions.
+\u2022 Open the door to understanding, letting go, compassion, etc - for all involved.
+\u2022 Change the emotional culture of your family. When a parent can say I see now that I got that wrong and I'm sorry, it signals to your child that hard feelings can be named, that repair is possible, and that relationships can survive challenges. It can also make your child more open to receiving your care and support going forward. Over time, this kind of repair can support an evolution of the emotional culture of your family as a whole.
 
-• STRENGTHEN YOUR RELATIONSHIP. When your child sees that you can hold what happened and take responsibility for it, something shifts between you. Trust deepens and the relationship becomes safer.
-• RELIEVE YOUR CHILD'S BURDEN. Some children carry both hurt but self-blame – including an immature belief that what happened was somehow their fault. A therapeutic apology can help to lift that burden.
 
-• RELEASE RESENTMENT. Unacknowledged pain often turns into anger, withdrawal, or acting out. When the wound is named and validated, there is often less need for those reactions.
-• OPEN THE DOOR TO UNDERSTANDING. letting go, compassion, etc - for all involved.
-
-• CHANGE THE EMOTIONAL CULTURE OF YOUR FAMILY. When a parent can say I see now that I got that wrong and I'm sorry, it signals to your child that hard feelings can be named, that repair is possible, and that relationships can survive challenges. It can also make your child more open to receiving your care and support going forward. Over time, this kind of repair can support an evolution of the emotional culture of your family as a whole..
-
-It is, in fact, one of the most powerful uses of your authority as a parent - choosing to lead a process in service of your child's healthy development and wellbeing, including your relationship.
+It's also worth noting that a therapeutic apology is not a loss of authority. It is, in fact, one of the most powerful uses of your authority as a parent - choosing to lead a process in service of your child's healthy development and wellbeing, including your relationship.
 ''',
-                ),
+            ),
             const SizedBox(height: 12),
-
 
             _InfoCard(
               title: 'Before You Begin',
@@ -192,7 +227,7 @@ This approach was developed within Emotion-Focused Family Therapy (EFFT), and it
 
 Understanding Where You Come From
 
-A therapeutic apology can work best when you've done a little preparation so that it comes from a grounded, clear place. It doesn’t mean you won’t get emotional – that is totally ok. Furthermore, we all parent from within a larger story - one that includes how we were raised, the cultural or religious values we grew up with, and the broader world that shaped our family. A parent who grew up in a household where emotions were rarely named will bring that with them. A caregiver whose community taught that children should be seen but not heard will carry that too. Becoming aware of those layers - what your community did well, what they missed, what messages you absorbed about how parents and children are supposed to relate - can help you show up more fully for your child.
+A therapeutic apology can work best when you've done a little preparation so that it comes from a grounded, clear place. It doesn\u2019t mean you won\u2019t get emotional \u2013 that is totally ok. Furthermore, we all parent from within a larger story - one that includes how we were raised, the cultural or religious values we grew up with, and the broader world that shaped our family. A parent who grew up in a household where emotions were rarely named will bring that with them. A caregiver whose community taught that children should be seen but not heard will carry that too. Becoming aware of those layers - what your community did well, what they missed, what messages you absorbed about how parents and children are supposed to relate - can help you show up more fully for your child.
 
 You don't need to have worked through all of it before you apologize. You just need enough awareness to hold your child's experience without collapsing or falling into shame or self-blame.
 
@@ -207,7 +242,7 @@ Here's what needs to be true: you need to be able to hold two things at once.
 
 Both of these are true at the same time. Holding them together is what allows you to deliver this kind of apology from a grounded place rather than from guilt or collapse or defensiveness.
 
-A simple way to check: on a scale of 1 to 10, how intensely are you blaming yourself right now? If you're in the 1–6 range, you're likely in a workable place. A moderate amount of accountability is normal.
+A simple way to check: on a scale of 1 to 10, how intensely are you blaming yourself right now? If you're in the 1 to 6 range, you're likely in a workable place. A moderate amount of accountability is normal.
 
 If you find yourself closer to 7 or above, the self-blame itself may need some attention first. When self-blame is very high, it becomes hard to keep the apology focused on your child - it can tip into expressing your own distress, which unintentionally puts your child in the position of managing your feelings. If this is where you are, it's worth slowing down and working through that layer first with the support of your therapist.
 ''',
@@ -247,31 +282,39 @@ The therapeutic apology has a structure - and the structure matters. Each part d
             _InfoCard(
               title: 'Timing matters.',
               body:
-              'A therapeutic apology lands best when both you and your child are in a reasonably open and settled state. Choose your moment with some care. It doesn\'t have to be perfect, but it should be intentional.',
+                  'A therapeutic apology lands best when both you and your child are in a reasonably open and settled state. Choose your moment with some care. It doesn\'t have to be perfect, but it should be intentional.',
             ),
             const SizedBox(height: 10),
             _InfoCard(
               title: 'Make it yours.',
               body:
-              'The structure in this app is a guide you - with the support of a therapist – to craft something that is meaningful to you and for your child. Your child will respond best to something that sounds like you - warm, honest, specific to your relationship - even if you end up reading it or sending it by email or text. Use the framework to ensure all steps are included, and then let it come through in your own voice.',
+                  'The structure in this app is a guide you - with the support of a therapist \u2013 to craft something that is meaningful to you and for your child. Your child will respond best to something that sounds like you - warm, honest, specific to your relationship - even if you end up reading it or sending it by email or text. Use the framework to ensure all steps are included, and then let it come through in your own voice.',
             ),
             const SizedBox(height: 10),
             _InfoCard(
               title: 'Expect it to be a process.',
               body:
-              'Deeper wounds don\'t always heal in one conversation, and that\'s okay. Your child may need time before they soften, before they believe what they\'re hearing, before they feel safe enough to respond. A single therapeutic apology can be a powerful beginning - but it may need to be revisited as your relationship continues to grow. Think of this as a commitment, or a new beginning.',
+                  'Deeper wounds don\'t always heal in one conversation, and that\'s okay. Your child may need time before they soften, before they believe what they\'re hearing, before they feel safe enough to respond. A single therapeutic apology can be a powerful beginning - but it may need to be revisited as your relationship continues to grow. Think of this as a commitment, or a new beginning.',
             ),
             const SizedBox(height: 10),
             _InfoCard(
               title: 'Manage your expectations around their response.',
               body:
-              'Your job is to deliver the apology clearly, genuinely, and without conditions, in whatever medium you feel they will respond to best (in person face-to-face, in person side-by-side, by text, over the phone, by email or in a letter). What your child does with it - and how quickly - is their own process. Some children respond right away. Others need days or weeks. Either is completely normal. The goal is the offering, and the impact it can have over time.',
+                  'Your job is to deliver the apology clearly, genuinely, and without conditions, in whatever medium you feel they will respond to best (in person face-to-face, in person side-by-side, by text, over the phone, by email or in a letter). What your child does with it - and how quickly - is their own process. Some children respond right away. Others need days or weeks. Either is completely normal. The goal is the offering, and the impact it can have over time.',
             ),
             const SizedBox(height: 32),
             const Divider(),
             const SizedBox(height: 24),
 
-            const SizedBox(height: 16),
+            //const SizedBox(height: 16),
+
+
+            // Steps section
+            Text(
+              'The 5 + 1 step',
+              style: AppTextStyles.heading.copyWith(fontSize: 18),
+            ),
+            const SizedBox(height: 6),
             Text(
               'With the support of your EFFT therapist, the script builder that follows will walk you through each step, one at a time.',
               style: AppTextStyles.body.copyWith(
@@ -280,11 +323,6 @@ The therapeutic apology has a structure - and the structure matters. Each part d
                 fontStyle: FontStyle.italic,
               ),
             ),
-
-
-            // Steps section
-            Text('The 5 steps', style: AppTextStyles.heading.copyWith(fontSize: 18)),
-            const SizedBox(height: 6),
             Text(
               'Each step has a specific purpose. Tap a step to read about it.',
               style: AppTextStyles.body.copyWith(color: Colors.grey.shade600),
@@ -302,16 +340,25 @@ The therapeutic apology has a structure - and the structure matters. Each part d
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 150),
                       margin: const EdgeInsets.only(right: 8),
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 7,
+                      ),
                       decoration: BoxDecoration(
-                        color: active ? AppColors.primary : Colors.grey.shade100,
+                        color: active
+                            ? AppColors.primary
+                            : Colors.grey.shade100,
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color: active ? AppColors.primary : Colors.grey.shade200,
+                          color: active
+                              ? AppColors.primary
+                              : Colors.grey.shade200,
                         ),
                       ),
                       child: Text(
-                        i == _steps.length - 1 ? 'Optional' : 'Step ${i + 1}',
+                        i == _steps.length - 1
+                            ? 'Step 6 (optional)'
+                            : 'Step ${i + 1}',
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
@@ -338,18 +385,16 @@ The therapeutic apology has a structure - and the structure matters. Each part d
             const Divider(),
             const SizedBox(height: 24),
 
-
-
-            // CTA section
-
             // CTA section
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.07),
+                color: AppColors.primary.withValues(alpha: 0.07),
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+                border: Border.all(
+                  color: AppColors.primary.withValues(alpha: 0.2),
+                ),
               ),
               child: Column(
                 children: [
@@ -371,7 +416,10 @@ The therapeutic apology has a structure - and the structure matters. Each part d
                   const SizedBox(height: 8),
                   Text(
                     'Walk through each step one at a time and choose phrases that feel true to you. Your script will be ready to copy or read aloud.',
-                    style: AppTextStyles.body.copyWith(color: Colors.grey.shade600, height: 1.6),
+                    style: AppTextStyles.body.copyWith(
+                      color: Colors.grey.shade600,
+                      height: 1.6,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 20),
@@ -386,10 +434,18 @@ The therapeutic apology has a structure - and the structure matters. Each part d
                           ),
                         );
                       },
-                      icon: const Icon(Icons.edit_outlined, color: Colors.white, size: 20),
+                      icon: const Icon(
+                        Icons.edit_outlined,
+                        color: Colors.white,
+                        size: 20,
+                      ),
                       label: const Text(
                         'Now let\'s make your apology script',
-                        style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primary,
@@ -411,7 +467,21 @@ The therapeutic apology has a structure - and the structure matters. Each part d
   }
 }
 
-// ── Data model ──────────────────────────────────────────────────────────────
+// Data model
+
+class _ReactionExample {
+  final String label;
+  final String quote;
+  final String? intro;
+  final String? footer;
+
+  const _ReactionExample({
+    required this.label,
+    required this.quote,
+    this.intro,
+    this.footer,
+  });
+}
 
 class _StepData {
   final String number;
@@ -419,6 +489,8 @@ class _StepData {
   final String body;
   final String example;
   final String exampleLabel;
+  final List<_ReactionExample>? reactionExamples;
+  final String? bodyAfterExamples;
 
   const _StepData({
     required this.number,
@@ -426,23 +498,18 @@ class _StepData {
     required this.body,
     required this.example,
     this.exampleLabel = 'Example:',
+    this.reactionExamples,
+    this.bodyAfterExamples,
   });
 }
 
-// ── Reusable widgets ─────────────────────────────────────────────────────────
+// Reusable widgets
 
 class _InfoCard extends StatelessWidget {
   final String title;
   final String body;
-  final String? highlight;
-  final String? footer;
 
-  const _InfoCard({
-    required this.title,
-    required this.body,
-    this.highlight,
-    this.footer,
-  });
+  const _InfoCard({required this.title, required this.body});
 
   @override
   Widget build(BuildContext context) {
@@ -456,48 +523,23 @@ class _InfoCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: AppTextStyles.body.copyWith(
-                fontWeight: FontWeight.w500,
-                fontSize: 15,
-                color: Colors.black87,
-              )),
-          const SizedBox(height: 8),
-          Text(body,
-              style: AppTextStyles.body.copyWith(
-                color: Colors.grey.shade600,
-                height: 1.65,
-                fontSize: 14,
-              )),
-          if (highlight != null) ...[
-            const SizedBox(height: 12),
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.08),
-                border: Border(
-                  left: BorderSide(color: AppColors.primary, width: 3),
-                ),
-              ),
-              child: Text(
-                highlight!,
-                style: AppTextStyles.body.copyWith(
-                  color: AppColors.primary,
-                  fontSize: 14,
-                  height: 1.6,
-                ),
-              ),
+          Text(
+            title,
+            style: AppTextStyles.body.copyWith(
+              fontWeight: FontWeight.w500,
+              fontSize: 15,
+              color: Colors.black87,
             ),
-          ],
-          if (footer != null) ...[
-            const SizedBox(height: 10),
-            Text(footer!,
-                style: AppTextStyles.body.copyWith(
-                  color: Colors.grey.shade600,
-                  height: 1.65,
-                  fontSize: 14,
-                )),
-          ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            body,
+            style: AppTextStyles.body.copyWith(
+              color: Colors.grey.shade600,
+              height: 1.65,
+              fontSize: 14,
+            ),
+          ),
         ],
       ),
     );
@@ -509,8 +551,74 @@ class _StepPanel extends StatelessWidget {
 
   const _StepPanel({super.key, required this.data});
 
+  Widget _buildExampleBox(
+    String label,
+    String quote, {
+    String? intro,
+    String? footer,
+  }) {
+    return Container(
+      margin: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade50,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.grey.shade100),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (intro != null) ...[
+            Text(
+              intro,
+              style: AppTextStyles.body.copyWith(
+                color: Colors.grey.shade600,
+                fontSize: 13,
+                height: 1.65,
+              ),
+            ),
+            const SizedBox(height: 10),
+          ],
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 0.5,
+              color: Colors.grey.shade500,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            quote,
+            style: AppTextStyles.body.copyWith(
+              color: Colors.grey.shade600,
+              fontSize: 13,
+              height: 1.65,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          if (footer != null) ...[
+            const SizedBox(height: 10),
+            Text(
+              footer,
+              style: AppTextStyles.body.copyWith(
+                color: Colors.grey.shade600,
+                fontSize: 13,
+                height: 1.65,
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final hasReactionExamples =
+        data.reactionExamples != null && data.reactionExamples!.isNotEmpty;
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(18),
@@ -558,39 +666,31 @@ class _StepPanel extends StatelessWidget {
               fontSize: 14,
             ),
           ),
-          const SizedBox(height: 14),
-          Container(
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade50,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.grey.shade100),
+
+          if (hasReactionExamples)
+            ...data.reactionExamples!.map(
+              (reaction) => _buildExampleBox(
+                reaction.label,
+                reaction.quote,
+                intro: reaction.intro,
+                footer: reaction.footer,
+              ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  data.exampleLabel.toUpperCase(),
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 0.5,
-                    color: Colors.grey.shade500,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  data.example,
-                  style: AppTextStyles.body.copyWith(
-                    color: Colors.grey.shade600,
-                    fontSize: 13,
-                    height: 1.65,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              ],
+
+          if (data.bodyAfterExamples != null) ...[
+            const SizedBox(height: 14),
+            Text(
+              data.bodyAfterExamples!,
+              style: AppTextStyles.body.copyWith(
+                color: Colors.grey.shade600,
+                height: 1.7,
+                fontSize: 14,
+              ),
             ),
-          ),
+          ],
+
+          if (!hasReactionExamples && data.example.isNotEmpty)
+            _buildExampleBox(data.exampleLabel, data.example),
         ],
       ),
     );
