@@ -21,9 +21,9 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   final List<String> _selectedEmotionalSupports = [];
   final List<String> _selectedPracticalSupports = [];
   final TextEditingController _customEmotionalSupportController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _customPracticalSupportController =
-      TextEditingController();
+  TextEditingController();
 
   String _generatedScript = '';
 
@@ -46,13 +46,12 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
 
   final List<String> _emotionalStarters = [
     "I'm here with you.",
-    "I believe it’s going to be okay",
+    "I believe it's going to be okay",
     "I know you're doing the best you can right now.",
     "I believe in you.",
     "I know you can do this.",
-    "We’re in this together.",
+    "We're in this together.",
     "I want the best for you too.",
-    "Why don’t we take 5 and try again?",
     "Other (Write your own)",
   ];
 
@@ -97,16 +96,16 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   String _buildCustomScript() {
     final starter = _selectedStarter ?? '[Starter]';
     final verb =
-        _selectedVerb != null ? _selectedVerb!.replaceAll('...', '') : '[verb]';
+    _selectedVerb != null ? _selectedVerb!.replaceAll('...', '') : '[verb]';
     final phrase =
-        _phraseController.text.isNotEmpty ? _phraseController.text : '...';
+    _phraseController.text.isNotEmpty ? _phraseController.text : '...';
 
     String becauseClause = '';
     if (_because1Controller.text.isNotEmpty &&
         _because2Controller.text.isNotEmpty &&
         _because3Controller.text.isNotEmpty) {
       becauseClause =
-          'because ${_because1Controller.text}, ${_because2Controller.text}, and ${_because3Controller.text}';
+      'because ${_because1Controller.text}, ${_because2Controller.text}, and ${_because3Controller.text}';
     }
 
     final emotional = _selectedEmotionalSupports.map((e) {
@@ -230,7 +229,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
         const SizedBox(height: 24),
         _buildSubSectionTitle(
           'Feeling/Action Phrase',
-          'Describe your child’s feeling, thought or urge.',
+          'Describe your child\'s feeling, thought or urge.',
         ),
         _buildBecauseTextField(
           _phraseController,
@@ -278,13 +277,13 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   }
 
   Widget _buildSupportSection(
-    String title,
-    String subtitle,
-    List<String> items,
-    List<String> selectedItems,
-    TextEditingController customTextController,
-    int maxSelection,
-  ) {
+      String title,
+      String subtitle,
+      List<String> items,
+      List<String> selectedItems,
+      TextEditingController customTextController,
+      int maxSelection,
+      ) {
     final showCustomField = selectedItems.contains("Other (Write your own)");
 
     return Column(
@@ -354,10 +353,10 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   }
 
   Widget _buildChoiceChipGroup(
-    List<String> items,
-    String? selectedItem,
-    ValueChanged<String> onSelected,
-  ) {
+      List<String> items,
+      String? selectedItem,
+      ValueChanged<String> onSelected,
+      ) {
     return Wrap(
       spacing: 8.0,
       runSpacing: 6.0,
@@ -387,10 +386,10 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   }
 
   Widget _buildMultiChoiceChipGroup(
-    List<String> items,
-    List<String> selectedItems,
-    int maxSelection,
-  ) {
+      List<String> items,
+      List<String> selectedItems,
+      int maxSelection,
+      ) {
     return Wrap(
       spacing: 8.0,
       runSpacing: 6.0,
@@ -429,9 +428,9 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   }
 
   Widget _buildBecauseTextField(
-    TextEditingController controller,
-    String hintText,
-  ) {
+      TextEditingController controller,
+      String hintText,
+      ) {
     return TextField(
       controller: controller,
       style: GoogleFonts.nunito(fontSize: 14, color: AppColors.textPrimary),
@@ -505,10 +504,10 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
             style: GoogleFonts.nunito(
               fontSize: 15,
               color:
-                  _hasCompleteScript ? AppColors.textPrimary : AppColors.textLight,
+              _hasCompleteScript ? AppColors.textPrimary : AppColors.textLight,
               height: 1.6,
               fontStyle:
-                  _hasCompleteScript ? FontStyle.normal : FontStyle.italic,
+              _hasCompleteScript ? FontStyle.normal : FontStyle.italic,
             ),
           ),
           const SizedBox(height: 20),
