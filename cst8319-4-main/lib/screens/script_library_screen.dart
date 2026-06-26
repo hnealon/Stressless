@@ -60,8 +60,9 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
 
     final becauses = List<String>.from(_libraryBecause);
     final last = becauses.removeLast();
-    final becauseClause =
-        becauses.isEmpty ? last : '${becauses.join(', ')}, and $last';
+    final becauseClause = becauses.isEmpty
+        ? last
+        : '${becauses.join(', ')}, and $last';
 
     final emotional = _libraryEmotional.join(' ');
     final practical = _libraryPractical.join(' ');
@@ -164,10 +165,12 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
                         backgroundColor: AppColors.surface,
                         selectedColor: AppColors.primary,
                         labelStyle: GoogleFonts.nunito(
-                          color:
-                              isSelected ? Colors.white : AppColors.textPrimary,
-                          fontWeight:
-                              isSelected ? FontWeight.w700 : FontWeight.w600,
+                          color: isSelected
+                              ? Colors.white
+                              : AppColors.textPrimary,
+                          fontWeight: isSelected
+                              ? FontWeight.w700
+                              : FontWeight.w600,
                           fontSize: 13,
                         ),
                         shape: RoundedRectangleBorder(
@@ -309,7 +312,7 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
           'Step 2: Emotional Support',
           'Choose at least ${example.emotionalCount} sentences.',
         ),
-        _buildCategorizedMultiSelect(
+        _buildOptionMultiSelect(
           example.emotionalSupport,
           _libraryEmotional,
           example.emotionalSupport.length,
@@ -319,7 +322,7 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
           'Step 3: Practical Support',
           'Choose up to ${example.practicalCount} suggestions.',
         ),
-        _buildCategorizedMultiSelect(
+        _buildOptionMultiSelect(
           example.practicalSupport,
           _libraryPractical,
           example.practicalCount,
@@ -337,73 +340,43 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
     );
   }
 
-  /// Groups categorized options under their category heading so caregivers
-  /// keep learning the underlying skill (per EFFT-EC_General_and_Micro-skills.docx).
-  Widget _buildCategorizedMultiSelect(
-      List<CategorizedOption> options,
-      List<String> selected,
-      int maxSelection,
-      ) {
-    final Map<String, List<CategorizedOption>> grouped = {};
-    for (final option in options) {
-      grouped.putIfAbsent(option.category, () => []).add(option);
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: grouped.entries.map((entry) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                entry.key,
-                style: GoogleFonts.nunito(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.primary,
-                  letterSpacing: 0.4,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Wrap(
-                spacing: 8,
-                runSpacing: 6,
-                children: entry.value.map((option) {
-                  final isSelected = selected.contains(option.text);
-                  return ChoiceChip(
-                    label: Text(option.text),
-                    selected: isSelected,
-                    onSelected: (_) {
-                      setState(() {
-                        if (isSelected) {
-                          selected.remove(option.text);
-                        } else if (selected.length < maxSelection) {
-                          selected.add(option.text);
-                        }
-                        _updateScript();
-                      });
-                    },
-                    backgroundColor: AppColors.surface,
-                    selectedColor: AppColors.primary,
-                    labelStyle: GoogleFonts.nunito(
-                      color: isSelected ? Colors.white : AppColors.textPrimary,
-                      fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
-                      fontSize: 13,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      side: BorderSide(
-                        color: isSelected ? AppColors.primary : AppColors.cardBorder,
-                      ),
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                  );
-                }).toList(),
-              ),
-            ],
+  Widget _buildOptionMultiSelect(
+    List<CategorizedOption> options,
+    List<String> selected,
+    int maxSelection,
+  ) {
+    return Wrap(
+      spacing: 8,
+      runSpacing: 6,
+      children: options.map((option) {
+        final isSelected = selected.contains(option.text);
+        return ChoiceChip(
+          label: Text(option.text),
+          selected: isSelected,
+          onSelected: (_) {
+            setState(() {
+              if (isSelected) {
+                selected.remove(option.text);
+              } else if (selected.length < maxSelection) {
+                selected.add(option.text);
+              }
+              _updateScript();
+            });
+          },
+          backgroundColor: AppColors.surface,
+          selectedColor: AppColors.primary,
+          labelStyle: GoogleFonts.nunito(
+            color: isSelected ? Colors.white : AppColors.textPrimary,
+            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
+            fontSize: 13,
           ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(
+              color: isSelected ? AppColors.primary : AppColors.cardBorder,
+            ),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         );
       }).toList(),
     );
@@ -519,11 +492,13 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
                 : 'Your script will appear here once the required fields are complete...',
             style: GoogleFonts.nunito(
               fontSize: 15,
-              color:
-                  _hasCompleteScript ? AppColors.textPrimary : AppColors.textLight,
+              color: _hasCompleteScript
+                  ? AppColors.textPrimary
+                  : AppColors.textLight,
               height: 1.6,
-              fontStyle:
-                  _hasCompleteScript ? FontStyle.normal : FontStyle.italic,
+              fontStyle: _hasCompleteScript
+                  ? FontStyle.normal
+                  : FontStyle.italic,
             ),
           ),
           const SizedBox(height: 20),
@@ -541,9 +516,7 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
                     ),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Script copied to clipboard'),
-                    ),
+                    const SnackBar(content: Text('Script copied to clipboard')),
                   );
                 },
                 icon: const Icon(Icons.copy_all_outlined, size: 18),
