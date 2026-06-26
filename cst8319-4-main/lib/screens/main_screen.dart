@@ -39,7 +39,7 @@ class _MainScreenState extends State<MainScreen> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Learn'),
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Learn VS'),
           BottomNavigationBarItem(
             icon: Icon(Icons.fitness_center),
             label: 'Practice',
