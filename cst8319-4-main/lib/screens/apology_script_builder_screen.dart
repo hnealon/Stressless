@@ -31,32 +31,35 @@ class _ApologyScriptBuilderScreenState
   final _angryBecause1Controller = TextEditingController();
   final _angryBecause2Controller = TextEditingController();
   final _lonelyOptionalController = TextEditingController();
-
+  final _repeatNeeded1Controller = TextEditingController();
+  final _repeatNeeded2Controller = TextEditingController();
+  final _repeatNeeded3Controller = TextEditingController();
+  final _repeatWill1Controller = TextEditingController();
+  final _repeatWill2Controller = TextEditingController();
   // Step 3 - Communicate a sincere apology
   final _apologyController = TextEditingController();
 
   // Step 4 - State what they needed and what will change
   final _whatTheyNeededController = TextEditingController();
   final _whatWillChangeController = TextEditingController();
-
+  final _whatNeeded2Controller = TextEditingController();
+  final _whatNeeded3Controller = TextEditingController();
+  final _willChange2Controller = TextEditingController();
   // Step 5 - Respond with validation to their reaction
   String _selectedReactionType = 'anger';
+  String _selectedApology = '';
   final _reactionContinuationController = TextEditingController();
-
+  String _selectedAddOn = ''; // 'A', 'B', 'C', or ''
+  final _customAddOnController = TextEditingController();
   // Step 6 - Repeat steps 3 and 4 (auto-suggested, editable)
   final _repeatedApologyController = TextEditingController();
   final _repeatedChangeController = TextEditingController();
 
   static const Map<String, String> _reactionStarters = {
-    'anger': "I can understand why you would be angry. It probably feels "
-        "like too little too late...you've tried to get my attention on "
-        "this issue many times…",
-    'reassurance': "I can understand why you would want to reassure me. "
-        "You've seen me hurting in the past and that's been really hard…",
-    'denial': "I can understand why you wouldn't remember this / would "
-        "want to deny this, it's a hard truth in our family…",
-    'pain': "I can understand why you'd feel pain. It's an old wound that "
-        "hasn't received the attention it deserves…",
+    'anger': "I can understand why you'd feel angry. It probably feels like too little, too late - like you've tried to show me this many times and I didn't see it or got defensive.",
+    'reassurance': "I can understand why you'd want to reassure me right now. You've seen me struggle before, and I know you've tried to take care of my feelings.",
+    'denial': "I can understand why this might be hard to take in - it's a lot to hear, and it's completely okay if you're not ready to go there yet.",
+    'pain': "I can understand why you'd feel that pain. This is something that's been sitting there for a long time without getting the attention it deserved.",
   };
 
   @override
@@ -78,6 +81,15 @@ class _ApologyScriptBuilderScreenState
     _reactionContinuationController.dispose();
     _repeatedApologyController.dispose();
     _repeatedChangeController.dispose();
+    _whatNeeded2Controller.dispose();
+    _whatNeeded3Controller.dispose();
+    _willChange2Controller.dispose();
+    _repeatNeeded1Controller.dispose();
+    _repeatNeeded2Controller.dispose();
+    _repeatNeeded3Controller.dispose();
+    _repeatWill1Controller.dispose();
+    _repeatWill2Controller.dispose();
+    _customAddOnController.dispose();
     super.dispose();
   }
 
@@ -130,28 +142,49 @@ class _ApologyScriptBuilderScreenState
     buffer.writeln();
 
     // Step 3
-    buffer.writeln(_apologyController.text);
+    buffer.writeln(_selectedApology);
     buffer.writeln();
 
     // Step 4
     buffer.writeln(
-      "I can see now that some of what you would have needed from me was "
-          "${_whatTheyNeededController.text}.\n\nStarting today, "
-          "${_whatWillChangeController.text}. It won't always go perfectly, "
-          "but I won't stop working on this.",
+      "I can see now that what you needed from me was "
+          "${_whatTheyNeededController.text} and "
+          "${_whatNeeded2Controller.text} and "
+          "${_whatNeeded3Controller.text}.\n\n"
+          "Starting today, I will ${_whatWillChangeController.text} and "
+          "${_willChange2Controller.text}. I know it won't always go perfectly, "
+          "but I am committed to working on this.",
     );
     buffer.writeln();
 
     // Step 5
-    buffer.writeln(_reactionContinuationController.text);
-    buffer.writeln();
-
-    // Step 6
     buffer.writeln(
-      "And I want you to know that I am so sorry. Knowing what I know now, "
-          "I would have ${_repeatedApologyController.text}. Starting today I "
-          "will ${_repeatedChangeController.text}.",
+      "${_reactionStarters[_selectedReactionType] ?? ''} "
+          "${_reactionContinuationController.text}\n\n"
+          "And I want you to know - $_selectedApology. "
+          "I see now that what you needed from me instead was "
+          "${_repeatNeeded1Controller.text} and "
+          "${_repeatNeeded2Controller.text} and "
+          "${_repeatNeeded3Controller.text}. "
+          "Starting today I will ${_repeatWill1Controller.text} and "
+          "${_repeatWill2Controller.text}.",
     );
+    // Step 6
+    if (_selectedAddOn == 'A') {
+      buffer.writeln(
+        "Your experience matters to me, and I'm here to listen whenever you're ready. "
+            "It could be now, two weeks from now, or a year from now. "
+            "I want to be here for you in a different way.",
+      );
+    } else if (_selectedAddOn == 'B') {
+      buffer.writeln(
+        "If it would help to hear a little more about why things happened the way they did, "
+            "I'm happy to share that. But not everyone wants that - and it's completely okay if you don't. "
+            "Either way, it doesn't change that it wasn't what you needed, and I see that now.",
+      );
+    } else if (_selectedAddOn == 'C' && _customAddOnController.text.trim().isNotEmpty) {
+      buffer.writeln(_customAddOnController.text);
+    }
 
     return buffer.toString().trim();
   }
@@ -350,16 +383,45 @@ class _ApologyScriptBuilderScreenState
           ],
         );
       case 2:
-        return _stepScaffold(
-          title: 'Step 3: Communicate a Sincere Apology',
-          subtitle: 'Write a direct, genuine apology in your own words.',
+        return _stepScaffoldNoValidation(
+          title: 'Step 3: Apologize',
+          subtitle: 'Choose the option that feels most true to you.',
           fields: [
-            _textField(
-              controller: _apologyController,
-
-              label: 'I am so sorry or the pain this caused you (then and throughout your life). ',
-              maxLines: 3,
-            ),
+            ...[
+              'I am so sorry for the pain this caused you.',
+              'I am so sorry. I really am.',
+              'I am sorry for all the ways that hurt you.',
+            ].map((option) {
+              final isSelected = _selectedApology == option;
+              return GestureDetector(
+                onTap: () => setState(() => _selectedApology = option),
+                child: Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(bottom: 12),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? AppColors.primary.withOpacity(0.12)
+                        : Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: isSelected
+                          ? AppColors.primary
+                          : Colors.grey.shade200,
+                      width: isSelected ? 2 : 1,
+                    ),
+                  ),
+                  child: Text(
+                    option,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      color: isSelected
+                          ? AppColors.primary
+                          : Colors.black87,
+                    ),
+                  ),
+                ),
+              );
+            }),
           ],
         );
       case 3:
@@ -367,27 +429,58 @@ class _ApologyScriptBuilderScreenState
           title: 'Step 4: Name What They Needed',
           subtitle: 'State what they needed instead, and what will change.',
           fields: [
-            _noteCard(
-              // REPLACE WITH WORKSHEET TEXT
-              "Ensure follow through if possible.",
+            _noteCard("Ensure follow through is possible."),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'I can see now that what you needed from me was...',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
             ),
+            const SizedBox(height: 6),
             _textField(
               controller: _whatTheyNeededController,
-              label: 'I can see now that some of what you would have needed from me was… (given the benefit of a crystal ball and sufficient time, money and support)',
-              maxLines: 3,
+              label: 'First thing they needed...',
+              maxLines: 2,
             ),
             _textField(
+              controller: _whatNeeded2Controller,
+              label: 'and...',
+              maxLines: 2,
+            ),
+            _textField(
+              controller: _whatNeeded3Controller,
+              label: 'and...',
+              maxLines: 2,
+            ),
+            const SizedBox(height: 8),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Starting today, I will...',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+            const SizedBox(height: 6),
+            _textField(
               controller: _whatWillChangeController,
-              label: 'Starting today, I will... (+ it won’t always go perfectly, but I won’t stop working on this) ',
-              maxLines: 3,
+              label: 'First commitment...',
+              maxLines: 2,
+            ),
+            _textField(
+              controller: _willChange2Controller,
+              label: 'and...',
+              maxLines: 2,
+            ),
+            _noteCard(
+              "I know it won't always go perfectly, but I am committed to working on this.",
             ),
           ],
         );
       case 4:
         return _stepScaffoldNoValidation(
-          title: 'Step 5: Respond with validation to their reaction - whether anger, denial, reassurance or pain',
-          subtitle:
-          'Select how your child is most likely to respond, then continue in your own words.',
+          title: 'Step 5: Validate Their Reaction, Then Repeat Steps 3 & 4',
+          subtitle: 'Select how your child is most likely to respond, then continue in your own words.',
           fields: [
             Wrap(
               spacing: 8,
@@ -402,6 +495,7 @@ class _ApologyScriptBuilderScreenState
             ),
             const SizedBox(height: 16),
             Container(
+              width: double.infinity,
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: AppColors.primary.withOpacity(0.08),
@@ -417,26 +511,162 @@ class _ApologyScriptBuilderScreenState
             _textField(
               controller: _reactionContinuationController,
               label: 'Continue in your own words...',
-              maxLines: 4,
+              maxLines: 3,
+              required: false,
+            ),
+            const SizedBox(height: 16),
+            _noteCard(
+              'Then repeat Steps 3 and 4 with some variation in language so that it\'s not exactly the same.',
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'And I want you to know - [your Step 3 choice]. I see now that what you needed from me instead was...',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+            const SizedBox(height: 6),
+            _textField(
+              controller: _repeatNeeded1Controller,
+              label: 'First thing...',
+              maxLines: 2,
+              required: false,
+            ),
+            _textField(
+              controller: _repeatNeeded2Controller,
+              label: 'and...',
+              maxLines: 2,
+              required: false,
+            ),
+            _textField(
+              controller: _repeatNeeded3Controller,
+              label: 'and...',
+              maxLines: 2,
+              required: false,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Starting today I will...',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+            const SizedBox(height: 6),
+            _textField(
+              controller: _repeatWill1Controller,
+              label: 'First commitment...',
+              maxLines: 2,
+              required: false,
+            ),
+            _textField(
+              controller: _repeatWill2Controller,
+              label: 'and...',
+              maxLines: 2,
+              required: false,
             ),
           ],
         );
       case 5:
-        return _stepScaffold(
-          title: 'Step 6: Repeat Steps 3 and 4',
-          subtitle:
-          'Restate your apology and commitment, calmly and steadily.',
+        return _stepScaffoldNoValidation(
+          title: 'Step 6: Optional Add-Ons',
+          subtitle: 'Choose one if it feels right, or skip to see your script.',
           fields: [
-            _textField(
-              controller: _repeatedApologyController,
-              label: 'Knowing what I know now, I would have...',
-              maxLines: 3,
+            ...[
+              {
+                'key': 'A',
+                'label': 'Option A: Invitation to share',
+                'text': 'Your experience matters to me, and I\'m here to listen whenever you\'re ready. It could be now, two weeks from now, or a year from now. I want to be here for you in a different way.',
+              },
+              {
+                'key': 'B',
+                'label': 'Option B: Permission to explain',
+                'text': 'If it would help to hear a little more about why things happened the way they did, I\'m happy to share that. But not everyone wants that - and it\'s completely okay if you don\'t. Either way, it doesn\'t change that it wasn\'t what you needed, and I see that now.',
+              },
+            ].map((option) {
+              final isSelected = _selectedAddOn == option['key'];
+              return GestureDetector(
+                onTap: () => setState(() {
+                  _selectedAddOn = isSelected ? '' : option['key']!;
+                }),
+                child: Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(bottom: 12),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? AppColors.primary.withOpacity(0.12)
+                        : Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: isSelected
+                          ? AppColors.primary
+                          : Colors.grey.shade200,
+                      width: isSelected ? 2 : 1,
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        option['label']!,
+                        style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: isSelected
+                              ? AppColors.primary
+                              : Colors.black87,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        option['text']!,
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          color: Colors.grey.shade600,
+                          fontStyle: FontStyle.italic,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }),
+            const SizedBox(height: 4),
+            GestureDetector(
+              onTap: () => setState(() {
+                _selectedAddOn = _selectedAddOn == 'C' ? '' : 'C';
+              }),
+              child: Container(
+                width: double.infinity,
+                margin: const EdgeInsets.only(bottom: 12),
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: _selectedAddOn == 'C'
+                      ? AppColors.primary.withOpacity(0.12)
+                      : Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: _selectedAddOn == 'C'
+                        ? AppColors.primary
+                        : Colors.grey.shade200,
+                    width: _selectedAddOn == 'C' ? 2 : 1,
+                  ),
+                ),
+                child: Text(
+                  'Option C: Write your own',
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: _selectedAddOn == 'C'
+                        ? AppColors.primary
+                        : Colors.black87,
+                  ),
+                ),
+              ),
             ),
-            _textField(
-              controller: _repeatedChangeController,
-              label: 'Starting today I will...',
-              maxLines: 3,
-            ),
+            if (_selectedAddOn == 'C')
+              _textField(
+                controller: _customAddOnController,
+                label: 'Write your own closing...',
+                maxLines: 3,
+                required: false,
+              ),
           ],
         );
       default:
@@ -485,7 +715,13 @@ class _ApologyScriptBuilderScreenState
           const SizedBox(height: 24),
           Expanded(child: SingleChildScrollView(child: Column(children: fields))),
           _navigationRow(onNext: () {
-            if (_reactionContinuationController.text.trim().isEmpty) {
+            if (_currentStep == 2 && _selectedApology.isEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Please select an option.')),
+              );
+              return;
+            }
+            if (_currentStep == 4 && _reactionContinuationController.text.trim().isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Please add your own words.')),
               );
@@ -597,6 +833,16 @@ class _ApologyScriptBuilderScreenState
                 _reactionContinuationController.clear();
                 _repeatedApologyController.clear();
                 _repeatedChangeController.clear();
+                _whatNeeded2Controller.clear();
+                _whatNeeded3Controller.clear();
+                _willChange2Controller.clear();
+                _repeatNeeded1Controller.clear();
+                _repeatNeeded2Controller.clear();
+                _repeatNeeded3Controller.clear();
+                _repeatWill1Controller.clear();
+                _repeatWill2Controller.clear();
+                _customAddOnController.clear();
+                _selectedAddOn = '';
                 _selectedReactionType = 'anger';
               }),
               child: const Text('Start Over'),
