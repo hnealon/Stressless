@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
+
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:record/record.dart';
+
 import '../theme.dart';
 
 class ScriptBuilderScreen extends StatefulWidget {
@@ -26,6 +30,13 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   TextEditingController();
 
   String _generatedScript = '';
+
+  final AudioRecorder _audioRecorder = AudioRecorder();
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+  String? _recordingPath;
+  bool _isRecording = false;
+  bool _isPlaying = false;
 
   final List<String> _starters = [
     "I could understand you might",
@@ -74,6 +85,14 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
     _because3Controller.addListener(_updateScript);
     _customEmotionalSupportController.addListener(_updateScript);
     _customPracticalSupportController.addListener(_updateScript);
+
+    _audioPlayer.onPlayerComplete.listen((event) {
+      if (mounted) {
+        setState(() {
+          _isPlaying = false;
+        });
+      }
+    });
   }
 
   @override
@@ -84,7 +103,55 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
     _because3Controller.dispose();
     _customEmotionalSupportController.dispose();
     _customPracticalSupportController.dispose();
+    _audioRecorder.dispose();
+    _audioPlayer.dispose();
     super.dispose();
+  }
+
+  Future<void> _toggleRecording() async {
+    if (_isRecording) {
+      final path = await _audioRecorder.stop();
+      setState(() {
+        _isRecording = false;
+        _recordingPath = path;
+      });
+      return;
+    }
+
+    if (await _audioRecorder.hasPermission()) {
+      await _audioRecorder.start(
+        const RecordConfig(encoder: AudioEncoder.opus),
+        path: '',
+      );
+      setState(() {
+        _isRecording = true;
+        _recordingPath = null;
+      });
+    } else {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Microphone permission is needed to record.'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _togglePlayback() async {
+    if (_recordingPath == null) return;
+
+    if (_isPlaying) {
+      await _audioPlayer.stop();
+      setState(() {
+        _isPlaying = false;
+      });
+      return;
+    }
+
+    await _audioPlayer.play(UrlSource(_recordingPath!));
+    setState(() {
+      _isPlaying = true;
+    });
   }
 
   void _updateScript() {
@@ -324,7 +391,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
         ),
         const SizedBox(height: 16),
       ],
-    ).animate().fadeIn(delay: 200.ms);
+    );
   }
 
   Widget _buildSubSectionTitle(String title, String subtitle) {
@@ -349,7 +416,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
         ),
         const SizedBox(height: 16),
       ],
-    ).animate().fadeIn(delay: 200.ms);
+    );
   }
 
   Widget _buildChoiceChipGroup(
@@ -382,7 +449,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         );
       }).toList(),
-    ).animate().fadeIn(delay: 300.ms);
+    );
   }
 
   Widget _buildMultiChoiceChipGroup(
@@ -424,7 +491,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         );
       }).toList(),
-    ).animate().fadeIn(delay: 300.ms);
+    );
   }
 
   Widget _buildBecauseTextField(
@@ -457,7 +524,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
         ),
       ),
       onChanged: (_) => _updateScript(),
-    ).animate().fadeIn(delay: 300.ms);
+    );
   }
 
   Widget _buildGeneratedScript() {
@@ -503,8 +570,9 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
                 : 'Your script will appear here once the required fields are complete...',
             style: GoogleFonts.nunito(
               fontSize: 15,
-              color:
-              _hasCompleteScript ? AppColors.textPrimary : AppColors.textLight,
+              color: _hasCompleteScript
+                  ? AppColors.textPrimary
+                  : AppColors.textLight,
               height: 1.6,
               fontStyle:
               _hasCompleteScript ? FontStyle.normal : FontStyle.italic,
@@ -534,8 +602,54 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
                 label: const Text('Copy Script'),
               ),
             ),
+
+          // --- Khalil's Audio Section (Always Visible inside the Card) ---
+          const SizedBox(height: 16),
+          const Divider(),
+          const SizedBox(height: 12),
+          Text(
+            'Practice Out Loud',
+            style: GoogleFonts.nunito(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+              color: AppColors.textPrimary,
+            ),
+          ),
+          const SizedBox(height: 8),
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton.icon(
+              onPressed: _toggleRecording,
+              icon: Icon(
+                _isRecording
+                    ? Icons.stop_circle_outlined
+                    : Icons.mic_none_rounded,
+                size: 18,
+                color: _isRecording ? Colors.red : null,
+              ),
+              label: Text(
+                _isRecording ? 'Stop Recording' : 'Click to record and review',
+              ),
+            ),
+          ),
+          if (_recordingPath != null && !_isRecording) ...[
+            const SizedBox(height: 12),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: _togglePlayback,
+                icon: Icon(
+                  _isPlaying
+                      ? Icons.pause_circle_outline
+                      : Icons.play_circle_outline,
+                  size: 18,
+                ),
+                label: Text(_isPlaying ? 'Pause Playback' : 'Play Recording'),
+              ),
+            ),
+          ],
         ],
       ),
-    ).animate().fadeIn(delay: 400.ms).slideY(begin: 0.1, end: 0);
+    );
   }
 }

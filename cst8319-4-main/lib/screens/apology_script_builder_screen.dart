@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'apology_guide_screen.dart';
 import '../theme.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:record/record.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class ApologyScriptBuilderScreen extends StatefulWidget {
   const ApologyScriptBuilderScreen({super.key});
@@ -13,6 +16,13 @@ class ApologyScriptBuilderScreen extends StatefulWidget {
 
 class _ApologyScriptBuilderScreenState
     extends State<ApologyScriptBuilderScreen> {
+  // Audio state variables matching File 1 exactly
+  final AudioRecorder _audioRecorder = AudioRecorder();
+  final AudioPlayer _audioPlayer = AudioPlayer();
+  String? _recordingPath;
+  bool _isRecording = false;
+  bool _isPlaying = false;
+
   // Step tracking
   int _currentStep = 0;
 
@@ -75,6 +85,72 @@ class _ApologyScriptBuilderScreenState
     'I am committed to being more mindful of your feelings.',
     'I promise to think before I act next time.',
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _audioPlayer.onPlayerComplete.listen((event) {
+      if (mounted) {
+        setState(() {
+          _isPlaying = false;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _audioRecorder.dispose();
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+
+  // Audio Actions using identical names and logic as File 1
+  Future<void> _toggleRecording() async {
+    if (_isRecording) {
+      final path = await _audioRecorder.stop();
+      setState(() {
+        _isRecording = false;
+        _recordingPath = path;
+      });
+      return;
+    }
+
+    if (await _audioRecorder.hasPermission()) {
+      await _audioRecorder.start(
+        const RecordConfig(encoder: AudioEncoder.opus),
+        path: '',
+      );
+      setState(() {
+        _isRecording = true;
+        _recordingPath = null;
+      });
+    } else {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Microphone permission is needed to record.'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _togglePlayback() async {
+    if (_recordingPath == null) return;
+
+    if (_isPlaying) {
+      await _audioPlayer.stop();
+      setState(() {
+        _isPlaying = false;
+      });
+      return;
+    }
+
+    await _audioPlayer.play(UrlSource(_recordingPath!));
+    setState(() {
+      _isPlaying = true;
+    });
+  }
 
   String _buildScript() {
     final parts = [
@@ -197,7 +273,7 @@ class _ApologyScriptBuilderScreenState
           Expanded(
             child: ListView(
               children:
-                  (step['options'] as List<String>).map((option) {
+              (step['options'] as List<String>).map((option) {
                 final isSelected = step['selected'] == option;
                 return GestureDetector(
                   onTap: () =>
@@ -308,6 +384,53 @@ class _ApologyScriptBuilderScreenState
               ),
             ),
           ),
+
+          // --- Khalil's Shared Audio Component Layout ---
+          const SizedBox(height: 16),
+          const Divider(),
+          const SizedBox(height: 12),
+          Text(
+            'Practice Out Loud',
+            style: GoogleFonts.nunito(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+              color: AppColors.textPrimary,
+            ),
+          ),
+          const SizedBox(height: 8),
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton.icon(
+              onPressed: _toggleRecording,
+              icon: Icon(
+                _isRecording
+                    ? Icons.stop_circle_outlined
+                    : Icons.mic_none_rounded,
+                size: 18,
+                color: _isRecording ? Colors.red : null,
+              ),
+              label: Text(
+                _isRecording ? 'Stop Recording' : 'Click to record and review',
+              ),
+            ),
+          ),
+          if (_recordingPath != null && !_isRecording) ...[
+            const SizedBox(height: 12),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: _togglePlayback,
+                icon: Icon(
+                  _isPlaying
+                      ? Icons.pause_circle_outline
+                      : Icons.play_circle_outline,
+                  size: 18,
+                ),
+                label: Text(_isPlaying ? 'Pause Playback' : 'Play Recording'),
+              ),
+            ),
+          ],
+
           const SizedBox(height: 12),
           SizedBox(
             width: double.infinity,
@@ -320,6 +443,7 @@ class _ApologyScriptBuilderScreenState
                 _selectedRegret = null;
                 _selectedAmends = null;
                 _selectedCommitment = null;
+                _recordingPath = null;
               }),
               child: const Text('Start Over'),
             ),
