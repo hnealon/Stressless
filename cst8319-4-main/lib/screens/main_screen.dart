@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:myapp/screens/home_screen_new.dart';
 import 'practice_screen.dart';
 import 'learn_screen.dart';
-import 'about_screen.dart';
+import 'apology_guide_screen.dart';
 import 'script_builder_screen.dart';
-import 'script_library_screen.dart';
 import 'apology_script_builder_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -22,9 +21,7 @@ class _MainScreenState extends State<MainScreen> {
     LearnScreen(),
     PracticeScreen(),
     ScriptBuilderScreen(),
-    ScriptLibraryScreen(),
-    ApologyScriptBuilderScreen(),
-    AboutScreen(),
+    ApologyGuideScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -47,27 +44,19 @@ class _MainScreenState extends State<MainScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book),
-            label: 'Learn',
+            label: 'Learn VS',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.fitness_center),
-            label: 'Practice',
+            label: 'Practice VS',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.edit_note),
             label: 'Build',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book),
-            label: 'Library',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.favorite_border),
-            label: 'Apology',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.info),
-            label: 'About',
+            label: 'Advanced',
           ),
         ],
         currentIndex: _selectedIndex,

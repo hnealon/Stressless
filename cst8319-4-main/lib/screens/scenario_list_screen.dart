@@ -6,13 +6,26 @@ import '../data/scenario_data.dart';
 import '../models/models.dart';
 import '../widgets/shared_widgets.dart';
 import 'session_screen.dart';
+import 'script_library_screen.dart';
+
+// The 4 general scenarios shown by default. Silence/withdrawal scenarios
+// (and any future emotion-specific Library content) are reached via the
+// "Here are more practice" button instead of appearing in this list.
+const List<String> _generalScenarioIds = [
+  'test-anxiety',
+  'left-out',
+  'sibling-anger',
+  'bedtime-fear',
+];
 
 class ScenarioListScreen extends StatelessWidget {
   const ScenarioListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final scenarios = scenarioData;
+    final scenarios = scenarioData
+        .where((s) => _generalScenarioIds.contains(s.id))
+        .toList();
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -44,10 +57,44 @@ class ScenarioListScreen extends StatelessWidget {
                   .fadeIn(delay: Duration(milliseconds: 100 + i * 80))
                   .slideY(begin: 0.1, end: 0);
             }),
+            const SizedBox(height: 12),
+            _MorePracticeButton(scenarioCount: scenarios.length),
           ],
         ),
       ),
     );
+  }
+}
+
+class _MorePracticeButton extends StatelessWidget {
+  final int scenarioCount;
+
+  const _MorePracticeButton({required this.scenarioCount});
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton.icon(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const ScriptLibraryScreen(),
+          ),
+        );
+      },
+      icon: const Icon(Icons.add_circle_outline_rounded, size: 18),
+      label: Text(
+        'Click here for more practice',
+        style: GoogleFonts.nunito(
+          fontSize: 14,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+      style: OutlinedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(vertical: 14),
+        minimumSize: const Size(double.infinity, 0),
+      ),
+    ).animate().fadeIn(delay: Duration(milliseconds: 100 + scenarioCount * 80));
   }
 }
 

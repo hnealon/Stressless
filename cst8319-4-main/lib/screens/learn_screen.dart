@@ -24,7 +24,7 @@ class LearnTopic {
 class LearnSection {
   final String heading;
   final String body;
-  final String? body2; // Optional second body
+  final String? body2;
   final List<String>? bullets;
   final String? callout;
   final bool showTableAfter;
@@ -39,57 +39,63 @@ class LearnSection {
   });
 }
 
-// --- Content ------------------------------------------------------------------
+// --- Overview sections (intro content) ---------------------------------------
 
-const List<LearnTopic> _topics = [
-  LearnTopic(
-    id: 'overview',
-    title: 'The EFFT Framework',
-    icon: Icons.hub_outlined,
-    color: Color(0xFF4A7C6F),
-    sections: [
-      LearnSection(
-        heading: 'A small shift can change the moment',
-        body:
-            'When children are stressed or distressed, their ability to think clearly and problem-solve becomes limited. Validation and support can help move things forward in a good way.',
-        callout:
-            'The validation and support framework is quick, learnable and can help bring your child\'s brain to a more flexible state.',
-        showTableAfter: true,
-      ),
-      LearnSection(
-        heading: 'What caregivers gain',
-        body:
-            'When you validate before you fix or reassure, something can shift for your child and for you.',
-        bullets: [
-          'More flexibility and cooperation over time',
-          'More confidence handling big emotions, yours and theirs',
-          'A stronger sense of connection, even in difficult moments',
-        ],
-      ),
-      LearnSection(
-        heading: 'The 45-second loop',
-        body:
-            'The full Validation and Support framework can take as little as 45 seconds. It has two steps: validate first, then support. That\'s it. The more you practise, the more natural it becomes.',
-      ),
-      LearnSection(
-        heading: 'Why Order Matters',
-        body:
-            'The order of operations is essential for success. Validation -> Emotional Support -> Practical Support follows the neural requirements for moving from a state of stress or threat to a state of increased connectedness and flexibility.',
-        body2:
-            'If the order is reversed (e.g., giving advice before validation), the brain’s threat detection remains active, and the thinking brain (or pre-frontal cortex) never fully engages, leading to unproductive conversation and increased distress.',
-      ),
-      LearnSection(
-        heading: 'Adapting the Framework',
-        body:
-            'We suggest you learn the framework, then adapt its delivery depending on your child’s personality, sensitivities, etc., including where they are at on the continuum of need:',
-        bullets: [
-          'Sometimes a quick validation + 1 because-statement can be enough to shift things in a meaningful direction. Other times, you might need to do a few rounds of because-statements, + emotional and practical support for your child to de-escalate and trust your efforts.',
-          '“Drive-thru” validation with just one because-statement (and nothing more) might be the place to start for some kids who feel awkward with validation or emotion-talk. \nWhichever is true for you, our suggestion is for you to learn the framework to acquire the skill anddevelop fluency and then the capacity for discernment in its application will come with time and practice.',
-        ],
-      ),
+const List<LearnSection> _overviewSections = [
+  LearnSection(
+    heading: 'A small shift can change the moment',
+    body:
+        'When children are stressed or distressed, their ability to think clearly and problem-solve becomes limited. '
+            'Validation and support can help move things forward in a good way.',
+    callout:
+        'The validation and support framework is quick, learnable and can help bring your child\'s brain to a more flexible state.',
+    showTableAfter: true,
+  ),
+  LearnSection(
+    heading: 'What caregivers gain',
+    body:
+        'When you validate before you fix or reassure, something can shift for your child and for you.',
+    bullets: [
+      'More flexibility and cooperation over time',
+      'More confidence handling big emotions, yours and theirs',
+      'A stronger sense of connection, even in difficult moments',
     ],
   ),
+  LearnSection(
+    heading: 'The 45-second loop',
+    body:
+        'The full Validation and Support framework can take as little as 45 seconds. '
+            'It has two steps: validate first, then support. That\'s it. The more you practise, the more natural it becomes.',
+  ),
+  LearnSection(
+    heading: 'Why Order Matters',
+    body:
+        'The order of operations is essential for success. '
+            'Validation \u2192 Emotional Support \u2192 Practical Support follows the neural requirements for moving from a state of stress '
+            'or threat to a state of increased connectedness and flexibility.',
+    body2:
+        'If the order is reversed (e.g., giving advice before validation), the brain\'s threat detection remains active, and the thinking '
+            'brain (or pre-frontal cortex) never fully engages, leading to unproductive conversation and increased distress.',
+  ),
+  LearnSection(
+    heading: 'Adapting the Framework',
+    body:
+        'We suggest you learn the framework, then adapt its delivery depending on your child\'s personality, sensitivities, etc., including '
+            'where they are at on the continuum of need:',
+    bullets: [
+      'Sometimes a quick validation + 1 because-statement can be enough to shift things in a meaningful direction. '
+          'Other times, you might need to do a few rounds of because-statements, + emotional and practical support for your child to de-escalate and '
+          'trust your efforts.',
+      '"Drive-thru" validation with just one because-statement (and nothing more) might be the place to start for some kids who feel '
+          'awkward with validation or emotion-talk.\nWhichever is true for you, our suggestion is for you to learn the framework to acquire the '
+          'skill and develop fluency, and then the capacity for discernment in its application will come with time and practice.',
+    ],
+  ),
+];
 
+// --- Topics (formerly subtopics, now flattened onto the main page) ----------
+
+const List<LearnTopic> _topics = [
   LearnTopic(
     id: 'automatic-responses',
     title: 'Automatic Responses',
@@ -99,7 +105,8 @@ const List<LearnTopic> _topics = [
       LearnSection(
         heading: 'What is an automatic response?',
         body:
-            'It is common for caregivers to engage in automatic responses when a child is upset. These are deeply conditioned, and can feel natural, but they aren\'t always effective and can sometimes cause problems.',
+            'It is common for caregivers to engage in automatic responses when a child is upset. These are deeply conditioned, '
+                'and can feel natural, but they aren\'t always effective and can sometimes cause problems.',
       ),
       LearnSection(
         heading: 'Common automatic responses',
@@ -119,11 +126,12 @@ const List<LearnTopic> _topics = [
       LearnSection(
         heading: 'Why noticing matters',
         body:
-            'The first step in reducing your reliance on automatic responses is simply awareness. Once you notice your tendency to go there, you have a choice to try validation instead. Once validation opens the door, you can then consider one of the above-responses and it is likely to go better.',
+            'The first step in reducing your reliance on automatic responses is simply awareness. Once you notice your tendency to go there, you '
+                'have a choice to try validation instead. Once validation opens the door, you can then consider one of the above-responses and it is '
+                'likely to go better.',
       ),
     ],
   ),
-
   LearnTopic(
     id: 'validation',
     title: 'Step 1: Validation',
@@ -133,21 +141,26 @@ const List<LearnTopic> _topics = [
       LearnSection(
         heading: 'Help Their Brain Feel Safe',
         body:
-            'When a child is upset, no matter the reason, their brain becomes activated and they can\'t think (as) clearly. Validation sends a simple signal:” I get it, I\'m not against you”. Especially when using a tentative, caring tone ("I can understand you might be frustrated because..."), a validating statementhelps them begin to process what they\'re experiencing as well. When they feel your genuine attempt to understand what’s going on for them, even if you are off the mark, they are more likely to be more open and maybe even more flexible too.',
+            'When a child is upset, no matter the reason, their brain becomes activated and they can\'t think (as) clearly. '
+                'Validation sends a simple signal: "I get it, I\'m not against you". Especially when using a tentative, '
+                'caring tone ("I can understand you might be frustrated because..."), a validating statement helps them begin to '
+                'process what they\'re experiencing as well. When they feel your genuine attempt to understand what\'s going on for them, even if you '
+                'are off the mark, they are more likely to be more open and maybe even more flexible too.',
       ),
       LearnSection(
         heading: 'What validation really means',
         body:
-            'Validation involves making an effort to understand your child\'s experience, whether it\'s an emotion, a thought, an urge, a behaviour, or a state, and from their point of view.',
+            'Validation involves making an effort to understand your child\'s experience, whether it\'s an emotion, a thought, an urge, '
+                'a behaviour, or a state, and from their point of view.',
         callout:
             'You\'re not necessarily agreeing with them. You\'re showing you get why it makes sense from inside of their experience. That opens the door.',
       ),
       LearnSection(
         heading: 'More than just feelings',
         body:
-            'Most caregivers think validation means has to do with emotions. But you can validate almost anything:',
+            'Most caregivers think validation has to do with emotions. But you can validate almost anything:',
         bullets: [
-          'Feelings: “I feel sad, mad, ashamed, lonely, afraid”',
+          'Feelings: "I feel sad, mad, ashamed, lonely, afraid"',
           'Attitudes: "This is stupid." "There\'s no point."',
           'Urges: "I want to quit." "I don\'t want to go."',
           'Behaviours: outbursts, withdrawal, aggression',
@@ -157,7 +170,8 @@ const List<LearnTopic> _topics = [
       LearnSection(
         heading: 'How to build a validation statement',
         body:
-            'Start with a sentence starter, add a verb, and then three because-statements to convey your effort to understand their experience from their point of view.',
+            'Start with a sentence starter, add a verb, and then three because-statements '
+                'to convey your effort to understand their experience from their point of view.',
       ),
       LearnSection(
         heading: 'Sentence starters',
@@ -173,8 +187,9 @@ const List<LearnTopic> _topics = [
       ),
       LearnSection(
         heading: 'Followed by a verb',
-        body: 'feel / think / want to / don’t want to / not want to',
-        callout: 'Example: "I can imagine you don’t want to stop playing on your tablet..."',
+        body: 'feel / think / want to / don\'t want to / not want to',
+        callout:
+            'Example: "I can imagine you don\'t want to stop playing on your tablet..."',
       ),
       LearnSection(
         heading: 'The power of because-statements',
@@ -183,14 +198,14 @@ const List<LearnTopic> _topics = [
         bullets: [
           'Aim for 3 because-statements',
           'End each one with a downward tone, not a question',
-          'The most powerful ones reflect your child’s normal urge to increase good feelings, decrease hard feelings and increase feelings of connection                When in doubt, use the 3 Hs: "it\'s hard", "it\'s heavy", "it hurts"',
+          'The most powerful ones reflect your child\'s normal urge to increase good feelings, decrease hard feelings and increase feelings of connection. '
+              'When in doubt, use the 3 Hs: "it\'s hard", "it\'s heavy", "it hurts"',
         ],
         callout:
             '"No wonder you feel that way because it\'s hard, and it\'s heavy, and it might really hurt."',
       ),
     ],
   ),
-
   LearnTopic(
     id: 'emotional_support',
     title: 'Step 2A: Emotional Support',
@@ -200,10 +215,11 @@ const List<LearnTopic> _topics = [
       LearnSection(
         heading: 'Build the Bridge',
         body:
-            'Once they\'re a little calmer, or feel like you\'re on the same team, they need to feel your warmth before they can open up further. Communications of comfort, encouragement, reassurance and togetherness are great options. Without this step, any suggestion you offer may feel like pressure, or unwelcome, or just too soon.',
+            'Once they\'re a little calmer, or feel like you\'re on the same team, they need to feel your warmth before they can open up further. '
+                'Communications of comfort, encouragement, reassurance and togetherness are great options. Without this step, any suggestion you offer may feel like pressure, or unwelcome, or just too soon.',
       ),
       LearnSection(
-        heading: 'Choose 2–3 of these options',
+        heading: 'Choose 2\u20133 of these options',
         body:
             'These emotional support sentences will let your child know that they are not alone.',
         bullets: [
@@ -216,11 +232,11 @@ const List<LearnTopic> _topics = [
           'Space with a plan - "Why don\'t we take 5 and come back to it?"',
         ],
         callout:
-            'When it comes to the number of emotional sentences, follow your child\'s lead. Some moments call for a one or two emotional support sentences, others for longer presence.',
+            'When it comes to the number of emotional sentences, follow your child\'s lead. '
+                'Some moments call for one or two emotional support sentences, others for longer presence.',
       ),
     ],
   ),
-
   LearnTopic(
     id: 'practical_support',
     title: 'Step 2B: Practical Support',
@@ -230,11 +246,12 @@ const List<LearnTopic> _topics = [
       LearnSection(
         heading: 'Getting Practical',
         body:
-            'Practical support works best once your child feels heard and feels connected. Offered too early, even the most helpful suggestion can feel like you\'re skipping over their experience, and their walls can go up or they can retreat in their shell.. When a child feels both understood and feels connected, even if just a bit, they become more open to thinking through the problem with you, or hearing what you have to say - whether that\'s finding a solution, trying something new, or simply shifting gears with a transition.',
+            'Practical support works best once your child feels heard and feels connected. '
+                'Offered too early, even the most helpful suggestion can feel like you\'re skipping over their experience, and their walls can go up or they can retreat in their shell. When a child feels both understood and connected, even if just a bit, they become more open to thinking through the problem with you, or hearing what you have to say, whether that\'s finding a solution, trying something new, or simply shifting gears with a transition.',
       ),
       LearnSection(
         heading: 'Types of practical support',
-        body: 'Choose 1–2 of these options:',
+        body: 'Choose 1\u20132 of these options:',
         bullets: [
           'A behavioural plan or next step',
           'A soothing activity (a walk, music, a movie)',
@@ -246,7 +263,8 @@ const List<LearnTopic> _topics = [
       LearnSection(
         heading: 'Sometimes nothing more is needed',
         body:
-            'Once a child feels validated and emotionally supported, the moment may already be complete. resence alone can be the most powerful thing you offer.',
+            'Once a child feels validated and emotionally supported, '
+                'the moment may already be complete. Presence alone can be the most powerful thing you offer.',
         callout:
             '"Right now, I can just be with you." This is a complete and valid response.',
       ),
@@ -261,14 +279,15 @@ const List<LearnTopic> _topics = [
       LearnSection(
         heading: 'Questions are great... and...',
         body:
-            'This framework uses educated guesses (e.g. "I can imagine you might feel...") instead of questions ("How do you feel?") for a specific reason. Here are some potential benefits of making educated guesses or suggestions:',
+            'This framework uses educated guesses (e.g. "I can imagine you might feel...") '
+                'instead of questions ("How do you feel?") for a specific reason. Here are some potential benefits of making educated guesses or suggestions:',
       ),
       LearnSection(
         heading: 'Benefits for Validation',
         body: 'Suggestions can be helpful when a child has:',
         bullets: [
           'A limited vocabulary for emotions or lacks clarity about their internal experience',
-          'Clarity about their internal experience, but feels embarassed expressing what’s inside',
+          'Clarity about their internal experience, but feels embarrassed expressing what\'s inside',
         ],
       ),
       LearnSection(
@@ -276,46 +295,16 @@ const List<LearnTopic> _topics = [
         body: 'Suggestions can also be helpful for support when a child has:',
         bullets: [
           'A lack of clarity about what they need',
-          'Clarity about needing support, but feels embarassed asking for it',
+          'Clarity about needing support, but feels embarrassed asking for it',
         ],
         callout:
             'That said, questions are not wrong. Feel free to use questions if they feel useful to you and your child.',
       ),
     ],
   ),
-  LearnTopic(
-    id: 'therapeutic-apology',
-    title: 'Therapeutic Apology',
-    icon: Icons.favorite_outline,
-    color: Color(0xFF6C63FF),
-    sections: [
-      LearnSection(
-        heading: 'What is a Therapeutic Apology?',
-        body:
-        'Placeholder content. This text will be replaced with client-provided material.',
-      ),
-      LearnSection(
-        heading: 'Step 1: Taking Responsibility',
-        body:
-        'Placeholder explanation of taking responsibility.',
-      ),
-      LearnSection(
-        heading: 'Step 2: Acknowledging Impact',
-        body:
-        'Placeholder explanation of acknowledging impact.',
-      ),
-      LearnSection(
-        heading: 'Step 3: Repair and Reconnection',
-        body:
-        'Placeholder explanation of repair and reconnection.',
-      ),
-    ],
-  ),
 ];
 
-
-
-// --- Main Screen --------------------------------------------------------------
+// --- Main Screen -------------------------------------------------------------
 
 class LearnScreen extends StatelessWidget {
   const LearnScreen({super.key});
@@ -327,7 +316,7 @@ class LearnScreen extends StatelessWidget {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            // --- Header ---------------------------------------
+            // --- Header -------------------------------------------
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(24, 28, 24, 8),
@@ -335,7 +324,7 @@ class LearnScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'LEARN',
+                      'LEARN VS',
                       style: GoogleFonts.nunito(
                         fontSize: 11,
                         fontWeight: FontWeight.w700,
@@ -345,7 +334,7 @@ class LearnScreen extends StatelessWidget {
                     ).animate().fadeIn(duration: 300.ms),
                     const SizedBox(height: 4),
                     Text(
-                      'The EFFT framework,\nexplained.',
+                      'Validation & Support Framework',
                       style: GoogleFonts.cormorantGaramond(
                         fontSize: 34,
                         fontWeight: FontWeight.w600,
@@ -355,7 +344,7 @@ class LearnScreen extends StatelessWidget {
                     ).animate().fadeIn(delay: 80.ms, duration: 400.ms),
                     const SizedBox(height: 10),
                     Text(
-                      'Tap any topic to learn more. Each section is a short, focused read.',
+                      'Everything you need to learn the framework, all on one page.',
                       style: GoogleFonts.nunito(
                         fontSize: 14,
                         color: AppColors.textSecondary,
@@ -383,7 +372,8 @@ class LearnScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'These scripts were developed within Emotion-Focused Family Therapy (EFFT), and it is advised that this content be explored with the guidance of a therapist trained in this model. An EFFT therapist can help you identify which scripts are most relevant to your child and situation, work through any blocks that might get in the way of connecting with your child emotionally, and adapt the language to feel natural for your family. They can also support you through what can be a meaningful and sometimes emotionally complex process. This app was meant to serve as a resource alongside that professional support.',
+                            'These scripts were developed within Emotion-Focused Family Therapy (EFFT), and it is '
+                                'advised that this content be explored with the guidance of a therapist trained in this model. An EFFT therapist can help you identify which scripts are most relevant to your child and situation, work through any blocks that might get in the way of connecting with your child emotionally, and adapt the language to feel natural for your family. They can also support you through what can be a meaningful and sometimes emotionally complex process. This app was meant to serve as a resource alongside that professional support.',
                             style: GoogleFonts.nunito(
                               fontSize: 13,
                               color: AppColors.textSecondary,
@@ -399,13 +389,28 @@ class LearnScreen extends StatelessWidget {
               ),
             ),
 
-            // --- Topic cards -----------------------------------
+            // --- Overview sections (intro content) -----------------
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
-                  final topic = _topics[index];
-                  return _TopicCard(topic: topic, index: index);
+                  final section = _overviewSections[index];
+                  return _SectionBlock(
+                    section: section,
+                    accentColor: AppColors.primary,
+                    index: index,
+                  );
+                }, childCount: _overviewSections.length),
+              ),
+            ),
+
+            // --- Topics, flattened directly onto the page ----------
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate((context, topicIndex) {
+                  final topic = _topics[topicIndex];
+                  return _TopicBlock(topic: topic, topicIndex: topicIndex);
                 }, childCount: _topics.length),
               ),
             ),
@@ -418,160 +423,61 @@ class LearnScreen extends StatelessWidget {
   }
 }
 
-// --- Topic Card (list item) ---------------------------------------------------
+// --- Topic Block (formerly a separate detail screen, now inline) ------------
 
-class _TopicCard extends StatelessWidget {
+class _TopicBlock extends StatelessWidget {
   final LearnTopic topic;
-  final int index;
+  final int topicIndex;
 
-  const _TopicCard({required this.topic, required this.index});
+  const _TopicBlock({required this.topic, required this.topicIndex});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => _TopicDetailScreen(topic: topic)),
-        );
-      },
-      child:
-          Container(
-                margin: const EdgeInsets.only(bottom: 12),
-                padding: const EdgeInsets.all(18),
+    return Padding(
+      padding: const EdgeInsets.only(top: 8, bottom: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Divider(color: AppColors.divider, height: 32),
+          Row(
+            children: [
+              Container(
+                width: 44,
+                height: 44,
                 decoration: BoxDecoration(
-                  color: AppColors.surface,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: AppColors.cardBorder),
+                  color: topic.color.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 46,
-                      height: 46,
-                      decoration: BoxDecoration(
-                        color: topic.color.withAlpha(20),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Icon(topic.icon, color: topic.color, size: 22),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            topic.title,
-                            style: GoogleFonts.nunito(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.textPrimary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      size: 14,
-                      color: AppColors.textLight,
-                    ),
-                  ],
-                ),
-              )
-              .animate()
-              .fadeIn(delay: Duration(milliseconds: 100 + index * 70))
-              .slideX(begin: 0.06, end: 0),
-    );
-  }
-}
-
-// --- Topic Detail Screen ------------------------------------------------------
-
-class _TopicDetailScreen extends StatelessWidget {
-  final LearnTopic topic;
-
-  const _TopicDetailScreen({required this.topic});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(topic.title),
-      ),
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-          children: [
-            // --- Topic header ---------------------------------
-            Row(
-              children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: topic.color.withAlpha(20),
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: Icon(topic.icon, color: topic.color, size: 26),
-                ),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        topic.title,
-                        style: GoogleFonts.cormorantGaramond(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.textPrimary,
-                        ),
-                      ),
-                    ],
+                child: Icon(topic.icon, color: topic.color, size: 22),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  topic.title,
+                  style: GoogleFonts.cormorantGaramond(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
                   ),
                 ),
-              ],
-            ).animate().fadeIn(duration: 300.ms),
-
-            const SizedBox(height: 8),
-            Divider(color: AppColors.divider, height: 32),
-
-            // --- Sections -------------------------------------
-            ...topic.sections.asMap().entries.map((entry) {
-              final i = entry.key;
-              final section = entry.value;
-              return _SectionBlock(
-                section: section,
-                accentColor: topic.color,
-                index: i,
-              );
-            }),
-
-            const SizedBox(height: 16),
-
-            OutlinedButton.icon(
-              onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.arrow_back_rounded, size: 16),
-              label: const Text('Back to topics'),
-            ).animate().fadeIn(delay: 400.ms, duration: 300.ms),
-
-            const SizedBox(height: 24),
-          ],
-        ),
+              ),
+            ],
+          ).animate().fadeIn(duration: 300.ms),
+          const SizedBox(height: 16),
+          ...topic.sections.asMap().entries.map((entry) {
+            return _SectionBlock(
+              section: entry.value,
+              accentColor: topic.color,
+              index: entry.key,
+            );
+          }),
+        ],
       ),
     );
   }
 }
 
-// --- Section Block ------------------------------------------------------------
+// --- Section Block -----------------------------------------------------------
 
 class _SectionBlock extends StatelessWidget {
   final LearnSection section;
@@ -602,10 +508,21 @@ class _SectionBlock extends StatelessWidget {
 
     Widget buildTheActualTable() {
       final rows = [
-        ['Step 1', 'Validation', '↓ Amygdala', 'From Threat to Safe'],
-        ['Step 2A', 'Emotional Support', '↑ Oxytocin (Relational)', 'From Safe to Connected'],
-        ['Step 2B', 'Practical Support', '↑ Prefrontal Cortex (Cognitive)', 'From Connected to Active'],
+        ['Step 1', 'Validation', '\u2193 Amygdala', 'From Threat to Safe'],
+        [
+          'Step 2A',
+          'Emotional Support',
+          '\u2191 Oxytocin (Relational)',
+          'From Safe to Connected',
+        ],
+        [
+          'Step 2B',
+          'Practical Support',
+          '\u2191 Prefrontal Cortex (Cognitive)',
+          'From Connected to Active',
+        ],
       ];
+
       return Table(
         border: TableBorder.all(color: AppColors.cardBorder, width: 1.5),
         columnWidths: const {
@@ -624,123 +541,130 @@ class _SectionBlock extends StatelessWidget {
               buildTableCell('State', isHeader: true),
             ],
           ),
-          ...rows.map((row) => TableRow(
-                children: [
-                  buildTableCell(row[0]),
-                  buildTableCell(row[1]),
-                  buildTableCell(row[2]),
-                  buildTableCell(row[3]),
-                ],
-              ))
+          ...rows.map(
+            (row) => TableRow(
+              children: [
+                buildTableCell(row[0]),
+                buildTableCell(row[1]),
+                buildTableCell(row[2]),
+                buildTableCell(row[3]),
+              ],
+            ),
+          ),
         ],
       );
     }
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            section.heading,
-            style: GoogleFonts.nunito(
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-              color: AppColors.textPrimary,
-            ),
-          ),
-          const SizedBox(height: 8),
-          if (section.body.isNotEmpty)
-            Text(
-              section.body,
-              style: GoogleFonts.nunito(
-                fontSize: 14,
-                color: AppColors.textSecondary,
-                height: 1.7,
-              ),
-            ),
-          if (section.body2 != null) ...[
-            const SizedBox(height: 8),
-            Text(
-              section.body2!,
-              style: GoogleFonts.nunito(
-                fontSize: 14,
-                color: AppColors.textSecondary,
-                height: 1.7,
-              ),
-            ),
-          ],
-          if (section.bullets != null) ...[
-            const SizedBox(height: 10),
-            ...section.bullets!.map(
-              (bullet) => Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 6,
-                      height: 6,
-                      margin: const EdgeInsets.only(top: 6, right: 10),
-                      decoration: BoxDecoration(
-                        color: accentColor,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        bullet,
-                        style: GoogleFonts.nunito(
-                          fontSize: 14,
-                          color: AppColors.textSecondary,
-                          height: 1.6,
-                        ),
-                      ),
-                    ),
-                  ],
+          margin: const EdgeInsets.only(bottom: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                section.heading,
+                style: GoogleFonts.nunito(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.textPrimary,
                 ),
               ),
-            ),
-          ],
-          if (section.callout != null) ...[
-            const SizedBox(height: 12),
-            Container(
-              padding: const EdgeInsets.all(14),
-              decoration: BoxDecoration(
-                color: accentColor.withAlpha(20),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: accentColor.withAlpha(50)),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.format_quote_rounded,
-                    color: accentColor,
-                    size: 18,
+              const SizedBox(height: 8),
+              if (section.body.isNotEmpty)
+                Text(
+                  section.body,
+                  style: GoogleFonts.nunito(
+                    fontSize: 14,
+                    color: AppColors.textSecondary,
+                    height: 1.7,
                   ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Text(
-                      section.callout!,
-                      style: GoogleFonts.nunito(
-                        fontSize: 14,
-                        fontStyle: FontStyle.italic,
-                        color: AppColors.textPrimary,
-                        height: 1.6,
-                      ),
+                ),
+              if (section.body2 != null) ...[
+                const SizedBox(height: 8),
+                Text(
+                  section.body2!,
+                  style: GoogleFonts.nunito(
+                    fontSize: 14,
+                    color: AppColors.textSecondary,
+                    height: 1.7,
+                  ),
+                ),
+              ],
+              if (section.bullets != null) ...[
+                const SizedBox(height: 10),
+                ...section.bullets!.map(
+                  (bullet) => Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 6,
+                          height: 6,
+                          margin: const EdgeInsets.only(top: 6, right: 10),
+                          decoration: BoxDecoration(
+                            color: accentColor,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            bullet,
+                            style: GoogleFonts.nunito(
+                              fontSize: 14,
+                              color: AppColors.textSecondary,
+                              height: 1.6,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          ],
-          if (section.showTableAfter) ...[
-            const SizedBox(height: 16),
-            buildTheActualTable(),
-          ],
-        ],
-      ),
-    ).animate().fadeIn(delay: Duration(milliseconds: 80 + index * 60)).slideY(begin: 0.05, end: 0);
+                ),
+              ],
+              if (section.callout != null) ...[
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: accentColor.withValues(alpha: 0.08),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: accentColor.withValues(alpha: 0.2),
+                    ),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.format_quote_rounded,
+                        color: accentColor,
+                        size: 18,
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          section.callout!,
+                          style: GoogleFonts.nunito(
+                            fontSize: 14,
+                            fontStyle: FontStyle.italic,
+                            color: AppColors.textPrimary,
+                            height: 1.6,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+              if (section.showTableAfter) ...[
+                const SizedBox(height: 16),
+                buildTheActualTable(),
+              ],
+            ],
+          ),
+        )
+        .animate()
+        .fadeIn(delay: Duration(milliseconds: 80 + index * 60))
+        .slideY(begin: 0.05, end: 0);
   }
 }
