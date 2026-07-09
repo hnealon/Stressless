@@ -172,93 +172,159 @@ class _ApologyScriptBuilderScreenState
   }
 
   String _buildScript() {
-    final buffer = StringBuffer();
-
-    // Step 1
-    buffer.writeln(
-      // REPLACE WITH WORKSHEET TEXT
-      "I want to talk to you about ${_injuryController.text} and how hard "
-          "that must have been for you. Especially because "
-          "${_uniqueImpactController.text}.",
-    );
-    buffer.writeln();
-
-    // Step 2
-    buffer.writeln(
-      "I can imagine that you might have felt scared because "
-          "${_scaredBecause1Controller.text} and because "
-          "${_scaredBecause2Controller.text}.",
-    );
-    buffer.writeln();
-    buffer.writeln(
-      "I can also imagine you might have felt sad because "
-          "${_sadBecause1Controller.text} and because "
-          "${_sadBecause2Controller.text}.",
-    );
-    buffer.writeln();
-    buffer.writeln(
-      "It would have made sense for you to feel ashamed because "
-          "${_ashamedBecause1Controller.text} and because "
-          "${_ashamedBecause2Controller.text}.",
-    );
-    buffer.writeln();
-    buffer.writeln(
-      "I can imagine you would have also felt angry because "
-          "${_angryBecause1Controller.text} and because "
-          "${_angryBecause2Controller.text}.",
-    );
-    if (_lonelyOptionalController.text.trim().isNotEmpty) {
-      buffer.writeln();
-      buffer.writeln(_lonelyOptionalController.text);
+    // Helper: joins a list of non-empty pieces with " and " between them.
+    // Returns empty string if nothing has been filled in.
+    String joinAnd(List<String> pieces) {
+      final clean = pieces.map((p) => p.trim()).where((p) => p.isNotEmpty).toList();
+      if (clean.isEmpty) return '';
+      if (clean.length == 1) return clean.first;
+      if (clean.length == 2) return '${clean[0]} and ${clean[1]}';
+      return '${clean.sublist(0, clean.length - 1).join(', ')}, and ${clean.last}';
     }
-    buffer.writeln();
 
-    // Step 3
-    buffer.writeln(_selectedApology);
-    buffer.writeln();
+    // Helper: builds one emotion sentence, or returns null if both fields are empty.
+    String? emotionSentence(String opener, String because1, String because2) {
+      final joined = joinAnd([because1, because2]);
+      if (joined.isEmpty) return null;
+      return '$opener because $joined.';
+    }
 
-    // Step 4
-    buffer.writeln(
-      "I can see now that what you needed from me was "
-          "${_whatTheyNeededController.text} and "
-          "${_whatNeeded2Controller.text} and "
-          "${_whatNeeded3Controller.text}.\n\n"
-          "Starting today, I will ${_whatWillChangeController.text} and "
-          "${_willChange2Controller.text}. I know it won't always go perfectly, "
-          "but I am committed to working on this.",
+    final sections = <String>[];
+
+    // Step 1 - Identify the injury
+    sections.add(
+      'I want to talk to you about ${_injuryController.text.trim()} '
+          'and how hard that must have been for you. '
+          'Especially because ${_uniqueImpactController.text.trim()}.',
     );
-    buffer.writeln();
 
-    // Step 5
-    buffer.writeln(
-      "${_reactionStarters[_selectedReactionType] ?? ''} "
-          "${_reactionContinuationController.text}\n\n"
-          "And I want you to know - $_selectedApology. "
-          "I see now that what you needed from me instead was "
-          "${_repeatNeeded1Controller.text} and "
-          "${_repeatNeeded2Controller.text} and "
-          "${_repeatNeeded3Controller.text}. "
-          "Starting today I will ${_repeatWill1Controller.text} and "
-          "${_repeatWill2Controller.text}.",
+    // Step 2 - Validate emotions (only include ones the user filled in)
+    final emotionLines = <String>[];
+
+    final scared = emotionSentence(
+      'I can imagine that you might have felt scared',
+      _scaredBecause1Controller.text,
+      _scaredBecause2Controller.text,
     );
-    // Step 6
+    if (scared != null) emotionLines.add(scared);
+
+    final sad = emotionSentence(
+      'I can also imagine you might have felt sad',
+      _sadBecause1Controller.text,
+      _sadBecause2Controller.text,
+    );
+    if (sad != null) emotionLines.add(sad);
+
+    final ashamed = emotionSentence(
+      'It would have made sense for you to feel ashamed',
+      _ashamedBecause1Controller.text,
+      _ashamedBecause2Controller.text,
+    );
+    if (ashamed != null) emotionLines.add(ashamed);
+
+    final angry = emotionSentence(
+      'I can imagine you would have also felt angry',
+      _angryBecause1Controller.text,
+      _angryBecause2Controller.text,
+    );
+    if (angry != null) emotionLines.add(angry);
+
+    final lonely = _lonelyOptionalController.text.trim();
+    if (lonely.isNotEmpty) emotionLines.add(lonely);
+
+    if (emotionLines.isNotEmpty) {
+      sections.add(emotionLines.join('\n\n'));
+    }
+
+    // Step 3 - Apology
+    if (_selectedApology.isNotEmpty) {
+      sections.add(_selectedApology);
+    }
+
+    // Step 4 - What they needed + what will change
+    final neededList = joinAnd([
+      _whatTheyNeededController.text,
+      _whatNeeded2Controller.text,
+      _whatNeeded3Controller.text,
+    ]);
+    final willChangeList = joinAnd([
+      _whatWillChangeController.text,
+      _willChange2Controller.text,
+    ]);
+
+    final step4Parts = <String>[];
+    if (neededList.isNotEmpty) {
+      step4Parts.add('I can see now that what you needed from me was $neededList.');
+    }
+    if (willChangeList.isNotEmpty) {
+      step4Parts.add(
+        'Starting today, I will $willChangeList. '
+            "I know it won't always go perfectly, but I am committed to working on this.",
+      );
+    }
+    if (step4Parts.isNotEmpty) {
+      sections.add(step4Parts.join('\n\n'));
+    }
+
+    // Step 5 - Reaction + repeat of 3 & 4
+    final step5Parts = <String>[];
+
+    final reactionStarter = _reactionStarters[_selectedReactionType] ?? '';
+    final reactionContinuation = _reactionContinuationController.text.trim();
+    final reactionLine = [
+      reactionStarter,
+      reactionContinuation,
+    ].where((s) => s.isNotEmpty).join(' ');
+    if (reactionLine.isNotEmpty) {
+      step5Parts.add(reactionLine);
+    }
+
+    if (_selectedApology.isNotEmpty) {
+      step5Parts.add('And I want you to know - $_selectedApology');
+    }
+
+    final repeatNeededList = joinAnd([
+      _repeatNeeded1Controller.text,
+      _repeatNeeded2Controller.text,
+      _repeatNeeded3Controller.text,
+    ]);
+    if (repeatNeededList.isNotEmpty) {
+      step5Parts.add(
+        'I see now that what you needed from me instead was $repeatNeededList.',
+      );
+    }
+
+    final repeatWillList = joinAnd([
+      _repeatWill1Controller.text,
+      _repeatWill2Controller.text,
+    ]);
+    if (repeatWillList.isNotEmpty) {
+      step5Parts.add('Starting today I will $repeatWillList.');
+    }
+
+    if (step5Parts.isNotEmpty) {
+      sections.add(step5Parts.join('\n\n'));
+    }
+
+    // Step 6 - Optional add-ons
     if (_selectedAddOn == 'A') {
-      buffer.writeln(
+      sections.add(
         "Your experience matters to me, and I'm here to listen whenever you're ready. "
             "It could be now, two weeks from now, or a year from now. "
             "I want to be here for you in a different way.",
       );
     } else if (_selectedAddOn == 'B') {
-      buffer.writeln(
+      sections.add(
         "If it would help to hear a little more about why things happened the way they did, "
             "I'm happy to share that. But not everyone wants that - and it's completely okay if you don't. "
             "Either way, it doesn't change that it wasn't what you needed, and I see that now.",
       );
-    } else if (_selectedAddOn == 'C' && _customAddOnController.text.trim().isNotEmpty) {
-      buffer.writeln(_customAddOnController.text);
+    } else if (_selectedAddOn == 'C' &&
+        _customAddOnController.text.trim().isNotEmpty) {
+      sections.add(_customAddOnController.text.trim());
     }
 
-    return buffer.toString().trim();
+    return sections.join('\n\n');
   }
 
   @override
