@@ -131,7 +131,7 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
 'script': 'VALIDATION (Choose 3):\n'
 '• It makes sense that you\'d react right now because this situation brings up something hard that happened before.\n'
 '• ...because when something hurt you in the past, it can come rushing back in moments like this.\n'
-'• ...because your body and brain remember painful things, even when you\'d rather they didn't.\n'
+'• ...because your body and brain remember painful things, even when you\'d rather they didn\'t.\n'
 '• ...because upset feelings can sometimes be a way of saying "I don\'t want this to happen again".\n'
 '• ...because you\'ve been through some hard things, and that leaves a mark - and that is not your fault.\n\n'
 'EMOTIONAL SUPPORT (Choose 2):\n'
