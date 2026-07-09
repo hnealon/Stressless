@@ -263,16 +263,6 @@ You don't need to address everything at once. A therapeutic apology focused on o
 ''',
             ),
 
-            _InfoCard(
-              title: 'The 5 Key Ingredients',
-              body: '''
-The therapeutic apology has a structure - and the structure matters. Each part does something specific, and the order is intentional. This is the framework you'll use in the script builder that follows.
-''',
-            ),
-            const SizedBox(height: 32),
-            const Divider(),
-            const SizedBox(height: 24),
-
             // Section 6
             Text(
               'A Few Things to Keep in Mind',
@@ -409,12 +399,6 @@ The therapeutic apology has a structure - and the structure matters. Each part d
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Build your personal apology script',
-                    style: AppTextStyles.heading.copyWith(fontSize: 18),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
                     'Walk through each step one at a time and choose phrases that feel true to you. Your script will be ready to copy or read aloud.',
                     style: AppTextStyles.body.copyWith(
                       color: Colors.grey.shade600,
@@ -440,7 +424,7 @@ The therapeutic apology has a structure - and the structure matters. Each part d
                         size: 20,
                       ),
                       label: const Text(
-                        'Now let\'s make your apology script',
+                        'Build your personal apology script.',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 15,
