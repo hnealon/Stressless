@@ -36,7 +36,6 @@ class HomeScreenNew extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Page header, mirrors the "What is StressLess?" header style on About
             Text(
               'Welcome to StressLess',
               style: textTheme.headlineLarge,
@@ -47,6 +46,34 @@ class HomeScreenNew extends StatelessWidget {
               style: textTheme.bodyLarge,
             ).animate().fadeIn(delay: 200.ms),
             const SizedBox(height: 24),
+
+            const SizedBox(height: 24),
+
+            // Card 0: What is StressLess? (moved from About, Adele-approved content)
+            _buildInfoCard(
+              context,
+              title: 'What is StressLess?',
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'StressLess is a mobile learning tool designed to help caregivers practice emotionally supportive responses to children experiencing stress or distress.',
+                    style: textTheme.bodyLarge,
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    'The application uses short scenario-based practice sessions based on the emotional support module of Emotion-Focused Family Therapy (EFFT).',
+                    style: textTheme.bodyLarge,
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    'The goal is to help caregivers build new communication habits through short, repeatable practice sessions.',
+                    style: textTheme.bodyLarge,
+                  ),
+                ],
+              ),
+            ).animate().fadeIn(delay: 250.ms),
+            const SizedBox(height: 20),
 
             // Card 1: Welcome / the problem this app addresses
             _buildInfoCard(
@@ -128,16 +155,6 @@ class HomeScreenNew extends StatelessWidget {
             ).animate().fadeIn(delay: 600.ms),
 
             const SizedBox(height: 20),
-
-            // NOTE: This card predates Adele's June 22 content and was NOT sourced from her documents.
-            _buildInfoCard(
-              context,
-              title: 'Why StressLess?',
-              child: Text(
-                'Caregivers often learn emotional support strategies through workshops or educational materials, but applying these techniques in stressful moments can be difficult.\n\nStressLess helps caregivers rehearse supportive responses through short, structured practice scenarios.',
-                style: textTheme.bodyMedium,
-              ),
-            ).animate().fadeIn(delay: 650.ms),
 
             const SizedBox(height: 32),
             const Divider(),
