@@ -134,7 +134,7 @@ class HomeScreenNew extends StatelessWidget {
             // Card 4: Companion to clinician support, and closing reassurance
             _buildInfoCard(
               context,
-              title: 'A companion, not a replacement',
+              title: 'A companion to support your effort',
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -154,7 +154,7 @@ class HomeScreenNew extends StatelessWidget {
               ),
             ).animate().fadeIn(delay: 600.ms),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 20), 
 
             const SizedBox(height: 32),
             const Divider(),
