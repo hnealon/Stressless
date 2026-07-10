@@ -114,8 +114,6 @@ class _ApologyGuideScreenState extends State<ApologyGuideScreen> {
               'Some kids will want to hear that your intentions were good, or at least not bad, as it can provide them with a sense of comfort. Other kids will want to focus solely on the impact, and any focus on intention can actually feel bad. Both are normal and valid experiences, so it\u2019s important to be flexible and responsive to what might feel best for your child.',
         ),
       ],
-      //bodyAfterExamples:
-      //'Not every child will want to talk immediately. Some will need time to process what they\'ve heard before they can respond. The invitation tells them the door is open, on their timeline. For the permission to explain, offer it as a gift, and only offer it if you can genuinely accept a "no". Some kids will want to hear that your intentions were good, or at least not bad, as it can provide a sense of comfort. Other kids will want to focus solely on the impact, and any focus on intention can actually feel bad. Both are normal and valid, so it\u2019s important to be flexible and responsive to what feels best for your child.',
       example: '',
     ),
   ];
@@ -247,6 +245,7 @@ A simple way to check: on a scale of 1 to 10, how intensely are you blaming your
 If you find yourself closer to 7 or above, the self-blame itself may need some attention first. When self-blame is very high, it becomes hard to keep the apology focused on your child - it can tip into expressing your own distress, which unintentionally puts your child in the position of managing your feelings. If this is where you are, it's worth slowing down and working through that layer first with the support of your therapist.
 ''',
             ),
+            const SizedBox(height: 12),
 
             _InfoCard(
               title: 'Finding Your Focus',
@@ -262,6 +261,7 @@ What keeps coming up? In arguments, in your child's behavior, in the things they
 You don't need to address everything at once. A therapeutic apology focused on one real wound is far more powerful than a sweeping attempt to cover everything.
 ''',
             ),
+            const SizedBox(height: 24),
 
             // Section 6
             Text(
@@ -274,19 +274,19 @@ You don't need to address everything at once. A therapeutic apology focused on o
               body:
                   'A therapeutic apology lands best when both you and your child are in a reasonably open and settled state. Choose your moment with some care. It doesn\'t have to be perfect, but it should be intentional.',
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 12),
             _InfoCard(
               title: 'Make it yours.',
               body:
                   'The structure in this app is a guide you - with the support of a therapist \u2013 to craft something that is meaningful to you and for your child. Your child will respond best to something that sounds like you - warm, honest, specific to your relationship - even if you end up reading it or sending it by email or text. Use the framework to ensure all steps are included, and then let it come through in your own voice.',
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 12),
             _InfoCard(
               title: 'Expect it to be a process.',
               body:
                   'Deeper wounds don\'t always heal in one conversation, and that\'s okay. Your child may need time before they soften, before they believe what they\'re hearing, before they feel safe enough to respond. A single therapeutic apology can be a powerful beginning - but it may need to be revisited as your relationship continues to grow. Think of this as a commitment, or a new beginning.',
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 12),
             _InfoCard(
               title: 'Manage your expectations around their response.',
               body:
@@ -295,9 +295,6 @@ You don't need to address everything at once. A therapeutic apology focused on o
             const SizedBox(height: 32),
             const Divider(),
             const SizedBox(height: 24),
-
-            //const SizedBox(height: 16),
-
 
             // Steps section
             Text(
