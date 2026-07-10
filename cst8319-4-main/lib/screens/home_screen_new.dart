@@ -154,7 +154,7 @@ class HomeScreenNew extends StatelessWidget {
               ),
             ).animate().fadeIn(delay: 600.ms),
 
-            const SizedBox(height: 20), 
+            const SizedBox(height: 20),
 
             const SizedBox(height: 32),
             const Divider(),

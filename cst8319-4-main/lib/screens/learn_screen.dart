@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme.dart';
+import 'script_builder_screen.dart';
 
 // --- Data Model --------------------------------------------------------------
 
@@ -46,7 +47,7 @@ const List<LearnSection> _overviewSections = [
     heading: 'A small shift can change the moment',
     body:
         'When children are stressed or distressed, their ability to think clearly and problem-solve becomes limited. '
-            'Validation and support can help move things forward in a good way.',
+        'Validation and support can help move things forward in a good way.',
     callout:
         'The validation and support framework is quick, learnable and can help bring your child\'s brain to a more flexible state.',
     showTableAfter: true,
@@ -65,23 +66,23 @@ const List<LearnSection> _overviewSections = [
     heading: 'The 45-second loop',
     body:
         'The full Validation and Support framework can take as little as 45 seconds. '
-            'It has two steps: validate first, then support. That\'s it. The more you practise, the more natural it becomes.',
+        'It has two steps: validate first, then support. That\'s it. The more you practise, the more natural it becomes.',
   ),
   LearnSection(
     heading: 'Why Order Matters',
     body:
         'The order of operations is essential for success. '
-            'Validation \u2192 Emotional Support \u2192 Practical Support follows the neural requirements for moving from a state of stress '
-            'or threat to a state of increased connectedness and flexibility.',
+        'Validation \u2192 Emotional Support \u2192 Practical Support follows the neural requirements for moving from a state of stress '
+        'or threat to a state of increased connectedness and flexibility.',
     body2:
         'If the order is reversed (e.g., giving advice before validation), the brain\'s threat detection remains active, and the thinking '
-            'brain (or pre-frontal cortex) never fully engages, leading to unproductive conversation and increased distress.',
+        'brain (or pre-frontal cortex) never fully engages, leading to unproductive conversation and increased distress.',
   ),
   LearnSection(
     heading: 'Adapting the Framework',
     body:
         'We suggest you learn the framework, then adapt its delivery depending on your child\'s personality, sensitivities, etc., including '
-            'where they are at on the continuum of need:',
+        'where they are at on the continuum of need:',
     bullets: [
       'Sometimes a quick validation + 1 because-statement can be enough to shift things in a meaningful direction. '
           'Other times, you might need to do a few rounds of because-statements, + emotional and practical support for your child to de-escalate and '
@@ -106,7 +107,7 @@ const List<LearnTopic> _topics = [
         heading: 'What is an automatic response?',
         body:
             'It is common for caregivers to engage in automatic responses when a child is upset. These are deeply conditioned, '
-                'and can feel natural, but they aren\'t always effective and can sometimes cause problems.',
+            'and can feel natural, but they aren\'t always effective and can sometimes cause problems.',
       ),
       LearnSection(
         heading: 'Common automatic responses',
@@ -127,8 +128,8 @@ const List<LearnTopic> _topics = [
         heading: 'Why noticing matters',
         body:
             'The first step in reducing your reliance on automatic responses is simply awareness. Once you notice your tendency to go there, you '
-                'have a choice to try validation instead. Once validation opens the door, you can then consider one of the above-responses and it is '
-                'likely to go better.',
+            'have a choice to try validation instead. Once validation opens the door, you can then consider one of the above-responses and it is '
+            'likely to go better.',
       ),
     ],
   ),
@@ -142,16 +143,16 @@ const List<LearnTopic> _topics = [
         heading: 'Help Their Brain Feel Safe',
         body:
             'When a child is upset, no matter the reason, their brain becomes activated and they can\'t think (as) clearly. '
-                'Validation sends a simple signal: "I get it, I\'m not against you". Especially when using a tentative, '
-                'caring tone ("I can understand you might be frustrated because..."), a validating statement helps them begin to '
-                'process what they\'re experiencing as well. When they feel your genuine attempt to understand what\'s going on for them, even if you '
-                'are off the mark, they are more likely to be more open and maybe even more flexible too.',
+            'Validation sends a simple signal: "I get it, I\'m not against you". Especially when using a tentative, '
+            'caring tone ("I can understand you might be frustrated because..."), a validating statement helps them begin to '
+            'process what they\'re experiencing as well. When they feel your genuine attempt to understand what\'s going on for them, even if you '
+            'are off the mark, they are more likely to be more open and maybe even more flexible too.',
       ),
       LearnSection(
         heading: 'What validation really means',
         body:
             'Validation involves making an effort to understand your child\'s experience, whether it\'s an emotion, a thought, an urge, '
-                'a behaviour, or a state, and from their point of view.',
+            'a behaviour, or a state, and from their point of view.',
         callout:
             'You\'re not necessarily agreeing with them. You\'re showing you get why it makes sense from inside of their experience. That opens the door.',
       ),
@@ -171,7 +172,7 @@ const List<LearnTopic> _topics = [
         heading: 'How to build a validation statement',
         body:
             'Start with a sentence starter, add a verb, and then three because-statements '
-                'to convey your effort to understand their experience from their point of view.',
+            'to convey your effort to understand their experience from their point of view.',
       ),
       LearnSection(
         heading: 'Sentence starters',
@@ -216,7 +217,7 @@ const List<LearnTopic> _topics = [
         heading: 'Build the Bridge',
         body:
             'Once they\'re a little calmer, or feel like you\'re on the same team, they need to feel your warmth before they can open up further. '
-                'Communications of comfort, encouragement, reassurance and togetherness are great options. Without this step, any suggestion you offer may feel like pressure, or unwelcome, or just too soon.',
+            'Communications of comfort, encouragement, reassurance and togetherness are great options. Without this step, any suggestion you offer may feel like pressure, or unwelcome, or just too soon.',
       ),
       LearnSection(
         heading: 'Choose 2\u20133 of these options',
@@ -233,7 +234,7 @@ const List<LearnTopic> _topics = [
         ],
         callout:
             'When it comes to the number of emotional sentences, follow your child\'s lead. '
-                'Some moments call for one or two emotional support sentences, others for longer presence.',
+            'Some moments call for one or two emotional support sentences, others for longer presence.',
       ),
     ],
   ),
@@ -247,7 +248,7 @@ const List<LearnTopic> _topics = [
         heading: 'Getting Practical',
         body:
             'Practical support works best once your child feels heard and feels connected. '
-                'Offered too early, even the most helpful suggestion can feel like you\'re skipping over their experience, and their walls can go up or they can retreat in their shell. When a child feels both understood and connected, even if just a bit, they become more open to thinking through the problem with you, or hearing what you have to say, whether that\'s finding a solution, trying something new, or simply shifting gears with a transition.',
+            'Offered too early, even the most helpful suggestion can feel like you\'re skipping over their experience, and their walls can go up or they can retreat in their shell. When a child feels both understood and connected, even if just a bit, they become more open to thinking through the problem with you, or hearing what you have to say, whether that\'s finding a solution, trying something new, or simply shifting gears with a transition.',
       ),
       LearnSection(
         heading: 'Types of practical support',
@@ -264,7 +265,7 @@ const List<LearnTopic> _topics = [
         heading: 'Sometimes nothing more is needed',
         body:
             'Once a child feels validated and emotionally supported, '
-                'the moment may already be complete. Presence alone can be the most powerful thing you offer.',
+            'the moment may already be complete. Presence alone can be the most powerful thing you offer.',
         callout:
             '"Right now, I can just be with you." This is a complete and valid response.',
       ),
@@ -280,7 +281,7 @@ const List<LearnTopic> _topics = [
         heading: 'Questions are great... and...',
         body:
             'This framework uses educated guesses (e.g. "I can imagine you might feel...") '
-                'instead of questions ("How do you feel?") for a specific reason. Here are some potential benefits of making educated guesses or suggestions:',
+            'instead of questions ("How do you feel?") for a specific reason. Here are some potential benefits of making educated guesses or suggestions:',
       ),
       LearnSection(
         heading: 'Benefits for Validation',
@@ -373,7 +374,7 @@ class LearnScreen extends StatelessWidget {
                           const SizedBox(height: 8),
                           Text(
                             'These scripts were developed within Emotion-Focused Family Therapy (EFFT), and it is '
-                                'advised that this content be explored with the guidance of a therapist trained in this model. An EFFT therapist can help you identify which scripts are most relevant to your child and situation, work through any blocks that might get in the way of connecting with your child emotionally, and adapt the language to feel natural for your family. They can also support you through what can be a meaningful and sometimes emotionally complex process. This app was meant to serve as a resource alongside that professional support.',
+                            'advised that this content be explored with the guidance of a therapist trained in this model. An EFFT therapist can help you identify which scripts are most relevant to your child and situation, work through any blocks that might get in the way of connecting with your child emotionally, and adapt the language to feel natural for your family. They can also support you through what can be a meaningful and sometimes emotionally complex process. This app was meant to serve as a resource alongside that professional support.',
                             style: GoogleFonts.nunito(
                               fontSize: 13,
                               color: AppColors.textSecondary,
@@ -415,7 +416,29 @@ class LearnScreen extends StatelessWidget {
               ),
             ),
 
-            const SliverToBoxAdapter(child: SizedBox(height: 32)),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(24, 32, 24, 32),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const ScriptBuilderScreen(),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.edit_note_rounded, size: 20),
+                    label: const Text('Build your own VS script'),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
