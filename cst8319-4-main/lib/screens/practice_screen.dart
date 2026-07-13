@@ -167,25 +167,25 @@ class PracticeScreen extends StatelessWidget {
       _FrameworkStep(
         number: '01',
         title: 'Automatic Responses',
-        description: 'Notice any urge to fix, reassure, explain, distract, or problem-solve. Before offering solutions, focus on helping your loved one feel understood.',
+        description: 'It is common to engage in automatic responses when a child is upset. The first step is noticing your tendency to go there so that you can choose validation instead.',
         color: const Color(0xFFBF7B5E),
       ),
       _FrameworkStep(
         number: '02',
         title: 'Validation',
-        description: 'Validate your loved one\'s silence or reluctance to engage. Help them feel understood by considering their perspective, the relationship, and your own role. You can also validate possible underlying emotions such as sadness, fear, hopelessness, embarrassment, or anger.',
+        description: 'Validate your loved one’s experience from their perspective, the perspective of the relationship, and your own perspective. You can also validate possible underlying emotions such as sadness, fear, hopelessness, embarrassment, or anger.',
         color: const Color(0xFF4A7C6F),
       ),
       _FrameworkStep(
         number: '03',
         title: 'Emotional Support',
-        description: 'Communicate that there is space to build trust, no pressure to engage, and time to go at their own pace. Let them know their silence does not push you away and that you will be there for them no matter what.',
+        description: 'Communicate that there is space to build trust, no pressure to engage, time to go at their own pace, and that you will be there for them no matter what.',
         color: const Color(0xFF7B68AB),
       ),
       _FrameworkStep(
         number: '04',
         title: 'Practical Support',
-        description: 'Offer low-pressure support such as sharing a cup of tea, spending time together without talking, or simply letting them know you will check in later. The goal is to communicate steady presence and understanding.',
+        description: 'Offer low-pressure support such as a soothing activity, spending time together, or simply letting your loved one know that you are there for them.',
         color: const Color(0xFF5B8FC9),
       ),
     ];
@@ -244,7 +244,7 @@ class PracticeScreen extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => const _AllScenariosScreen(),
+              builder: (_) => const ScriptLibraryScreen(),
             ),
           );
         },
