@@ -176,7 +176,7 @@ class PracticeScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'The EFFT Approach',
+          'The EFFT Approach - Review',
           style: GoogleFonts.cormorantGaramond(
             fontSize: 22,
             fontWeight: FontWeight.w600,
@@ -185,7 +185,7 @@ class PracticeScreen extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         Text(
-          'The validation and support framework guides each session.',
+          'Remember, the validation and support framework guides each session.',
           style: GoogleFonts.nunito(
             fontSize: 14,
             color: AppColors.textSecondary,
