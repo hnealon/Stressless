@@ -6,6 +6,7 @@ import 'scenario_list_screen.dart';
 import '../data/scenario_data.dart';
 import '../models/models.dart';
 import 'session_screen.dart';
+import 'script_library_screen.dart';
 
 class PracticeScreen extends StatelessWidget {
   const PracticeScreen({super.key});
@@ -394,10 +395,11 @@ class _AllScenariosScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scenarios = scenarioData;
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('Choose a Scenario'),
+        title: const Text('Continue Practicing'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded),
           onPressed: () => Navigator.pop(context),
@@ -408,22 +410,79 @@ class _AllScenariosScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           children: [
             Text(
-              'Each scenario is a short practice opportunity.',
+              'Choose another interactive practice scenario.',
               style: GoogleFonts.nunito(
                 fontSize: 15,
                 color: AppColors.textSecondary,
                 height: 1.6,
               ),
             ).animate().fadeIn(duration: 300.ms),
+
             const SizedBox(height: 20),
+
             ...scenarios.asMap().entries.map((entry) {
               final i = entry.key;
               final scenario = entry.value;
+
               return _InlineScenarioCard(scenario: scenario)
                   .animate()
-                  .fadeIn(delay: Duration(milliseconds: 100 + i * 80))
+                  .fadeIn(
+                delay: Duration(milliseconds: 100 + i * 80),
+              )
                   .slideY(begin: 0.1, end: 0);
             }),
+
+            const SizedBox(height: 20),
+
+            Text(
+              'Explore the Script Library',
+              style: GoogleFonts.cormorantGaramond(
+                fontSize: 22,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+
+            const SizedBox(height: 6),
+
+            Text(
+              'Browse ready-made scripts for emotions such as anger, shame, hopelessness, sadness, and anxiety.',
+              style: GoogleFonts.nunito(
+                fontSize: 14,
+                color: AppColors.textSecondary,
+                height: 1.6,
+              ),
+            ),
+
+            const SizedBox(height: 14),
+
+            OutlinedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const ScriptLibraryScreen(),
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.menu_book_rounded,
+                size: 18,
+              ),
+              label: Text(
+                'Open Script Library',
+                style: GoogleFonts.nunito(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                minimumSize: const Size(double.infinity, 0),
+              ),
+            ),
+
+            const SizedBox(height: 24),
           ],
         ),
       ),
