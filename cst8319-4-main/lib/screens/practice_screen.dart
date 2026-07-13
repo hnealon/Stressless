@@ -29,9 +29,23 @@ class PracticeScreen extends StatelessWidget {
               _buildFrameworkSection(),
               const SizedBox(height: 32),
 
-              // --- Start button --------------------------------
-              _buildStartButton(context),
+              // --- Subtitle Replacing the button --------------
+              Text(
+                'Practice with the scenarios below.',
+                style: GoogleFonts.nunito(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.textPrimary,
+                ),
+              ).animate().fadeIn(delay: 600.ms, duration: 400.ms),
               const SizedBox(height: 16),
+              // --- Inline scenarios ----------------------------
+              _buildInlineScenarios(context),
+              const SizedBox(height: 16),
+              // --- Continue practicing button -----------------
+              _buildContinueButton(context),
+              const SizedBox(height: 16),
+
 
               // --- Disclaimer ----------------------------------
               _buildDisclaimer(),
@@ -149,25 +163,25 @@ class PracticeScreen extends StatelessWidget {
       _FrameworkStep(
         number: '01',
         title: 'Automatic Responses',
-        description: 'Recognize automatic responses like fixing or reassuring.',
+        description: 'Notice any urge to fix, reassure, explain, distract, or problem-solve. Before offering solutions, focus on helping your loved one feel understood.',
         color: const Color(0xFFBF7B5E),
       ),
       _FrameworkStep(
         number: '02',
         title: 'Validation',
-        description: 'Help your child feel understood as a first step.',
+        description: 'Validate your loved one\'s silence or reluctance to engage. Help them feel understood by considering their perspective, the relationship, and your own role. You can also validate possible underlying emotions such as sadness, fear, hopelessness, embarrassment, or anger.',
         color: const Color(0xFF4A7C6F),
       ),
       _FrameworkStep(
         number: '03',
         title: 'Emotional Support',
-        description: 'Offer warmth and presence through supportive language.',
+        description: 'Communicate that there is space to build trust, no pressure to engage, and time to go at their own pace. Let them know their silence does not push you away and that you will be there for them no matter what.',
         color: const Color(0xFF7B68AB),
       ),
       _FrameworkStep(
         number: '04',
         title: 'Practical Support',
-        description: 'Offer solutions or to help when your child is more open to receive.',
+        description: 'Offer low-pressure support such as sharing a cup of tea, spending time together without talking, or simply letting them know you will check in later. The goal is to communicate steady presence and understanding.',
         color: const Color(0xFF5B8FC9),
       ),
     ];
