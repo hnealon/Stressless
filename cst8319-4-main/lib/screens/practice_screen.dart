@@ -261,7 +261,7 @@ class PracticeScreen extends StatelessWidget {
 
   Widget _buildDisclaimer() {
     return Text(
-      'StressLess is an educational tool based on the principles of emotional support from Emotino-Focused Family Therapy. It is not a crisis resource and does not replace professional mental health support.',
+      'StressLess is an educational tool based on the principles of emotional support from Emotion-Focused Family Therapy. It is not a crisis resource and does not replace professional mental health support.',
       style: GoogleFonts.nunito(
         fontSize: 12,
         color: AppColors.textLight,
