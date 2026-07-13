@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../theme.dart';
 import '../data/scenario_data.dart';
 import '../models/models.dart';
-import '../widgets/shared_widgets.dart';
+
 import 'session_screen.dart';
 import 'script_library_screen.dart';
 
@@ -126,22 +126,13 @@ class _ScenarioCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(
-                    scenario.title,
-                    style: GoogleFonts.cormorantGaramond(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.textPrimary,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                EmotionBadge(label: scenario.emotionTag),
-              ],
+            Text(
+              scenario.title,
+              style: GoogleFonts.cormorantGaramond(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
             ),
             const SizedBox(height: 6),
             Text(
