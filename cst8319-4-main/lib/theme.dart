@@ -147,3 +147,31 @@ class AppTheme {
     );
   }
 }
+class AppTextStyles {
+  static TextStyle get heading => GoogleFonts.cormorantGaramond(
+    fontSize: 28,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
+    height: 1.2,
+  );
+
+  static TextStyle get title => GoogleFonts.nunito(
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+    color: AppColors.textPrimary,
+  );
+
+  static TextStyle get body => GoogleFonts.nunito(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: AppColors.textSecondary,
+    height: 1.6,
+  );
+
+  static TextStyle get label => GoogleFonts.nunito(
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textLight,
+    letterSpacing: 0.8,
+  );
+}
