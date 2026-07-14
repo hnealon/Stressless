@@ -173,7 +173,7 @@ class PracticeScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'The EFFT Approach - Review',
+          'Reminder: The EFFT Approach',
           style: GoogleFonts.cormorantGaramond(
             fontSize: 22,
             fontWeight: FontWeight.w600,
