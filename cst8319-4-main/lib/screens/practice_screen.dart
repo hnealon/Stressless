@@ -91,29 +91,8 @@ class PracticeScreen extends StatelessWidget {
               ),
             ),
           ],
-        ).animate().fadeIn(duration: 400.ms).slideY(begin: -0.2, end: 0),
-        const SizedBox(height: 24),
-        Text(
-              'Supporting your child in a new way starts with practice.',
-              style: GoogleFonts.cormorantGaramond(
-                fontSize: 34,
-                fontWeight: FontWeight.w600,
-                color: AppColors.textPrimary,
-                height: 1.15,
-              ),
-            )
-            .animate()
-            .fadeIn(delay: 150.ms, duration: 500.ms)
-            .slideY(begin: 0.2, end: 0),
-        const SizedBox(height: 12),
-        Text(
-          'Short daily practice sessions to help you build new supportive habits with your child.',
-          style: GoogleFonts.nunito(
-            fontSize: 16,
-            color: AppColors.textSecondary,
-            height: 1.6,
-          ),
-        ).animate().fadeIn(delay: 250.ms, duration: 500.ms),
+        ).
+        animate().fadeIn(duration: 400.ms).slideY(begin: -0.2, end: 0),
       ],
     );
   }

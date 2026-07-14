@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme.dart';
-import 'script_builder_screen.dart';
 import 'practice_screen.dart';
 
 // --- Data Model --------------------------------------------------------------
@@ -417,6 +416,40 @@ class LearnScreen extends StatelessWidget {
               ),
             ),
 
+            // --- Practice VS intro (moved from Practice VS header) -----
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(24, 32, 24, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Divider(color: AppColors.divider, height: 32),
+                    Text(
+                          'Supporting your child in a new way starts with practice.',
+                          style: GoogleFonts.cormorantGaramond(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.textPrimary,
+                          ),
+                        )
+                        .animate()
+                        .fadeIn(delay: 150.ms, duration: 500.ms)
+                        .slideY(begin: 0.2, end: 0),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Short daily practice sessions to help you build new supportive habits with your child.',
+                      style: GoogleFonts.nunito(
+                        fontSize: 14,
+                        color: AppColors.textSecondary,
+                        height: 1.7,
+                      ),
+                    ).animate().fadeIn(delay: 250.ms, duration: 500.ms),
+                  ],
+                ),
+              ),
+            ),
+
+            // --- Begin a practice session button --------------------
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(24, 32, 24, 32),
@@ -432,7 +465,7 @@ class LearnScreen extends StatelessWidget {
                       );
                     },
                     icon: const Icon(Icons.fitness_center, size: 20),
-                    label: const Text('Practice VS'),
+                    label: const Text('Begin a practice session'),
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 18),
                     ),
@@ -440,7 +473,6 @@ class LearnScreen extends StatelessWidget {
                 ),
               ),
             ),
-
           ],
         ),
       ),
