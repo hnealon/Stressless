@@ -203,7 +203,7 @@ class HomeScreenNew extends StatelessWidget {
           size: 26,
         ),
         title: Text(
-          'About StressLess',
+          'Project Team',
           style: Theme.of(context).textTheme.titleMedium,
         ),
         trailing: const Icon(

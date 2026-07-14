@@ -31,6 +31,7 @@ class AboutScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children:
                             ([
+                                  'Dr. Adele Lafrance',
                                   'Matthew Miceli',
                                   'Yeonhee Lee',
                                   'Sheldon Maxwell',
