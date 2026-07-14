@@ -12,7 +12,7 @@ StressLess includes guided learning, practice sessions, a general script builder
 | **Learn** | Validation and Support framework content |
 | **Practice** | Scenario-based practice sessions |
 | **Build** | General custom script builder |
-| **Library** | Pre-written Anger and Silence examples from client documents |
+| **Library** | Pre-written V&S examples (Anger, Silence, Hopelessness, Sadness, Anxiety) from client documents |
 | **About** | App information |
 
 ## Script Library (Ren)
@@ -21,12 +21,12 @@ The **Script Library** is a separate screen from the general Script Builder. It 
 
 ### Why it is separate from Script Builder
 
-Per client review, the general **Build** tab is for creating scripts from scratch. **Library** holds emotion-specific examples (Anger, Silence) sourced from the client Word document—not mixed into the general builder.
+Per client review, the general **Build** tab is for creating scripts from scratch. **Library** holds emotion-specific examples sourced from the client Word document—not mixed into the general builder.
 
 ### How it works
 
 1. Open the **Library** tab.
-2. Choose an **emotion** (Anger or Silence).
+2. Choose an **emotion** (Anger, Silence, Hopelessness, Sadness, or Anxiety).
 3. Choose a **scenario**.
 4. Complete the script:
    - **Step 1 — Validation:** select exactly **3** "because" statements
@@ -39,8 +39,11 @@ Per client review, the general **Build** tab is for creating scripts from scratc
 
 | Emotion | Scenarios | Source |
 |---------|-----------|--------|
-| **Anger** | 6 (Feeling Misunderstood, Feeling Powerless, A Boundary Was Crossed, Feeling Overwhelmed, Old Hurts Coming Up, Angry at Themselves) | `EC_Scripts_Youth_Ages_8-12.revised.docx` → ANGER |
+| **Anger** | 6 | `EC_Scripts_Youth_Ages_8-12.revised.docx` → ANGER |
 | **Silence** | 1 (When They Withdraw or Shut Down) | `EC_Scripts_Youth_Ages_8-12.revised.docx` → SHAME #5 |
+| **Hopelessness** | 6 | `EC_Scripts_Youth_Ages_8-12.revised.docx` → HOPELESSNESS |
+| **Sadness** | 11 | `EC_Scripts_Youth_Ages_8-12.revised.docx` → SADNESS |
+| **Anxiety** | 13 | `EC_Scripts_Youth_Ages_8-12.revised.docx` → ANXIETY |
 
 Each example includes a `sourceReference` field pointing to the exact section in the client document.
 

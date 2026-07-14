@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
+
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:record/record.dart';
+
 import '../theme.dart';
 
 class ScriptBuilderScreen extends StatefulWidget {
@@ -21,11 +25,18 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   final List<String> _selectedEmotionalSupports = [];
   final List<String> _selectedPracticalSupports = [];
   final TextEditingController _customEmotionalSupportController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _customPracticalSupportController =
-      TextEditingController();
+  TextEditingController();
 
   String _generatedScript = '';
+
+  final AudioRecorder _audioRecorder = AudioRecorder();
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+  String? _recordingPath;
+  bool _isRecording = false;
+  bool _isPlaying = false;
 
   final List<String> _starters = [
     "I could understand you might",
@@ -46,13 +57,12 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
 
   final List<String> _emotionalStarters = [
     "I'm here with you.",
-    "I believe it’s going to be okay",
+    "I believe it's going to be okay",
     "I know you're doing the best you can right now.",
     "I believe in you.",
     "I know you can do this.",
-    "We’re in this together.",
+    "We're in this together.",
     "I want the best for you too.",
-    "Why don’t we take 5 and try again?",
     "Other (Write your own)",
   ];
 
@@ -75,6 +85,14 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
     _because3Controller.addListener(_updateScript);
     _customEmotionalSupportController.addListener(_updateScript);
     _customPracticalSupportController.addListener(_updateScript);
+
+    _audioPlayer.onPlayerComplete.listen((event) {
+      if (mounted) {
+        setState(() {
+          _isPlaying = false;
+        });
+      }
+    });
   }
 
   @override
@@ -85,7 +103,55 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
     _because3Controller.dispose();
     _customEmotionalSupportController.dispose();
     _customPracticalSupportController.dispose();
+    _audioRecorder.dispose();
+    _audioPlayer.dispose();
     super.dispose();
+  }
+
+  Future<void> _toggleRecording() async {
+    if (_isRecording) {
+      final path = await _audioRecorder.stop();
+      setState(() {
+        _isRecording = false;
+        _recordingPath = path;
+      });
+      return;
+    }
+
+    if (await _audioRecorder.hasPermission()) {
+      await _audioRecorder.start(
+        const RecordConfig(encoder: AudioEncoder.opus),
+        path: '',
+      );
+      setState(() {
+        _isRecording = true;
+        _recordingPath = null;
+      });
+    } else {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Microphone permission is needed to record.'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _togglePlayback() async {
+    if (_recordingPath == null) return;
+
+    if (_isPlaying) {
+      await _audioPlayer.stop();
+      setState(() {
+        _isPlaying = false;
+      });
+      return;
+    }
+
+    await _audioPlayer.play(UrlSource(_recordingPath!));
+    setState(() {
+      _isPlaying = true;
+    });
   }
 
   void _updateScript() {
@@ -97,16 +163,16 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   String _buildCustomScript() {
     final starter = _selectedStarter ?? '[Starter]';
     final verb =
-        _selectedVerb != null ? _selectedVerb!.replaceAll('...', '') : '[verb]';
+    _selectedVerb != null ? _selectedVerb!.replaceAll('...', '') : '[verb]';
     final phrase =
-        _phraseController.text.isNotEmpty ? _phraseController.text : '...';
+    _phraseController.text.isNotEmpty ? _phraseController.text : '...';
 
     String becauseClause = '';
     if (_because1Controller.text.isNotEmpty &&
         _because2Controller.text.isNotEmpty &&
         _because3Controller.text.isNotEmpty) {
       becauseClause =
-          'because ${_because1Controller.text}, ${_because2Controller.text}, and ${_because3Controller.text}';
+      'because ${_because1Controller.text}, ${_because2Controller.text}, and ${_because3Controller.text}';
     }
 
     final emotional = _selectedEmotionalSupports.map((e) {
@@ -230,7 +296,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
         const SizedBox(height: 24),
         _buildSubSectionTitle(
           'Feeling/Action Phrase',
-          'Describe your child’s feeling, thought or urge.',
+          'Describe your child\'s feeling, thought or urge.',
         ),
         _buildBecauseTextField(
           _phraseController,
@@ -278,13 +344,13 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   }
 
   Widget _buildSupportSection(
-    String title,
-    String subtitle,
-    List<String> items,
-    List<String> selectedItems,
-    TextEditingController customTextController,
-    int maxSelection,
-  ) {
+      String title,
+      String subtitle,
+      List<String> items,
+      List<String> selectedItems,
+      TextEditingController customTextController,
+      int maxSelection,
+      ) {
     final showCustomField = selectedItems.contains("Other (Write your own)");
 
     return Column(
@@ -325,7 +391,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
         ),
         const SizedBox(height: 16),
       ],
-    ).animate().fadeIn(delay: 200.ms);
+    );
   }
 
   Widget _buildSubSectionTitle(String title, String subtitle) {
@@ -350,14 +416,14 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
         ),
         const SizedBox(height: 16),
       ],
-    ).animate().fadeIn(delay: 200.ms);
+    );
   }
 
   Widget _buildChoiceChipGroup(
-    List<String> items,
-    String? selectedItem,
-    ValueChanged<String> onSelected,
-  ) {
+      List<String> items,
+      String? selectedItem,
+      ValueChanged<String> onSelected,
+      ) {
     return Wrap(
       spacing: 8.0,
       runSpacing: 6.0,
@@ -383,14 +449,14 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         );
       }).toList(),
-    ).animate().fadeIn(delay: 300.ms);
+    );
   }
 
   Widget _buildMultiChoiceChipGroup(
-    List<String> items,
-    List<String> selectedItems,
-    int maxSelection,
-  ) {
+      List<String> items,
+      List<String> selectedItems,
+      int maxSelection,
+      ) {
     return Wrap(
       spacing: 8.0,
       runSpacing: 6.0,
@@ -425,13 +491,13 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         );
       }).toList(),
-    ).animate().fadeIn(delay: 300.ms);
+    );
   }
 
   Widget _buildBecauseTextField(
-    TextEditingController controller,
-    String hintText,
-  ) {
+      TextEditingController controller,
+      String hintText,
+      ) {
     return TextField(
       controller: controller,
       style: GoogleFonts.nunito(fontSize: 14, color: AppColors.textPrimary),
@@ -458,7 +524,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
         ),
       ),
       onChanged: (_) => _updateScript(),
-    ).animate().fadeIn(delay: 300.ms);
+    );
   }
 
   Widget _buildGeneratedScript() {
@@ -504,11 +570,12 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
                 : 'Your script will appear here once the required fields are complete...',
             style: GoogleFonts.nunito(
               fontSize: 15,
-              color:
-                  _hasCompleteScript ? AppColors.textPrimary : AppColors.textLight,
+              color: _hasCompleteScript
+                  ? AppColors.textPrimary
+                  : AppColors.textLight,
               height: 1.6,
               fontStyle:
-                  _hasCompleteScript ? FontStyle.normal : FontStyle.italic,
+              _hasCompleteScript ? FontStyle.normal : FontStyle.italic,
             ),
           ),
           const SizedBox(height: 20),
@@ -535,8 +602,54 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
                 label: const Text('Copy Script'),
               ),
             ),
+
+          // --- Khalil's Audio Section (Always Visible inside the Card) ---
+          const SizedBox(height: 16),
+          const Divider(),
+          const SizedBox(height: 12),
+          Text(
+            'Practice Out Loud',
+            style: GoogleFonts.nunito(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+              color: AppColors.textPrimary,
+            ),
+          ),
+          const SizedBox(height: 8),
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton.icon(
+              onPressed: _toggleRecording,
+              icon: Icon(
+                _isRecording
+                    ? Icons.stop_circle_outlined
+                    : Icons.mic_none_rounded,
+                size: 18,
+                color: _isRecording ? Colors.red : null,
+              ),
+              label: Text(
+                _isRecording ? 'Stop Recording' : 'Click to record and review',
+              ),
+            ),
+          ),
+          if (_recordingPath != null && !_isRecording) ...[
+            const SizedBox(height: 12),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: _togglePlayback,
+                icon: Icon(
+                  _isPlaying
+                      ? Icons.pause_circle_outline
+                      : Icons.play_circle_outline,
+                  size: 18,
+                ),
+                label: Text(_isPlaying ? 'Pause Playback' : 'Play Recording'),
+              ),
+            ),
+          ],
         ],
       ),
-    ).animate().fadeIn(delay: 400.ms).slideY(begin: 0.1, end: 0);
+    );
   }
 }
