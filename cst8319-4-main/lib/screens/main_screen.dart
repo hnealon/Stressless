@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/screens/home_screen_new.dart';
-import 'practice_screen.dart';
 import 'learn_screen.dart';
 import 'apology_guide_screen.dart';
+import 'script_builder_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -27,7 +27,7 @@ class _MainScreenState extends State<MainScreen> {
   static const List<Widget> _tabRoots = <Widget>[
     HomeScreenNew(),
     LearnScreen(),
-    PracticeScreen(),
+    ScriptBuilderScreen(),
     ApologyGuideScreen(),
   ];
 
@@ -78,8 +78,8 @@ class _MainScreenState extends State<MainScreen> {
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Learn VS'),
             BottomNavigationBarItem(
-              icon: Icon(Icons.fitness_center),
-              label: 'Practice VS',
+              icon: Icon(Icons.edit_note_rounded),
+              label: 'Build VS',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.favorite_border),

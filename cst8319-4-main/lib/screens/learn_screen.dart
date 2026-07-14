@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme.dart';
 import 'script_builder_screen.dart';
+import 'practice_screen.dart';
 
 // --- Data Model --------------------------------------------------------------
 
@@ -426,12 +427,12 @@ class LearnScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const ScriptBuilderScreen(),
+                          builder: (_) => const PracticeScreen(),
                         ),
                       );
                     },
-                    icon: const Icon(Icons.edit_note_rounded, size: 20),
-                    label: const Text('Build your own VS script'),
+                    icon: const Icon(Icons.fitness_center, size: 20),
+                    label: const Text('Practice VS'),
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 18),
                     ),
@@ -439,6 +440,7 @@ class LearnScreen extends StatelessWidget {
                 ),
               ),
             ),
+
           ],
         ),
       ),
