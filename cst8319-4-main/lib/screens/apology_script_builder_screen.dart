@@ -50,6 +50,9 @@ class _ApologyScriptBuilderScreenState
   String _selectedApology = '';
   final _reactionContinuationController = TextEditingController();
   String _selectedAddOn = ''; // 'A', 'B', 'C', or ''
+  bool _showNeeded3 = false;
+  bool _showWillChange2 = false;
+  bool _showCommitmentNote = false;
   final _customAddOnController = TextEditingController();
   // Step 6 - Repeat steps 3 and 4 (auto-suggested, editable)
   final _repeatedApologyController = TextEditingController();
@@ -67,13 +70,9 @@ class _ApologyScriptBuilderScreenState
     _injuryController.dispose();
     _uniqueImpactController.dispose();
     _scaredBecause1Controller.dispose();
-    _scaredBecause2Controller.dispose();
     _sadBecause1Controller.dispose();
-    _sadBecause2Controller.dispose();
     _ashamedBecause1Controller.dispose();
-    _ashamedBecause2Controller.dispose();
     _angryBecause1Controller.dispose();
-    _angryBecause2Controller.dispose();
     _lonelyOptionalController.dispose();
     _apologyController.dispose();
     _whatTheyNeededController.dispose();
@@ -81,11 +80,7 @@ class _ApologyScriptBuilderScreenState
     _reactionContinuationController.dispose();
     _repeatedApologyController.dispose();
     _repeatedChangeController.dispose();
-    _whatNeeded2Controller.dispose();
-    _whatNeeded3Controller.dispose();
-    _willChange2Controller.dispose();
     _repeatNeeded1Controller.dispose();
-    _repeatNeeded2Controller.dispose();
     _repeatNeeded3Controller.dispose();
     _repeatWill1Controller.dispose();
     _repeatWill2Controller.dispose();
@@ -113,26 +108,22 @@ class _ApologyScriptBuilderScreenState
 
     // Step 2
     buffer.writeln(
-      "I can imagine that you might have felt scared because "
-          "${_scaredBecause1Controller.text} and because "
-          "${_scaredBecause2Controller.text}.",
+      "I can imagine that when it occurred, you might have felt scared because "
+          "${_scaredBecause1Controller.text}.",
     );
     buffer.writeln();
     buffer.writeln(
       "I can also imagine you might have felt sad because "
-          "${_sadBecause1Controller.text} and because "
-          "${_sadBecause2Controller.text}.",
+          "${_sadBecause1Controller.text}.",
     );
     buffer.writeln();
     buffer.writeln(
-      "It would have made sense for you to feel ashamed because "
-          "${_ashamedBecause1Controller.text} and because "
-          "${_ashamedBecause2Controller.text}.",
+      "It would have made sense if you felt embarrassed because "
+          "${_ashamedBecause1Controller.text}.",
     );
     buffer.writeln();
     buffer.writeln(
-      "I can imagine you would have also felt angry because "
-          "${_angryBecause1Controller.text} and because "
+      "And I can imagine you would have felt angry because "
           "${_angryBecause2Controller.text}.",
     );
     if (_lonelyOptionalController.text.trim().isNotEmpty) {
@@ -148,14 +139,14 @@ class _ApologyScriptBuilderScreenState
     // Step 4
     buffer.writeln(
       "I can see now that what you needed from me was "
-          "${_whatTheyNeededController.text} and "
-          "${_whatNeeded2Controller.text} and "
-          "${_whatNeeded3Controller.text}.\n\n"
-          "Starting today, I will ${_whatWillChangeController.text} and "
-          "${_willChange2Controller.text}. I know it won't always go perfectly, "
-          "but I am committed to working on this.",
+          "${_whatTheyNeededController.text}.\n\n"
+          "Starting today, I will ${_whatWillChangeController.text}.",
     );
-    buffer.writeln();
+    if (_showCommitmentNote) {
+      buffer.writeln(
+        "I know it won't always go perfectly, but I am committed to working on this.",
+      );
+    }
 
     // Step 5
     buffer.writeln(
@@ -319,9 +310,10 @@ class _ApologyScriptBuilderScreenState
             _textField(
               controller: _uniqueImpactController,
               // REPLACE WITH WORKSHEET TEXT
-              label: 'Especially because...',
+              label: 'Especially because... (optional)',
               hint: 'unique impact given their age, temperament, etc.',
               maxLines: 3,
+              required: false,
             ),
             _noteCard(
               // REPLACE WITH WORKSHEET TEXT (verbatim caution note)
@@ -341,42 +333,34 @@ class _ApologyScriptBuilderScreenState
             ),
             Text('Scared', style: Theme.of(context).textTheme.bodyLarge!),
             _textField(
-                controller: _scaredBecause1Controller, label: 'i can imagine that when I___ / when ___ occurred, you might have felt scared because',
-                required: false),
-            _textField(
-                controller: _scaredBecause2Controller,
-                label: 'and because... (relating to feeling out of control or overwhelmed)',
+                controller: _scaredBecause1Controller,
+                label: 'I can imagine that when ___ occurred, you might have felt scared because... and because... (relating to feeling out of control or overwhelmed)',
+                maxLines: 3,
                 required: false),
             const SizedBox(height: 8),
-            Text('Sad', style: Theme.of(context).textTheme.bodyLarge!),
             _textField(
-                controller: _sadBecause1Controller, label: 'I can also imagine that you might have felt sad because…',
-                required: false),
-            _textField(
-                controller: _sadBecause2Controller, label: 'and because...(relating to longing, missing, loving)',
+                controller: _sadBecause1Controller,
+                label: 'I can also imagine you might have felt sad because... and because... (relating to longing, missing, loving)',
+                maxLines: 3,
                 required: false),
             const SizedBox(height: 8),
-            Text('Ashamed', style: Theme.of(context).textTheme.bodyLarge!),
+            Text('Embarassed', style: Theme.of(context).textTheme.bodyLarge!),
             _textField(
-                controller: _ashamedBecause1Controller, label: 'It would have made sense for you to feel ashamed/embarrassed because… ',
-                required: false),
-            _textField(
-                controller: _ashamedBecause2Controller,
-                label: 'and because... (relating to feeling defective; too much, etc)',
+                controller: _ashamedBecause1Controller,
+                label: 'It would have made sense if you felt embarrassed because... and because... (relating to feeling defective; too much, etc.)',
+                maxLines: 3,
                 required: false),
             const SizedBox(height: 8),
-            Text('Angry', style: Theme.of(context).textTheme.bodyLarge!),
             _textField(
-                controller: _angryBecause1Controller, label: 'I can imagine that you would have also felt angry because...',
-                required: false),
-            _textField(
-                controller: _angryBecause2Controller, label: 'and because... I can imagine that you would have also felt angry',
+                controller: _angryBecause2Controller,
+                label: 'And I can imagine you would have felt angry because... and because... (you deserved something more / different)',
+                maxLines: 3,
                 required: false),
             const SizedBox(height: 8),
             Text('Optional: loneliness/overwhelm', style: Theme.of(context).textTheme.bodyLarge!),
             _textField(
               controller: _lonelyOptionalController,
-              label: 'I can also imagine that you would have felt really lonely/overwhelmed going through all of this on your own/without my support (optional)',
+              label: 'And maybe you also felt really alone carrying all of these feelings (optional)',
               required: false,
               maxLines: 2,
             ),
@@ -440,18 +424,8 @@ class _ApologyScriptBuilderScreenState
             const SizedBox(height: 6),
             _textField(
               controller: _whatTheyNeededController,
-              label: 'First thing they needed...',
-              maxLines: 2,
-            ),
-            _textField(
-              controller: _whatNeeded2Controller,
               label: 'and...',
-              maxLines: 2,
-            ),
-            _textField(
-              controller: _whatNeeded3Controller,
-              label: 'and...',
-              maxLines: 2,
+              maxLines: 3,
             ),
             const SizedBox(height: 8),
             Align(
@@ -464,16 +438,33 @@ class _ApologyScriptBuilderScreenState
             const SizedBox(height: 6),
             _textField(
               controller: _whatWillChangeController,
-              label: 'First commitment...',
-              maxLines: 2,
-            ),
-            _textField(
-              controller: _willChange2Controller,
               label: 'and...',
-              maxLines: 2,
+              maxLines: 3,
             ),
-            _noteCard(
-              "I know it won't always go perfectly, but I am committed to working on this.",
+            const SizedBox(height: 12),
+            Text(
+              'Check the box if you want to add this to your script:',
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Colors.grey.shade600,
+                fontSize: 13,
+              ),
+            ),
+            const SizedBox(height: 8),
+            CheckboxListTile(
+              value: _showCommitmentNote,
+              onChanged: (val) => setState(() => _showCommitmentNote = val ?? false),
+              activeColor: Colors.grey.shade500,
+              checkColor: Colors.white,
+              controlAffinity: ListTileControlAffinity.leading,
+              contentPadding: EdgeInsets.zero,
+              title: Text(
+                "I know it won't always go perfectly, but I am committed to working on this.",
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Colors.grey.shade600,
+                  fontSize: 13,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
             ),
           ],
         );
@@ -843,6 +834,9 @@ class _ApologyScriptBuilderScreenState
                 _repeatWill2Controller.clear();
                 _customAddOnController.clear();
                 _selectedAddOn = '';
+                _showNeeded3 = false;
+                _showWillChange2 = false;
+                _showCommitmentNote = false;
                 _selectedReactionType = 'anger';
               }),
               child: const Text('Start Over'),
@@ -850,6 +844,7 @@ class _ApologyScriptBuilderScreenState
           ),
         ],
       ),
+
     );
   }
 }
