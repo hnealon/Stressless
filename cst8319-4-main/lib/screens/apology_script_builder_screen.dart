@@ -53,6 +53,7 @@ class _ApologyScriptBuilderScreenState
   bool _showNeeded3 = false;
   bool _showWillChange2 = false;
   bool _showCommitmentNote = false;
+  bool _showReactionStarter = false;
   final _customAddOnController = TextEditingController();
   // Step 6 - Repeat steps 3 and 4 (auto-suggested, editable)
   final _repeatedApologyController = TextEditingController();
@@ -485,23 +486,34 @@ class _ApologyScriptBuilderScreenState
               }).toList(),
             ),
             const SizedBox(height: 16),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.08),
-                borderRadius: BorderRadius.circular(12),
+            Text(
+              'Check the box if you want to add this to your script:',
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Colors.grey.shade600,
+                fontSize: 13,
               ),
-              child: Text(
+            ),
+            const SizedBox(height: 8),
+            CheckboxListTile(
+              value: _showReactionStarter,
+              onChanged: (val) => setState(() => _showReactionStarter = val ?? false),
+              activeColor: Colors.grey.shade500,
+              checkColor: Colors.white,
+              controlAffinity: ListTileControlAffinity.leading,
+              contentPadding: EdgeInsets.zero,
+              title: Text(
                 _reactionStarters[_selectedReactionType] ?? '',
-                style: Theme.of(context).textTheme.bodyLarge!
-                    .copyWith(fontStyle: FontStyle.italic),
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Colors.grey.shade600,
+                  fontSize: 13,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ),
             const SizedBox(height: 16),
             _textField(
               controller: _reactionContinuationController,
-              label: 'Continue in your own words...',
+              label: 'OR Write in your own words (optional)',
               maxLines: 3,
               required: false,
             ),
@@ -512,7 +524,7 @@ class _ApologyScriptBuilderScreenState
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'And I want you to know - [your Step 3 choice]. I see now that what you needed from me instead was...',
+                'And I want you to know - $_selectedApology. I see now that what you needed from me instead was...',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
