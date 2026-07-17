@@ -582,7 +582,7 @@ class _ApologyScriptBuilderScreenState
               },
               {
                 'key': 'B',
-                'label': 'Option B: Permission to explain',
+                'label': 'Option B: offer to explain',
                 'text': 'If it would help to hear a little more about why things happened the way they did, I\'m happy to share that. But not everyone wants that - and it\'s completely okay if you don\'t. Either way, it doesn\'t change that it wasn\'t what you needed, and I see that now.',
               },
             ].map((option) {
@@ -721,12 +721,6 @@ class _ApologyScriptBuilderScreenState
             if (_currentStep == 2 && _selectedApology.isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Please select an option.')),
-              );
-              return;
-            }
-            if (_currentStep == 4 && _reactionContinuationController.text.trim().isEmpty) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Please add your own words.')),
               );
               return;
             }
