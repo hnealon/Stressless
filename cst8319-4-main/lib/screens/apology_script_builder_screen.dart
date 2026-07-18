@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'apology_guide_screen.dart';
 import '../theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:record/record.dart';
@@ -95,10 +94,18 @@ class _ApologyScriptBuilderScreenState
   void dispose() {
     _injuryController.dispose();
     _uniqueImpactController.dispose();
+    _scaredEventController.dispose();
     _scaredBecause1Controller.dispose();
+    _scaredBecause2Controller.dispose();
+    _sadEventController.dispose();
     _sadBecause1Controller.dispose();
+    _sadBecause2Controller.dispose();
+    _ashamedEventController.dispose();
     _ashamedBecause1Controller.dispose();
+    _ashamedBecause2Controller.dispose();
+    _angryEventController.dispose();
     _angryBecause1Controller.dispose();
+    _angryBecause2Controller.dispose();
     _lonelyOptionalController.dispose();
     _apologyController.dispose();
     _whatTheyNeededController.dispose();
@@ -110,7 +117,6 @@ class _ApologyScriptBuilderScreenState
     _repeatNeeded3Controller.dispose();
     _repeatWill1Controller.dispose();
     _repeatWill2Controller.dispose();
-    _customAddOnController.dispose();
     _customAddOnController.dispose();
     _audioRecorder.dispose();
     _audioPlayer.dispose();
@@ -229,12 +235,12 @@ class _ApologyScriptBuilderScreenState
     );
     if (sad != null) emotionLines.add(sad);
 
-    final ashamed = emotionSentence(
-      'It would have made sense for you to feel ashamed',
+    final embarrassed = emotionSentence(
+      'It would have made sense for you to feel embarrassed',
       _ashamedBecause1Controller.text,
       _ashamedBecause2Controller.text,
     );
-    if (ashamed != null) emotionLines.add(ashamed);
+    if (embarrassed != null) emotionLines.add(embarrassed);
 
     final angry = emotionSentence(
       'I can imagine you would have also felt angry',
@@ -243,8 +249,11 @@ class _ApologyScriptBuilderScreenState
     );
     if (angry != null) emotionLines.add(angry);
 
-    final lonely = _lonelyOptionalController.text.trim();
-    if (lonely.isNotEmpty) emotionLines.add(lonely);
+    if (_showLoneliness) {
+      emotionLines.add(
+        'And maybe you also felt really $_lonelyOrOverwhelmed carrying all those feelings on your own.',
+      );
+    }
 
     if (emotionLines.isNotEmpty) {
       sections.add(emotionLines.join('\n\n'));
@@ -252,7 +261,7 @@ class _ApologyScriptBuilderScreenState
 
     // Step 3 - Apology
     if (_selectedApology.isNotEmpty) {
-      sections.add(_selectedApology);
+      sections.add(_selectedApology.replaceAll('\n', ' ').trim());
     }
 
     // Step 4 - What they needed + what will change
@@ -296,7 +305,9 @@ class _ApologyScriptBuilderScreenState
     }
 
     if (_selectedApology.isNotEmpty) {
-      step5Parts.add('And I want you to know - $_selectedApology');
+      step5Parts.add(
+        'And I want you to know ${_selectedApology.replaceAll('\n', ' ').trim()}',
+      );
     }
 
     final repeatNeededList = joinAnd([
@@ -332,7 +343,7 @@ class _ApologyScriptBuilderScreenState
     } else if (_selectedAddOn == 'B') {
       sections.add(
         "If it would help to hear a little more about why things happened the way they did, "
-        "I'm happy to share that. But not everyone wants that - and it's completely okay if you don't. "
+        "I'm happy to share that. But not everyone wants that and it's completely okay if you don't. "
         "Either way, it doesn't change that it wasn't what you needed, and I see that now.",
       );
     } else if (_selectedAddOn == 'C' &&
@@ -519,7 +530,7 @@ class _ApologyScriptBuilderScreenState
         return _stepScaffold(
           title: 'Step 2: Validate the Emotional experiences ',
           subtitle:
-              'Label and validate the painful emotions associated with the event.',
+          'Label and validate the painful emotions associated with the event. Fill in the blanks for each of these emotions.',
           fields: [
             _noteCard("Attend to each emotion listed."),
             Text(
@@ -529,7 +540,7 @@ class _ApologyScriptBuilderScreenState
               ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
             ),
             Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.end,
               children: [
                 Text(
                   'I can imagine that when',
@@ -560,7 +571,7 @@ class _ApologyScriptBuilderScreenState
               ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
             ),
             Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.end,
               children: [
                 Text(
                   'I can also imagine that when',
@@ -591,7 +602,7 @@ class _ApologyScriptBuilderScreenState
               ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
             ),
             Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.end,
               children: [
                 Text(
                   'It would have made sense that when',
@@ -622,7 +633,7 @@ class _ApologyScriptBuilderScreenState
               ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
             ),
             Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.end,
               children: [
                 Text(
                   'And I can imagine that when',
@@ -645,8 +656,9 @@ class _ApologyScriptBuilderScreenState
                 ),
               ],
             ),
-            const SizedBox(height: 8),
-            const SizedBox(height: 8),
+
+
+            const SizedBox(height: 16),
             Text(
               'Check the box if you want to add this to your script:',
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -657,18 +669,17 @@ class _ApologyScriptBuilderScreenState
             const SizedBox(height: 8),
             CheckboxListTile(
               value: _showLoneliness,
-              onChanged: (val) =>
-                  setState(() => _showLoneliness = val ?? false),
+              onChanged: (val) => setState(() => _showLoneliness = val ?? false),
               activeColor: Colors.grey.shade500,
               checkColor: Colors.white,
               controlAffinity: ListTileControlAffinity.leading,
               contentPadding: EdgeInsets.zero,
               title: Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.end,
                 spacing: 4,
                 children: [
                   Text(
-                    'And maybe you also felt',
+                    'And maybe you also felt really',
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       color: Colors.grey.shade600,
                       fontSize: 13,
@@ -684,16 +695,12 @@ class _ApologyScriptBuilderScreenState
                     ),
                     items: const [
                       DropdownMenuItem(value: 'lonely', child: Text('lonely')),
-                      DropdownMenuItem(
-                        value: 'overwhelmed',
-                        child: Text('overwhelmed'),
-                      ),
+                      DropdownMenuItem(value: 'overwhelmed', child: Text('overwhelmed')),
                     ],
-                    onChanged: (val) =>
-                        setState(() => _lonelyOrOverwhelmed = val ?? 'lonely'),
+                    onChanged: (val) => setState(() => _lonelyOrOverwhelmed = val ?? 'lonely'),
                   ),
                   Text(
-                    'carrying all of these feelings.',
+                    'carrying all those feelings on your own.',
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       color: Colors.grey.shade600,
                       fontSize: 13,
@@ -779,12 +786,33 @@ class _ApologyScriptBuilderScreenState
               ),
             ),
             if (_isCustomApology)
-              _textField(
-                controller: _apologyController,
-                label: 'Write your own apology...',
-                maxLines: 3,
-                required: false,
-                hint: 'e.g. I am truly sorry for what happened.',
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Write your own apology...',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 6),
+                    TextFormField(
+                      controller: _apologyController,
+                      maxLines: 3,
+                      onChanged: (value) => setState(() {
+                        _selectedApology = value;
+                      }),
+                      decoration: InputDecoration(
+                        hintText: 'e.g. I am truly sorry for what happened.',
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
           ],
         );
@@ -795,7 +823,7 @@ class _ApologyScriptBuilderScreenState
           fields: [
             _noteCard("Ensure follow through is possible."),
             Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.end,
               children: [
                 Text(
                   'I can see now that what you needed from me was',
@@ -813,7 +841,7 @@ class _ApologyScriptBuilderScreenState
             ),
             const SizedBox(height: 32),
             Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.end,
               children: [
                 Text(
                   'Starting today, I will',
@@ -916,11 +944,16 @@ class _ApologyScriptBuilderScreenState
               _noteCard(
                 'Then repeat Steps 3 and 4 with some variation in language so that it\'s not exactly the same.',
               ),
+              Text(
+                'And I want you to know ${_selectedApology.replaceAll('\n', ' ').trim()}.',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              const SizedBox(height: 12),
               Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.end,
                 children: [
                   Text(
-                    'And I want you to know - $_selectedApology. I see now that what you needed from me instead was',
+                    'I see now that what you needed from me instead was',
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   _inlineBlank(_repeatNeeded1Controller, required: false),
@@ -932,7 +965,7 @@ class _ApologyScriptBuilderScreenState
               ),
               const SizedBox(height: 16),
               Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.end,
                 children: [
                   Text(
                     'Starting today I will',
@@ -960,7 +993,7 @@ class _ApologyScriptBuilderScreenState
               },
               {
                 'key': 'B',
-                'label': 'Option B: offer to explain',
+                'label': 'Option B: Offer to explain',
                 'text':
                     'If it would help to hear a little more about why things happened the way they did, I\'m happy to share that. But not everyone wants that - and it\'s completely okay if you don\'t. Either way, it doesn\'t change that it wasn\'t what you needed, and I see that now.',
               },
@@ -1270,15 +1303,18 @@ class _ApologyScriptBuilderScreenState
                 _currentStep = 0;
                 _injuryController.clear();
                 _uniqueImpactController.clear();
+                _scaredEventController.clear();
                 _scaredBecause1Controller.clear();
                 _scaredBecause2Controller.clear();
+                _sadEventController.clear();
                 _sadBecause1Controller.clear();
                 _sadBecause2Controller.clear();
+                _ashamedEventController.clear();
                 _ashamedBecause1Controller.clear();
                 _ashamedBecause2Controller.clear();
+                _angryEventController.clear();
                 _angryBecause1Controller.clear();
                 _angryBecause2Controller.clear();
-                _lonelyOptionalController.clear();
                 _apologyController.clear();
                 _whatTheyNeededController.clear();
                 _whatWillChangeController.clear();
@@ -1299,6 +1335,7 @@ class _ApologyScriptBuilderScreenState
                 _showWillChange2 = false;
                 _showCommitmentNote = false;
                 _showLoneliness = false;
+                _lonelyOrOverwhelmed = 'lonely';
                 _selectedReactionType = 'anger';
                 _recordingPath = null;
               }),
