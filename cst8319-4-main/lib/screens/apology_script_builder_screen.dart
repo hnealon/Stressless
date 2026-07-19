@@ -85,7 +85,7 @@ class _ApologyScriptBuilderScreenState
     'Reassurance':
         "I can understand why you'd want to reassure me right now. You've seen me struggle before, and I know you've tried to take care of my feelings.",
     'Denial':
-        "I can understand why this might be hard to take in - it's a lot to hear, and it's completely okay if you're not ready to go there yet.",
+        "I can understand why this might be hard to take in. It's a lot to hear, and it's completely okay if you're not ready to go there yet.",
     'Pain/Grief':
         "I can understand why you'd feel that pain. This is something that's been sitting there for a long time without getting the attention it deserved.",
   };
@@ -294,7 +294,9 @@ class _ApologyScriptBuilderScreenState
     // Step 5 - Reaction + repeat of 3 & 4
     final step5Parts = <String>[];
 
-    final reactionStarter = _reactionStarters[_selectedReactionType] ?? '';
+    final reactionStarter = _showReactionStarter
+        ? (_reactionStarters[_selectedReactionType] ?? '')
+        : '';
     final reactionContinuation = _reactionContinuationController.text.trim();
     final reactionLine = [
       reactionStarter,
@@ -1334,6 +1336,8 @@ class _ApologyScriptBuilderScreenState
                 _angryBecause1Controller.clear();
                 _angryBecause2Controller.clear();
                 _apologyController.clear();
+                _selectedApology = '';
+                _isCustomApology = false;
                 _whatTheyNeededController.clear();
                 _whatWillChangeController.clear();
                 _reactionContinuationController.clear();
@@ -1342,6 +1346,7 @@ class _ApologyScriptBuilderScreenState
                 _whatNeeded2Controller.clear();
                 _whatNeeded3Controller.clear();
                 _willChange2Controller.clear();
+                _willChange3Controller.clear();
                 _repeatNeeded1Controller.clear();
                 _repeatNeeded2Controller.clear();
                 _repeatNeeded3Controller.clear();
