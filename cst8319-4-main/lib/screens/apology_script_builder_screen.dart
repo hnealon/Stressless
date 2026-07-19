@@ -79,7 +79,7 @@ class _ApologyScriptBuilderScreenState
 
   static const Map<String, String> _reactionStarters = {
     'Anger':
-        "I can understand why you'd feel angry. It probably feels like too little, too late - like you've tried to show me this many times and I didn't see it or got defensive.",
+        "I can understand why you'd feel angry. It probably feels like too little, too late like you've tried to show me this many times and I didn't see it or got defensive.",
     'Silence':
         "I can understand why you'd remain silent. It can be a lot. You can take the time you need, You don't even need to respond.",
     'Reassurance':
@@ -822,6 +822,15 @@ class _ApologyScriptBuilderScreenState
           subtitle: 'State what they needed instead, and what will change.',
           fields: [
             _noteCard("Ensure follow through is possible."),
+            Text(
+              '(specify two to three ideas)',
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                fontStyle: FontStyle.italic,
+                color: Colors.grey.shade600,
+                fontSize: 13,
+              ),
+            ),
+            const SizedBox(height: 6),
             Wrap(
               crossAxisAlignment: WrapCrossAlignment.end,
               children: [
@@ -840,6 +849,15 @@ class _ApologyScriptBuilderScreenState
               ],
             ),
             const SizedBox(height: 32),
+            Text(
+              '(specify one to two ideas)',
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                fontStyle: FontStyle.italic,
+                color: Colors.grey.shade600,
+                fontSize: 13,
+              ),
+            ),
+            const SizedBox(height: 6),
             Wrap(
               crossAxisAlignment: WrapCrossAlignment.end,
               children: [
@@ -995,7 +1013,7 @@ class _ApologyScriptBuilderScreenState
                 'key': 'B',
                 'label': 'Option B: Offer to explain',
                 'text':
-                    'If it would help to hear a little more about why things happened the way they did, I\'m happy to share that. But not everyone wants that - and it\'s completely okay if you don\'t. Either way, it doesn\'t change that it wasn\'t what you needed, and I see that now.',
+                    'If it would help to hear a little more about why things happened the way they did, I\'m happy to share that. But not everyone wants that and it\'s completely okay if you don\'t. Either way, it doesn\'t change that it wasn\'t what you needed, and I see that now.',
               },
             ].map((option) {
               final isSelected = _selectedAddOn == option['key'];
