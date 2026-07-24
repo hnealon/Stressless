@@ -272,7 +272,9 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
           decoration: BoxDecoration(
             color: const Color(0xFF7B68AB).withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: const Color(0xFF7B68AB).withValues(alpha: 0.3)),
+            border: Border.all(
+              color: const Color(0xFF7B68AB).withValues(alpha: 0.3),
+            ),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -353,6 +355,7 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
       ],
     );
   }
+
   Widget _buildWrappingChip({
     required String text,
     required bool isSelected,
@@ -381,11 +384,12 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
       ),
     );
   }
+
   Widget _buildOptionMultiSelect(
-      List<CategorizedOption> options,
-      List<String> selected,
-      int maxSelection,
-      ) {
+    List<CategorizedOption> options,
+    List<String> selected,
+    int maxSelection,
+  ) {
     return Wrap(
       spacing: 8,
       runSpacing: 6,
@@ -435,10 +439,10 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
   }
 
   Widget _buildMultiSelect(
-      List<String> items,
-      List<String> selected,
-      int maxSelection,
-      ) {
+    List<String> items,
+    List<String> selected,
+    int maxSelection,
+  ) {
     return Wrap(
       spacing: 8,
       runSpacing: 6,

@@ -25,9 +25,9 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   final List<String> _selectedEmotionalSupports = [];
   final List<String> _selectedPracticalSupports = [];
   final TextEditingController _customEmotionalSupportController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController _customPracticalSupportController =
-  TextEditingController();
+      TextEditingController();
 
   String _generatedScript = '';
 
@@ -162,32 +162,38 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
 
   String _buildCustomScript() {
     final starter = _selectedStarter ?? '[Starter]';
-    final verb =
-    _selectedVerb != null ? _selectedVerb!.replaceAll('...', '') : '[verb]';
-    final phrase =
-    _phraseController.text.isNotEmpty ? _phraseController.text : '...';
+    final verb = _selectedVerb != null
+        ? _selectedVerb!.replaceAll('...', '')
+        : '[verb]';
+    final phrase = _phraseController.text.isNotEmpty
+        ? _phraseController.text
+        : '...';
 
     String becauseClause = '';
     if (_because1Controller.text.isNotEmpty &&
         _because2Controller.text.isNotEmpty &&
         _because3Controller.text.isNotEmpty) {
       becauseClause =
-      'because ${_because1Controller.text}, ${_because2Controller.text}, and ${_because3Controller.text}';
+          'because ${_because1Controller.text}, ${_because2Controller.text}, and ${_because3Controller.text}';
     }
 
-    final emotional = _selectedEmotionalSupports.map((e) {
-      if (e == "Other (Write your own)") {
-        return _customEmotionalSupportController.text;
-      }
-      return e;
-    }).join(' ');
+    final emotional = _selectedEmotionalSupports
+        .map((e) {
+          if (e == "Other (Write your own)") {
+            return _customEmotionalSupportController.text;
+          }
+          return e;
+        })
+        .join(' ');
 
-    final practical = _selectedPracticalSupports.map((e) {
-      if (e == "Other (Write your own)") {
-        return _customPracticalSupportController.text;
-      }
-      return e;
-    }).join(' ');
+    final practical = _selectedPracticalSupports
+        .map((e) {
+          if (e == "Other (Write your own)") {
+            return _customPracticalSupportController.text;
+          }
+          return e;
+        })
+        .join(' ');
 
     var validationPart = '$starter $verb $phrase';
     if (becauseClause.isNotEmpty) {
@@ -275,10 +281,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSubSectionTitle(
-          'Sentence Starter',
-          'Select a sentence starter.',
-        ),
+        _buildSubSectionTitle('Sentence Starter', 'Select a sentence starter.'),
         _buildChoiceChipGroup(_starters, _selectedStarter, (selected) {
           setState(() {
             _selectedStarter = selected;
@@ -344,13 +347,13 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   }
 
   Widget _buildSupportSection(
-      String title,
-      String subtitle,
-      List<String> items,
-      List<String> selectedItems,
-      TextEditingController customTextController,
-      int maxSelection,
-      ) {
+    String title,
+    String subtitle,
+    List<String> items,
+    List<String> selectedItems,
+    TextEditingController customTextController,
+    int maxSelection,
+  ) {
     final showCustomField = selectedItems.contains("Other (Write your own)");
 
     return Column(
@@ -420,10 +423,10 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   }
 
   Widget _buildChoiceChipGroup(
-      List<String> items,
-      String? selectedItem,
-      ValueChanged<String> onSelected,
-      ) {
+    List<String> items,
+    String? selectedItem,
+    ValueChanged<String> onSelected,
+  ) {
     return Wrap(
       spacing: 8.0,
       runSpacing: 6.0,
@@ -453,10 +456,10 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   }
 
   Widget _buildMultiChoiceChipGroup(
-      List<String> items,
-      List<String> selectedItems,
-      int maxSelection,
-      ) {
+    List<String> items,
+    List<String> selectedItems,
+    int maxSelection,
+  ) {
     return Wrap(
       spacing: 8.0,
       runSpacing: 6.0,
@@ -495,9 +498,9 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   }
 
   Widget _buildBecauseTextField(
-      TextEditingController controller,
-      String hintText,
-      ) {
+    TextEditingController controller,
+    String hintText,
+  ) {
     return TextField(
       controller: controller,
       style: GoogleFonts.nunito(fontSize: 14, color: AppColors.textPrimary),
@@ -574,8 +577,9 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
                   ? AppColors.textPrimary
                   : AppColors.textLight,
               height: 1.6,
-              fontStyle:
-              _hasCompleteScript ? FontStyle.normal : FontStyle.italic,
+              fontStyle: _hasCompleteScript
+                  ? FontStyle.normal
+                  : FontStyle.italic,
             ),
           ),
           const SizedBox(height: 20),
@@ -593,9 +597,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
                     ),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Script copied to clipboard'),
-                    ),
+                    const SnackBar(content: Text('Script copied to clipboard')),
                   );
                 },
                 icon: const Icon(Icons.copy_all_outlined, size: 18),

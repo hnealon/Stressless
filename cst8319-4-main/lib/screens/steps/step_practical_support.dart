@@ -80,7 +80,8 @@ class _StepPracticalSupportState extends State<StepPracticalSupport> {
   }
 
   bool get _canContinue =>
-      _selected.isNotEmpty || (_isOtherSelected && _otherController.text.isNotEmpty);
+      _selected.isNotEmpty ||
+      (_isOtherSelected && _otherController.text.isNotEmpty);
 
   String get _selectionCountText {
     switch (2 - _totalSelections) {
@@ -141,12 +142,14 @@ class _StepPracticalSupportState extends State<StepPracticalSupport> {
         ).animate().fadeIn(delay: 200.ms, duration: 300.ms),
         const SizedBox(height: 12),
 
-        ...options.asMap().entries.map((e) => SelectableOptionTile(
-              text: e.value,
-              isSelected: _selected.contains(e.value),
-              onTap: () => _toggleOption(e.value),
-              multiSelect: true,
-            ).animate().fadeIn(delay: Duration(milliseconds: 250 + e.key * 70))),
+        ...options.asMap().entries.map(
+          (e) => SelectableOptionTile(
+            text: e.value,
+            isSelected: _selected.contains(e.value),
+            onTap: () => _toggleOption(e.value),
+            multiSelect: true,
+          ).animate().fadeIn(delay: Duration(milliseconds: 250 + e.key * 70)),
+        ),
 
         const SizedBox(height: 8),
         SelectableOptionTile(
@@ -163,7 +166,10 @@ class _StepPracticalSupportState extends State<StepPracticalSupport> {
               controller: _otherController,
               onChanged: (_) => _saveState(),
               maxLines: 2,
-              style: GoogleFonts.nunito(fontSize: 14, color: AppColors.textPrimary),
+              style: GoogleFonts.nunito(
+                fontSize: 14,
+                color: AppColors.textPrimary,
+              ),
               decoration: InputDecoration(
                 hintText: 'Type your response here...',
                 hintStyle: GoogleFonts.nunito(color: AppColors.textLight),
