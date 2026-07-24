@@ -230,7 +230,7 @@ class PracticeScreen extends StatelessWidget {
         style: OutlinedButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 16),
         ),
-        child: const Text('Click here to continue practicing'),
+        child: const Text('Click here to continue practicing with emotion based scenarios'),
       ),
     ).animate().fadeIn(delay: 900.ms, duration: 400.ms);
   }
