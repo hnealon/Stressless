@@ -353,21 +353,48 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
       ],
     );
   }
-
+  Widget _buildWrappingChip({
+    required String text,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        decoration: BoxDecoration(
+          color: isSelected ? AppColors.primary : AppColors.surface,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isSelected ? AppColors.primary : AppColors.cardBorder,
+          ),
+        ),
+        child: Text(
+          text,
+          softWrap: true,
+          style: GoogleFonts.nunito(
+            color: isSelected ? Colors.white : AppColors.textPrimary,
+            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
+            fontSize: 13,
+          ),
+        ),
+      ),
+    );
+  }
   Widget _buildOptionMultiSelect(
-    List<CategorizedOption> options,
-    List<String> selected,
-    int maxSelection,
-  ) {
+      List<CategorizedOption> options,
+      List<String> selected,
+      int maxSelection,
+      ) {
     return Wrap(
       spacing: 8,
       runSpacing: 6,
       children: options.map((option) {
         final isSelected = selected.contains(option.text);
-        return ChoiceChip(
-          label: Text(option.text),
-          selected: isSelected,
-          onSelected: (_) {
+        return _buildWrappingChip(
+          text: option.text,
+          isSelected: isSelected,
+          onTap: () {
             setState(() {
               if (isSelected) {
                 selected.remove(option.text);
@@ -377,20 +404,6 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
               _updateScript();
             });
           },
-          backgroundColor: AppColors.surface,
-          selectedColor: AppColors.primary,
-          labelStyle: GoogleFonts.nunito(
-            color: isSelected ? Colors.white : AppColors.textPrimary,
-            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
-            fontSize: 13,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-            side: BorderSide(
-              color: isSelected ? AppColors.primary : AppColors.cardBorder,
-            ),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         );
       }).toList(),
     );
@@ -422,19 +435,19 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
   }
 
   Widget _buildMultiSelect(
-    List<String> items,
-    List<String> selected,
-    int maxSelection,
-  ) {
+      List<String> items,
+      List<String> selected,
+      int maxSelection,
+      ) {
     return Wrap(
       spacing: 8,
       runSpacing: 6,
       children: items.map((item) {
         final isSelected = selected.contains(item);
-        return ChoiceChip(
-          label: Text(item),
-          selected: isSelected,
-          onSelected: (_) {
+        return _buildWrappingChip(
+          text: item,
+          isSelected: isSelected,
+          onTap: () {
             setState(() {
               if (isSelected) {
                 selected.remove(item);
@@ -444,20 +457,6 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
               _updateScript();
             });
           },
-          backgroundColor: AppColors.surface,
-          selectedColor: AppColors.primary,
-          labelStyle: GoogleFonts.nunito(
-            color: isSelected ? Colors.white : AppColors.textPrimary,
-            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
-            fontSize: 13,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-            side: BorderSide(
-              color: isSelected ? AppColors.primary : AppColors.cardBorder,
-            ),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         );
       }).toList(),
     );
