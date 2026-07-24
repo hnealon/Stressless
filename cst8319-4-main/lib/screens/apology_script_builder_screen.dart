@@ -49,6 +49,7 @@ class _ApologyScriptBuilderScreenState
   final _repeatNeeded3Controller = TextEditingController();
   final _repeatWill1Controller = TextEditingController();
   final _repeatWill2Controller = TextEditingController();
+  final _repeatWill3Controller = TextEditingController();
   // Step 3 - Communicate a sincere apology
   final _apologyController = TextEditingController();
   bool _isCustomApology = false;
@@ -117,6 +118,7 @@ class _ApologyScriptBuilderScreenState
     _repeatNeeded3Controller.dispose();
     _repeatWill1Controller.dispose();
     _repeatWill2Controller.dispose();
+    _repeatWill3Controller.dispose();
     _customAddOnController.dispose();
     _audioRecorder.dispose();
     _audioPlayer.dispose();
@@ -319,16 +321,19 @@ class _ApologyScriptBuilderScreenState
     ]);
     if (repeatNeededList.isNotEmpty) {
       step5Parts.add(
-        'I see now that what you needed from me instead was $repeatNeededList.',
+        'What I understand now is that you needed something different from me, like $repeatNeededList.',
       );
     }
 
     final repeatWillList = joinAnd([
       _repeatWill1Controller.text,
       _repeatWill2Controller.text,
+      _repeatWill3Controller.text,
     ]);
     if (repeatWillList.isNotEmpty) {
-      step5Parts.add('Starting today I will $repeatWillList.');
+      step5Parts.add(
+        'From this point forward, I am making a commitment to $repeatWillList.',
+      );
     }
 
     if (step5Parts.isNotEmpty) {
@@ -488,6 +493,78 @@ class _ApologyScriptBuilderScreenState
     );
   }
 
+  // Shows what the user entered in Step 4 as a quick reference while
+  // they repeat/rephrase it in Step 5, per Adele email
+  Widget _buildStep4ReminderBox() {
+    String joinAnd(List<String> pieces) {
+      final clean = pieces
+          .map((p) => p.trim())
+          .where((p) => p.isNotEmpty)
+          .toList();
+      if (clean.isEmpty) return '';
+      if (clean.length == 1) return clean.first;
+      if (clean.length == 2) return '${clean[0]} and ${clean[1]}';
+      return '${clean.sublist(0, clean.length - 1).join(', ')}, and ${clean.last}';
+    }
+
+    final neededList = joinAnd([
+      _whatTheyNeededController.text,
+      _whatNeeded2Controller.text,
+      _whatNeeded3Controller.text,
+    ]);
+    final willChangeList = joinAnd([
+      _whatWillChangeController.text,
+      _willChange2Controller.text,
+      _willChange3Controller.text,
+    ]);
+
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Reminder of what you wrote in Step 4: ',
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+              fontWeight: FontWeight.bold,
+              fontSize: 13,
+              color: Colors.grey.shade700,
+            ),
+          ),
+          const SizedBox(height: 6),
+          if (neededList.isNotEmpty)
+            Text(
+              'What they needed: $neededList',
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                fontSize: 13,
+                color: Colors.grey.shade600,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          if (willChangeList.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: Text(
+                'Your commitment: $willChangeList',
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontSize: 13,
+                  color: Colors.grey.shade600,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildStepContent() {
     switch (_currentStep) {
       case 0:
@@ -532,7 +609,7 @@ class _ApologyScriptBuilderScreenState
         return _stepScaffold(
           title: 'Step 2: Validate the Emotional experiences ',
           subtitle:
-          'Label and validate the painful emotions associated with the event. Fill in the blanks for each of these emotions.',
+              'Label and validate the painful emotions associated with the event. Fill in the blanks for each of these emotions.',
           fields: [
             _noteCard("Attend to each emotion listed."),
             Text(
@@ -659,7 +736,6 @@ class _ApologyScriptBuilderScreenState
               ],
             ),
 
-
             const SizedBox(height: 16),
             Text(
               'Check the box if you want to add this to your script:',
@@ -671,7 +747,8 @@ class _ApologyScriptBuilderScreenState
             const SizedBox(height: 8),
             CheckboxListTile(
               value: _showLoneliness,
-              onChanged: (val) => setState(() => _showLoneliness = val ?? false),
+              onChanged: (val) =>
+                  setState(() => _showLoneliness = val ?? false),
               activeColor: Colors.grey.shade500,
               checkColor: Colors.white,
               controlAffinity: ListTileControlAffinity.leading,
@@ -697,9 +774,13 @@ class _ApologyScriptBuilderScreenState
                     ),
                     items: const [
                       DropdownMenuItem(value: 'lonely', child: Text('lonely')),
-                      DropdownMenuItem(value: 'overwhelmed', child: Text('overwhelmed')),
+                      DropdownMenuItem(
+                        value: 'overwhelmed',
+                        child: Text('overwhelmed'),
+                      ),
                     ],
-                    onChanged: (val) => setState(() => _lonelyOrOverwhelmed = val ?? 'lonely'),
+                    onChanged: (val) =>
+                        setState(() => _lonelyOrOverwhelmed = val ?? 'lonely'),
                   ),
                   Text(
                     'carrying all those feelings on your own.',
@@ -868,12 +949,12 @@ class _ApologyScriptBuilderScreenState
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 _inlineBlank(_whatWillChangeController),
-                Text('and', style: Theme.of(context).textTheme.bodyLarge),
-                _inlineBlank(_willChange2Controller),
                 Text(
-                  'and, (optionally)',
+                  'and (optionally)',
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
+                _inlineBlank(_willChange2Controller, required: false),
+                Text('and', style: Theme.of(context).textTheme.bodyLarge),
                 _inlineBlank(_willChange3Controller, required: false),
               ],
             ),
@@ -964,6 +1045,7 @@ class _ApologyScriptBuilderScreenState
               _noteCard(
                 'Then repeat Steps 3 and 4 with some variation in language so that it\'s not exactly the same.',
               ),
+              _buildStep4ReminderBox(),
               Text(
                 'And I want you to know ${_selectedApology.replaceAll('\n', ' ').trim()}.',
                 style: Theme.of(context).textTheme.bodyLarge,
@@ -973,14 +1055,14 @@ class _ApologyScriptBuilderScreenState
                 crossAxisAlignment: WrapCrossAlignment.end,
                 children: [
                   Text(
-                    'I see now that what you needed from me instead was',
+                    'What I understand now is that you needed something different from me, like',
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                  _inlineBlank(_repeatNeeded1Controller, required: false),
+                  _inlineBlank(_repeatNeeded1Controller),
                   Text('and', style: Theme.of(context).textTheme.bodyLarge),
-                  _inlineBlank(_repeatNeeded2Controller, required: false),
+                  _inlineBlank(_repeatNeeded2Controller),
                   Text('and', style: Theme.of(context).textTheme.bodyLarge),
-                  _inlineBlank(_repeatNeeded3Controller),
+                  _inlineBlank(_repeatNeeded3Controller, required: false),
                 ],
               ),
               const SizedBox(height: 16),
@@ -988,12 +1070,17 @@ class _ApologyScriptBuilderScreenState
                 crossAxisAlignment: WrapCrossAlignment.end,
                 children: [
                   Text(
-                    'Starting today I will',
+                    'From this point forward, I am making a commitment to',
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                  _inlineBlank(_repeatWill1Controller, required: false),
+                  _inlineBlank(_repeatWill1Controller),
                   Text('and', style: Theme.of(context).textTheme.bodyLarge),
                   _inlineBlank(_repeatWill2Controller),
+                  Text(
+                    'and',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  _inlineBlank(_repeatWill3Controller, required: false),
                 ],
               ),
             ],
@@ -1352,6 +1439,7 @@ class _ApologyScriptBuilderScreenState
                 _repeatNeeded3Controller.clear();
                 _repeatWill1Controller.clear();
                 _repeatWill2Controller.clear();
+                _repeatWill3Controller.clear();
                 _customAddOnController.clear();
                 _selectedAddOn = '';
                 _showNeeded3 = false;
