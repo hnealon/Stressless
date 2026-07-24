@@ -228,9 +228,16 @@ class PracticeScreen extends StatelessWidget {
           );
         },
         style: OutlinedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 16),
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
         ),
-        child: const Text('Click here to continue practicing with emotion based scenarios'),
+        child: Text(
+          'Click here to continue practicing with emotion based scenarios',
+          textAlign: TextAlign.center,
+          style: GoogleFonts.nunito(
+            fontSize: 14,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ),
     ).animate().fadeIn(delay: 900.ms, duration: 400.ms);
   }
