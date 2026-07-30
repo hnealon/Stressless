@@ -43,7 +43,8 @@ class HomeScreenNew extends StatelessWidget {
             ).animate().fadeIn(delay: 100.ms),
             const SizedBox(height: 16),
             Text(
-              'StressLess app is a practical tool for parents and caregivers who are already showing up for the young people in their lives and want to add a few more tools to their toolkit.',
+              'StressLess app is a practical tool for parents and caregivers who are already showing up for the young people in their lives '
+                  'and want to add a few more tools to their toolkit.',
               style: textTheme.bodyLarge,
             ).animate().fadeIn(delay: 200.ms),
             const SizedBox(height: 24),
@@ -58,17 +59,19 @@ class HomeScreenNew extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'StressLess is a mobile learning tool designed to help caregivers practice emotionally supportive responses to children experiencing stress or distress.',
+                    'StressLess is a mobile learning tool designed to help caregivers practice supportive responses to children experiencing stress or distress.',
                     style: textTheme.bodyLarge,
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    'The application uses short scenario-based practice sessions based on the emotional support module of Emotion-Focused Family Therapy (EFFT).',
+                    'The application uses short scenario-based practice sessions based on the emotional and '
+                        'relational support modules of Emotion-Focused Family Therapy (EFFT).',
                     style: textTheme.bodyLarge,
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    'The goal is to help caregivers build new communication habits through short, repeatable practice sessions.',
+                    'The goal of this app is to support parents to increase skill and fluency with new emotional '
+                        'and relational skills through short, repeatable practice sessions.',
                     style: textTheme.bodyLarge,
                   ),
                 ],
@@ -81,7 +84,9 @@ class HomeScreenNew extends StatelessWidget {
               context,
               title: 'You\'re not alone in this',
               child: Text(
-                'Parenting a stressed or distressed child isn\'t easy! We all know what it\'s like when we are at a loss for what to say or how to say it, and even the most caring, attuned parents can find themselves at a loss in difficult moments. That\'s where this app comes in.',
+                'Parenting isn\'t easy. It\'s even harder in moments of tension, stress, and distress. '
+                    'We all know what it\'s like to be at a loss for what to say or how to say it - and even '
+                    'the most caring, attuned parents find themselves there sometimes. This app is here to help.',
                 style: textTheme.bodyLarge,
               ),
             ).animate().fadeIn(delay: 300.ms),
@@ -95,12 +100,17 @@ class HomeScreenNew extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'The tools here are grounded in Emotion-Focused Family Therapy (EFFT), a well-researched approach that recognizes caregivers as key agents of healing and growth in their children\'s lives. Informed by neurobiology, the Validation & Support Framework at the heart of this app is designed to help shift children from a place of stress and reactivity to one of openness, flexibility, and engagement, and caregivers are uniquely positioned to make that possible.',
+                    'The tools here are grounded in Emotion-Focused Family Therapy (EFFT), a well-researched approach that '
+                        'recognizes caregivers as key agents of healing and growth in their children\'s lives. Informed by neurobiology, '
+                        'the Validation & Support Framework at the heart of this app is designed to help shift children from a place of '
+                        'stress and reactivity to one of openness, flexibility, and engagement, and caregivers are uniquely positioned to make that possible.',
                     style: textTheme.bodyLarge,
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    'You\'ll find teachings that walk you through the Validation & Support Framework, opportunities to practice, and a script builder to help you find your own words. Whether you\'re navigating everyday stress or harder emotional moments, these tools offer a compassionate, structured way to find your way together.',
+                    'You\'ll find teachings that walk you through the Validation & Support framework, opportunities to practice, '
+                        'and a script builder to help you find your own words. Whether you\'re navigating everyday stress or more emotionally charged moments, '
+                        'these tools offer a compassionate, structured way to find your way together. ',
                     style: textTheme.bodyLarge,
                   ),
                 ],
@@ -123,7 +133,8 @@ class HomeScreenNew extends StatelessWidget {
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      'For those who want to go further, the app also includes the opportunity to learn about EFFT\'s Therapeutic Apology, an advanced validation and support technique for repairing ruptures and deepening trust with your child.',
+                      'For those who want to deepen their skills, this app also includes the opportunity to learn about EFFT\'s Therapeutic Apology, '
+                          'an advanced validation and support technique for repairing ruptures and deepening trust with your child, among other potential benefits.',
                       style: textTheme.bodyLarge,
                     ),
                   ),
@@ -140,7 +151,8 @@ class HomeScreenNew extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'This app is designed to complement the support of an EFFT-trained clinician, not replace it. Think of it as a companion resource, a place to revisit what you\'re learning, practice new skills, and build confidence between sessions.',
+                    'This app is designed to complement the support of an EFFT-trained clinician. Think of it as a companion resource, '
+                        'a place to revisit what you\'re learning, practice new skills, and build confidence between sessions.',
                     style: textTheme.bodyLarge,
                   ),
                   const SizedBox(height: 12),
