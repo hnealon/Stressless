@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme.dart';
 import 'about_screen.dart';
+import 'support_app_screen.dart';
 
 class HomeScreenNew extends StatelessWidget {
   const HomeScreenNew({super.key});
@@ -153,6 +154,10 @@ class HomeScreenNew extends StatelessWidget {
                 ],
               ),
             ).animate().fadeIn(delay: 600.ms),
+            const SizedBox(height: 12),
+
+            // Support this app (contribution entry point)
+            _buildSupportAppCard(context),
 
             const SizedBox(height: 20),
 
@@ -188,6 +193,44 @@ class HomeScreenNew extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildSupportAppCard(BuildContext context) {
+    return Card(
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 12,
+        ),
+        leading: const Icon(
+          Icons.attach_money,
+          color: AppColors.primary,
+          size: 26,
+        ),
+        title: Text(
+          'Support this app',
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        subtitle: Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: Text(
+            'Optional - helps fund development and access to care for families who need it.',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ),
+        trailing: const Icon(
+          Icons.arrow_forward_ios_rounded,
+          size: 14,
+          color: AppColors.textSecondary,
+        ),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const SupportAppScreen()),
+          );
+        },
+      ),
+    ).animate().fadeIn(delay: 650.ms);
   }
 
   Widget _buildAboutCard(BuildContext context) {

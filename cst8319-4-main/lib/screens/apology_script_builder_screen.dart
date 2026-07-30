@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'apology_guide_screen.dart';
 import '../theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:record/record.dart';
 import 'package:audioplayers/audioplayers.dart';
-
 
 class ApologyScriptBuilderScreen extends StatefulWidget {
   const ApologyScriptBuilderScreen({super.key});
@@ -17,7 +15,7 @@ class ApologyScriptBuilderScreen extends StatefulWidget {
 
 class _ApologyScriptBuilderScreenState
     extends State<ApologyScriptBuilderScreen> {
-// Audio state variables (from khalils feature)
+  // Audio state variables (from khalils feature)
   final AudioRecorder _audioRecorder = AudioRecorder();
   final AudioPlayer _audioPlayer = AudioPlayer();
   String? _recordingPath;
@@ -33,12 +31,16 @@ class _ApologyScriptBuilderScreenState
   final _uniqueImpactController = TextEditingController();
 
   // Step 2 - Label and validate the painful emotions
+  final _scaredEventController = TextEditingController();
   final _scaredBecause1Controller = TextEditingController();
   final _scaredBecause2Controller = TextEditingController();
+  final _sadEventController = TextEditingController();
   final _sadBecause1Controller = TextEditingController();
   final _sadBecause2Controller = TextEditingController();
+  final _ashamedEventController = TextEditingController();
   final _ashamedBecause1Controller = TextEditingController();
   final _ashamedBecause2Controller = TextEditingController();
+  final _angryEventController = TextEditingController();
   final _angryBecause1Controller = TextEditingController();
   final _angryBecause2Controller = TextEditingController();
   final _lonelyOptionalController = TextEditingController();
@@ -47,42 +49,62 @@ class _ApologyScriptBuilderScreenState
   final _repeatNeeded3Controller = TextEditingController();
   final _repeatWill1Controller = TextEditingController();
   final _repeatWill2Controller = TextEditingController();
+  final _repeatWill3Controller = TextEditingController();
   // Step 3 - Communicate a sincere apology
   final _apologyController = TextEditingController();
+  bool _isCustomApology = false;
 
   // Step 4 - State what they needed and what will change
   final _whatTheyNeededController = TextEditingController();
-  final _whatWillChangeController = TextEditingController();
   final _whatNeeded2Controller = TextEditingController();
   final _whatNeeded3Controller = TextEditingController();
+  final _whatWillChangeController = TextEditingController();
   final _willChange2Controller = TextEditingController();
+  final _willChange3Controller = TextEditingController();
   // Step 5 - Respond with validation to their reaction
-  String _selectedReactionType = 'anger';
+  String _selectedReactionType = '';
+  bool _reactionTypeChosen = false;
   String _selectedApology = '';
   final _reactionContinuationController = TextEditingController();
   String _selectedAddOn = ''; // 'A', 'B', 'C', or ''
+  bool _showNeeded3 = false;
+  bool _showWillChange2 = false;
+  bool _showCommitmentNote = false;
+  bool _showLoneliness = false;
+  String _lonelyOrOverwhelmed = 'lonely';
+  bool _showReactionStarter = false;
   final _customAddOnController = TextEditingController();
   // Step 6 - Repeat steps 3 and 4 (auto-suggested, editable)
   final _repeatedApologyController = TextEditingController();
   final _repeatedChangeController = TextEditingController();
 
   static const Map<String, String> _reactionStarters = {
-    'anger': "I can understand why you'd feel angry. It probably feels like too little, too late - like you've tried to show me this many times and I didn't see it or got defensive.",
-    'reassurance': "I can understand why you'd want to reassure me right now. You've seen me struggle before, and I know you've tried to take care of my feelings.",
-    'denial': "I can understand why this might be hard to take in - it's a lot to hear, and it's completely okay if you're not ready to go there yet.",
-    'pain': "I can understand why you'd feel that pain. This is something that's been sitting there for a long time without getting the attention it deserved.",
+    'Anger':
+        "I can understand why you'd feel angry. It probably feels like too little, too late like you've tried to show me this many times and I didn't see it or got defensive.",
+    'Silence':
+        "I can understand why you'd remain silent. It can be a lot. You can take the time you need, You don't even need to respond.",
+    'Reassurance':
+        "I can understand why you'd want to reassure me right now. You've seen me struggle before, and I know you've tried to take care of my feelings.",
+    'Denial':
+        "I can understand why this might be hard to take in. It's a lot to hear, and it's completely okay if you're not ready to go there yet.",
+    'Pain/Grief':
+        "I can understand why you'd feel that pain. This is something that's been sitting there for a long time without getting the attention it deserved.",
   };
 
   @override
   void dispose() {
     _injuryController.dispose();
     _uniqueImpactController.dispose();
+    _scaredEventController.dispose();
     _scaredBecause1Controller.dispose();
     _scaredBecause2Controller.dispose();
+    _sadEventController.dispose();
     _sadBecause1Controller.dispose();
     _sadBecause2Controller.dispose();
+    _ashamedEventController.dispose();
     _ashamedBecause1Controller.dispose();
     _ashamedBecause2Controller.dispose();
+    _angryEventController.dispose();
     _angryBecause1Controller.dispose();
     _angryBecause2Controller.dispose();
     _lonelyOptionalController.dispose();
@@ -92,15 +114,11 @@ class _ApologyScriptBuilderScreenState
     _reactionContinuationController.dispose();
     _repeatedApologyController.dispose();
     _repeatedChangeController.dispose();
-    _whatNeeded2Controller.dispose();
-    _whatNeeded3Controller.dispose();
-    _willChange2Controller.dispose();
     _repeatNeeded1Controller.dispose();
-    _repeatNeeded2Controller.dispose();
     _repeatNeeded3Controller.dispose();
     _repeatWill1Controller.dispose();
     _repeatWill2Controller.dispose();
-    _customAddOnController.dispose();
+    _repeatWill3Controller.dispose();
     _customAddOnController.dispose();
     _audioRecorder.dispose();
     _audioPlayer.dispose();
@@ -124,6 +142,7 @@ class _ApologyScriptBuilderScreenState
       }
     });
   }
+
   // Audio Actions using identical names and logic as File 1
   Future<void> _toggleRecording() async {
     if (_isRecording) {
@@ -175,7 +194,10 @@ class _ApologyScriptBuilderScreenState
     // Helper: joins a list of non-empty pieces with " and " between them.
     // Returns empty string if nothing has been filled in.
     String joinAnd(List<String> pieces) {
-      final clean = pieces.map((p) => p.trim()).where((p) => p.isNotEmpty).toList();
+      final clean = pieces
+          .map((p) => p.trim())
+          .where((p) => p.isNotEmpty)
+          .toList();
       if (clean.isEmpty) return '';
       if (clean.length == 1) return clean.first;
       if (clean.length == 2) return '${clean[0]} and ${clean[1]}';
@@ -194,8 +216,8 @@ class _ApologyScriptBuilderScreenState
     // Step 1 - Identify the injury
     sections.add(
       'I want to talk to you about ${_injuryController.text.trim()} '
-          'and how hard that must have been for you. '
-          'Especially because ${_uniqueImpactController.text.trim()}.',
+      'and how hard that must have been for you. '
+      'Especially because ${_uniqueImpactController.text.trim()}.',
     );
 
     // Step 2 - Validate emotions (only include ones the user filled in)
@@ -215,12 +237,12 @@ class _ApologyScriptBuilderScreenState
     );
     if (sad != null) emotionLines.add(sad);
 
-    final ashamed = emotionSentence(
-      'It would have made sense for you to feel ashamed',
+    final embarrassed = emotionSentence(
+      'It would have made sense for you to feel embarrassed',
       _ashamedBecause1Controller.text,
       _ashamedBecause2Controller.text,
     );
-    if (ashamed != null) emotionLines.add(ashamed);
+    if (embarrassed != null) emotionLines.add(embarrassed);
 
     final angry = emotionSentence(
       'I can imagine you would have also felt angry',
@@ -229,8 +251,11 @@ class _ApologyScriptBuilderScreenState
     );
     if (angry != null) emotionLines.add(angry);
 
-    final lonely = _lonelyOptionalController.text.trim();
-    if (lonely.isNotEmpty) emotionLines.add(lonely);
+    if (_showLoneliness) {
+      emotionLines.add(
+        'And maybe you also felt really $_lonelyOrOverwhelmed carrying all those feelings on your own.',
+      );
+    }
 
     if (emotionLines.isNotEmpty) {
       sections.add(emotionLines.join('\n\n'));
@@ -238,7 +263,7 @@ class _ApologyScriptBuilderScreenState
 
     // Step 3 - Apology
     if (_selectedApology.isNotEmpty) {
-      sections.add(_selectedApology);
+      sections.add(_selectedApology.replaceAll('\n', ' ').trim());
     }
 
     // Step 4 - What they needed + what will change
@@ -254,12 +279,14 @@ class _ApologyScriptBuilderScreenState
 
     final step4Parts = <String>[];
     if (neededList.isNotEmpty) {
-      step4Parts.add('I can see now that what you needed from me was $neededList.');
+      step4Parts.add(
+        'I can see now that what you needed from me was $neededList.',
+      );
     }
     if (willChangeList.isNotEmpty) {
       step4Parts.add(
         'Starting today, I will $willChangeList. '
-            "I know it won't always go perfectly, but I am committed to working on this.",
+        "I know it won't always go perfectly, but I am committed to working on this.",
       );
     }
     if (step4Parts.isNotEmpty) {
@@ -269,7 +296,9 @@ class _ApologyScriptBuilderScreenState
     // Step 5 - Reaction + repeat of 3 & 4
     final step5Parts = <String>[];
 
-    final reactionStarter = _reactionStarters[_selectedReactionType] ?? '';
+    final reactionStarter = _showReactionStarter
+        ? (_reactionStarters[_selectedReactionType] ?? '')
+        : '';
     final reactionContinuation = _reactionContinuationController.text.trim();
     final reactionLine = [
       reactionStarter,
@@ -280,7 +309,9 @@ class _ApologyScriptBuilderScreenState
     }
 
     if (_selectedApology.isNotEmpty) {
-      step5Parts.add('And I want you to know - $_selectedApology');
+      step5Parts.add(
+        'And I want you to know ${_selectedApology.replaceAll('\n', ' ').trim()}',
+      );
     }
 
     final repeatNeededList = joinAnd([
@@ -290,16 +321,19 @@ class _ApologyScriptBuilderScreenState
     ]);
     if (repeatNeededList.isNotEmpty) {
       step5Parts.add(
-        'I see now that what you needed from me instead was $repeatNeededList.',
+        'What I understand now is that you needed something different from me, like $repeatNeededList.',
       );
     }
 
     final repeatWillList = joinAnd([
       _repeatWill1Controller.text,
       _repeatWill2Controller.text,
+      _repeatWill3Controller.text,
     ]);
     if (repeatWillList.isNotEmpty) {
-      step5Parts.add('Starting today I will $repeatWillList.');
+      step5Parts.add(
+        'From this point forward, I am making a commitment to $repeatWillList.',
+      );
     }
 
     if (step5Parts.isNotEmpty) {
@@ -310,14 +344,14 @@ class _ApologyScriptBuilderScreenState
     if (_selectedAddOn == 'A') {
       sections.add(
         "Your experience matters to me, and I'm here to listen whenever you're ready. "
-            "It could be now, two weeks from now, or a year from now. "
-            "I want to be here for you in a different way.",
+        "It could be now, two weeks from now, or a year from now. "
+        "I want to be here for you in a different way.",
       );
     } else if (_selectedAddOn == 'B') {
       sections.add(
         "If it would help to hear a little more about why things happened the way they did, "
-            "I'm happy to share that. But not everyone wants that - and it's completely okay if you don't. "
-            "Either way, it doesn't change that it wasn't what you needed, and I see that now.",
+        "I'm happy to share that. But not everyone wants that and it's completely okay if you don't. "
+        "Either way, it doesn't change that it wasn't what you needed, and I see that now.",
       );
     } else if (_selectedAddOn == 'C' &&
         _customAddOnController.text.trim().isNotEmpty) {
@@ -333,7 +367,10 @@ class _ApologyScriptBuilderScreenState
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.background,
-        title: Text('Therapeutic Apology', style: Theme.of(context).textTheme.headlineMedium),
+        title: Text(
+          'Therapeutic Apology',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
         elevation: 0,
       ),
       body: Column(
@@ -379,10 +416,7 @@ class _ApologyScriptBuilderScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text(label, style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 6),
           TextFormField(
             controller: controller,
@@ -391,13 +425,40 @@ class _ApologyScriptBuilderScreenState
               hintText: hint,
               filled: true,
               fillColor: Colors.white,
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
             ),
             validator: required
                 ? (v) => (v == null || v.trim().isEmpty) ? 'Required' : null
                 : null,
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _inlineBlank(
+    TextEditingController controller, {
+    double width = 140,
+    bool required = true,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: SizedBox(
+        width: width,
+        child: TextFormField(
+          controller: controller,
+          style: Theme.of(context).textTheme.bodyLarge,
+          decoration: const InputDecoration(
+            isDense: true,
+            contentPadding: EdgeInsets.symmetric(vertical: 4),
+            border: UnderlineInputBorder(),
+          ),
+          validator: required
+              ? (v) => (v == null || v.trim().isEmpty) ? 'Required' : null
+              : null,
+        ),
       ),
     );
   }
@@ -414,7 +475,10 @@ class _ApologyScriptBuilderScreenState
           color: AppColors.primary.withOpacity(0.06),
           borderRadius: BorderRadius.circular(8),
           border: Border(
-            left: BorderSide(color: AppColors.primary.withOpacity(0.4), width: 3),
+            left: BorderSide(
+              color: AppColors.primary.withOpacity(0.4),
+              width: 3,
+            ),
           ),
         ),
         child: Text(
@@ -429,13 +493,85 @@ class _ApologyScriptBuilderScreenState
     );
   }
 
+  // Shows what the user entered in Step 4 as a quick reference while
+  // they repeat/rephrase it in Step 5, per Adele email
+  Widget _buildStep4ReminderBox() {
+    String joinAnd(List<String> pieces) {
+      final clean = pieces
+          .map((p) => p.trim())
+          .where((p) => p.isNotEmpty)
+          .toList();
+      if (clean.isEmpty) return '';
+      if (clean.length == 1) return clean.first;
+      if (clean.length == 2) return '${clean[0]} and ${clean[1]}';
+      return '${clean.sublist(0, clean.length - 1).join(', ')}, and ${clean.last}';
+    }
+
+    final neededList = joinAnd([
+      _whatTheyNeededController.text,
+      _whatNeeded2Controller.text,
+      _whatNeeded3Controller.text,
+    ]);
+    final willChangeList = joinAnd([
+      _whatWillChangeController.text,
+      _willChange2Controller.text,
+      _willChange3Controller.text,
+    ]);
+
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Reminder of what you wrote in Step 4: ',
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+              fontWeight: FontWeight.bold,
+              fontSize: 13,
+              color: Colors.grey.shade700,
+            ),
+          ),
+          const SizedBox(height: 6),
+          if (neededList.isNotEmpty)
+            Text(
+              'What they needed: $neededList',
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                fontSize: 13,
+                color: Colors.grey.shade600,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          if (willChangeList.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: Text(
+                'Your commitment: $willChangeList',
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontSize: 13,
+                  color: Colors.grey.shade600,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildStepContent() {
     switch (_currentStep) {
       case 0:
         return _stepScaffold(
           title: 'Step 1: Identify the Injury',
           subtitle:
-          'Describe what happened and its unique impact on your child.',
+              'Describe what happened and its unique impact on your child.',
           fields: [
             _textField(
               controller: _injuryController,
@@ -457,66 +593,205 @@ class _ApologyScriptBuilderScreenState
             _textField(
               controller: _uniqueImpactController,
               // REPLACE WITH WORKSHEET TEXT
-              label: 'Especially because...',
+              label: 'Especially because... (optional)',
               hint: 'unique impact given their age, temperament, etc.',
               maxLines: 3,
+              required: false,
             ),
             _noteCard(
               // REPLACE WITH WORKSHEET TEXT (verbatim caution note)
               "It is important to resist the temptation to include "
-                  "rationales for the unfolding of events.",
+              "rationales for the unfolding of events.",
             ),
           ],
         );
       case 1:
         return _stepScaffold(
-          title: 'Step 2: Validate the Emotions',
-          subtitle: 'Label and validate the painful emotions associated with the event ',
+          title: 'Step 2: Validate the Emotional experiences ',
+          subtitle:
+              'Label and validate the painful emotions associated with the event. Fill in the blanks for each of these emotions.',
           fields: [
-            _noteCard(
-              // REPLACE WITH WORKSHEET TEXT
-              "Attend to each emotion listed.",
+            _noteCard("Attend to each emotion listed."),
+            Text(
+              'Scared',
+              style: Theme.of(
+                context,
+              ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
             ),
-            Text('Scared', style: Theme.of(context).textTheme.bodyLarge!),
-            _textField(
-                controller: _scaredBecause1Controller, label: 'i can imagine that when I___ / when ___ occurred, you might have felt scared because',
-                required: false),
-            _textField(
-                controller: _scaredBecause2Controller,
-                label: 'and because... (relating to feeling out of control or overwhelmed)',
-                required: false),
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.end,
+              children: [
+                Text(
+                  'I can imagine that when',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                _inlineBlank(_scaredEventController),
+                Text(
+                  'occurred, you might have felt scared because',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                _inlineBlank(_scaredBecause1Controller),
+                Text(
+                  'and because',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                _inlineBlank(_scaredBecause2Controller),
+                Text(
+                  '(relating to feeling out of control or overwhelmed)',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ],
+            ),
             const SizedBox(height: 8),
-            Text('Sad', style: Theme.of(context).textTheme.bodyLarge!),
-            _textField(
-                controller: _sadBecause1Controller, label: 'I can also imagine that you might have felt sad because…',
-                required: false),
-            _textField(
-                controller: _sadBecause2Controller, label: 'and because...(relating to longing, missing, loving)',
-                required: false),
+            Text(
+              'Sad',
+              style: Theme.of(
+                context,
+              ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
+            ),
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.end,
+              children: [
+                Text(
+                  'I can also imagine that when',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                _inlineBlank(_sadEventController),
+                Text(
+                  'occurred, you might have felt sad because',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                _inlineBlank(_sadBecause1Controller),
+                Text(
+                  'and because',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                _inlineBlank(_sadBecause2Controller),
+                Text(
+                  '(relating to longing, missing, loving)',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ],
+            ),
             const SizedBox(height: 8),
-            Text('Ashamed', style: Theme.of(context).textTheme.bodyLarge!),
-            _textField(
-                controller: _ashamedBecause1Controller, label: 'It would have made sense for you to feel ashamed/embarrassed because… ',
-                required: false),
-            _textField(
-                controller: _ashamedBecause2Controller,
-                label: 'and because... (relating to feeling defective; too much, etc)',
-                required: false),
+            Text(
+              'Embarrassed',
+              style: Theme.of(
+                context,
+              ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
+            ),
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.end,
+              children: [
+                Text(
+                  'It would have made sense that when',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                _inlineBlank(_ashamedEventController),
+                Text(
+                  'occurred, you felt embarrassed because',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                _inlineBlank(_ashamedBecause1Controller),
+                Text(
+                  'and because',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                _inlineBlank(_ashamedBecause2Controller),
+                Text(
+                  '(relating to feeling defective; too much, etc.)',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ],
+            ),
             const SizedBox(height: 8),
-            Text('Angry', style: Theme.of(context).textTheme.bodyLarge!),
-            _textField(
-                controller: _angryBecause1Controller, label: 'I can imagine that you would have also felt angry because...',
-                required: false),
-            _textField(
-                controller: _angryBecause2Controller, label: 'and because... I can imagine that you would have also felt angry',
-                required: false),
+            Text(
+              'Angry',
+              style: Theme.of(
+                context,
+              ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
+            ),
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.end,
+              children: [
+                Text(
+                  'And I can imagine that when',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                _inlineBlank(_angryEventController),
+                Text(
+                  'occurred, you would have felt angry because',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                _inlineBlank(_angryBecause1Controller),
+                Text(
+                  'and because',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                _inlineBlank(_angryBecause2Controller),
+                Text(
+                  '(you deserved something more / different)',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 16),
+            Text(
+              'Check the box if you want to add this to your script:',
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Colors.grey.shade600,
+                fontSize: 13,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Optional: loneliness/overwhelm', style: Theme.of(context).textTheme.bodyLarge!),
-            _textField(
-              controller: _lonelyOptionalController,
-              label: 'I can also imagine that you would have felt really lonely/overwhelmed going through all of this on your own/without my support (optional)',
-              required: false,
-              maxLines: 2,
+            CheckboxListTile(
+              value: _showLoneliness,
+              onChanged: (val) =>
+                  setState(() => _showLoneliness = val ?? false),
+              activeColor: Colors.grey.shade500,
+              checkColor: Colors.white,
+              controlAffinity: ListTileControlAffinity.leading,
+              contentPadding: EdgeInsets.zero,
+              title: Wrap(
+                crossAxisAlignment: WrapCrossAlignment.end,
+                spacing: 4,
+                children: [
+                  Text(
+                    'And maybe you also felt really',
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      color: Colors.grey.shade600,
+                      fontSize: 13,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                  DropdownButton<String>(
+                    value: _lonelyOrOverwhelmed,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      color: Colors.grey.shade600,
+                      fontSize: 13,
+                      fontStyle: FontStyle.italic,
+                    ),
+                    items: const [
+                      DropdownMenuItem(value: 'lonely', child: Text('lonely')),
+                      DropdownMenuItem(
+                        value: 'overwhelmed',
+                        child: Text('overwhelmed'),
+                      ),
+                    ],
+                    onChanged: (val) =>
+                        setState(() => _lonelyOrOverwhelmed = val ?? 'lonely'),
+                  ),
+                  Text(
+                    'carrying all those feelings on your own.',
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      color: Colors.grey.shade600,
+                      fontSize: 13,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         );
@@ -530,9 +805,13 @@ class _ApologyScriptBuilderScreenState
               'I am so sorry. I really am.',
               'I am sorry for all the ways that hurt you.',
             ].map((option) {
-              final isSelected = _selectedApology == option;
+              final isSelected =
+                  !_isCustomApology && _selectedApology == option;
               return GestureDetector(
-                onTap: () => setState(() => _selectedApology = option),
+                onTap: () => setState(() {
+                  _isCustomApology = false;
+                  _selectedApology = option;
+                }),
                 child: Container(
                   width: double.infinity,
                   margin: const EdgeInsets.only(bottom: 12),
@@ -552,14 +831,72 @@ class _ApologyScriptBuilderScreenState
                   child: Text(
                     option,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      color: isSelected
-                          ? AppColors.primary
-                          : Colors.black87,
+                      color: isSelected ? AppColors.primary : Colors.black87,
                     ),
                   ),
                 ),
               );
             }),
+            GestureDetector(
+              onTap: () => setState(() {
+                _isCustomApology = true;
+                _selectedApology = _apologyController.text;
+              }),
+              child: Container(
+                width: double.infinity,
+                margin: const EdgeInsets.only(bottom: 12),
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: _isCustomApology
+                      ? AppColors.primary.withOpacity(0.12)
+                      : Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: _isCustomApology
+                        ? AppColors.primary
+                        : Colors.grey.shade200,
+                    width: _isCustomApology ? 2 : 1,
+                  ),
+                ),
+                child: Text(
+                  'Write your own',
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: _isCustomApology
+                        ? AppColors.primary
+                        : Colors.black87,
+                  ),
+                ),
+              ),
+            ),
+            if (_isCustomApology)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Write your own apology...',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 6),
+                    TextFormField(
+                      controller: _apologyController,
+                      maxLines: 3,
+                      onChanged: (value) => setState(() {
+                        _selectedApology = value;
+                      }),
+                      decoration: InputDecoration(
+                        hintText: 'e.g. I am truly sorry for what happened.',
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
           ],
         );
       case 3:
@@ -568,140 +905,185 @@ class _ApologyScriptBuilderScreenState
           subtitle: 'State what they needed instead, and what will change.',
           fields: [
             _noteCard("Ensure follow through is possible."),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'I can see now that what you needed from me was...',
-                style: Theme.of(context).textTheme.titleMedium,
+            Text(
+              '(specify two to three ideas)',
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                fontStyle: FontStyle.italic,
+                color: Colors.grey.shade600,
+                fontSize: 13,
               ),
             ),
             const SizedBox(height: 6),
-            _textField(
-              controller: _whatTheyNeededController,
-              label: 'First thing they needed...',
-              maxLines: 2,
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.end,
+              children: [
+                Text(
+                  'I can see now that what you needed from me was',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                _inlineBlank(_whatTheyNeededController),
+                Text('and', style: Theme.of(context).textTheme.bodyLarge),
+                _inlineBlank(_whatNeeded2Controller),
+                Text(
+                  'and, (optionally)',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                _inlineBlank(_whatNeeded3Controller, required: false),
+              ],
             ),
-            _textField(
-              controller: _whatNeeded2Controller,
-              label: 'and...',
-              maxLines: 2,
+            const SizedBox(height: 32),
+            Text(
+              '(specify one to two ideas)',
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                fontStyle: FontStyle.italic,
+                color: Colors.grey.shade600,
+                fontSize: 13,
+              ),
             ),
-            _textField(
-              controller: _whatNeeded3Controller,
-              label: 'and...',
-              maxLines: 2,
+            const SizedBox(height: 6),
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.end,
+              children: [
+                Text(
+                  'Starting today, I will',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                _inlineBlank(_whatWillChangeController),
+                Text(
+                  'and (optionally)',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                _inlineBlank(_willChange2Controller, required: false),
+                Text('and', style: Theme.of(context).textTheme.bodyLarge),
+                _inlineBlank(_willChange3Controller, required: false),
+              ],
+            ),
+            const SizedBox(height: 32),
+            Text(
+              'Check the box if you want to add this to your script:',
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Colors.grey.shade600,
+                fontSize: 13,
+              ),
             ),
             const SizedBox(height: 8),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Starting today, I will...',
-                style: Theme.of(context).textTheme.titleMedium,
+            CheckboxListTile(
+              value: _showCommitmentNote,
+              onChanged: (val) =>
+                  setState(() => _showCommitmentNote = val ?? false),
+              activeColor: Colors.grey.shade500,
+              checkColor: Colors.white,
+              controlAffinity: ListTileControlAffinity.leading,
+              contentPadding: EdgeInsets.zero,
+              title: Text(
+                "I know it won't always go perfectly, but I am committed to working on this.",
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Colors.grey.shade600,
+                  fontSize: 13,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
-            ),
-            const SizedBox(height: 6),
-            _textField(
-              controller: _whatWillChangeController,
-              label: 'First commitment...',
-              maxLines: 2,
-            ),
-            _textField(
-              controller: _willChange2Controller,
-              label: 'and...',
-              maxLines: 2,
-            ),
-            _noteCard(
-              "I know it won't always go perfectly, but I am committed to working on this.",
             ),
           ],
         );
       case 4:
         return _stepScaffoldNoValidation(
           title: 'Step 5: Validate Their Reaction, Then Repeat Steps 3 & 4',
-          subtitle: 'Select how your child is most likely to respond, then continue in your own words.',
+          subtitle:
+              'Select how your child is most likely to respond, then continue in your own words.',
           fields: [
-            Wrap(
-              spacing: 8,
-              children: _reactionStarters.keys.map((key) {
-                return ChoiceChip(
-                  label: Text(key[0].toUpperCase() + key.substring(1)),
-                  selected: _selectedReactionType == key,
-                  onSelected: (_) =>
-                      setState(() => _selectedReactionType = key),
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 16),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.08),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                _reactionStarters[_selectedReactionType] ?? '',
-                style: Theme.of(context).textTheme.bodyLarge!
-                    .copyWith(fontStyle: FontStyle.italic),
+            Center(
+              child: Wrap(
+                spacing: 8,
+                children: _reactionStarters.keys.map((key) {
+                  return ChoiceChip(
+                    label: Text(key[0].toUpperCase() + key.substring(1)),
+                    selected: _selectedReactionType == key,
+                    onSelected: (_) => setState(() {
+                      _selectedReactionType = key;
+                      _reactionTypeChosen = true;
+                    }),
+                  );
+                }).toList(),
               ),
             ),
-            const SizedBox(height: 16),
-            _textField(
-              controller: _reactionContinuationController,
-              label: 'Continue in your own words...',
-              maxLines: 3,
-              required: false,
-            ),
-            const SizedBox(height: 16),
-            _noteCard(
-              'Then repeat Steps 3 and 4 with some variation in language so that it\'s not exactly the same.',
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'And I want you to know - [your Step 3 choice]. I see now that what you needed from me instead was...',
-                style: Theme.of(context).textTheme.titleMedium,
+            if (_reactionTypeChosen) ...[
+              const SizedBox(height: 16),
+              Text(
+                'Check the box if you want to add this to your script:',
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Colors.grey.shade600,
+                  fontSize: 13,
+                ),
               ),
-            ),
-            const SizedBox(height: 6),
-            _textField(
-              controller: _repeatNeeded1Controller,
-              label: 'First thing...',
-              maxLines: 2,
-              required: false,
-            ),
-            _textField(
-              controller: _repeatNeeded2Controller,
-              label: 'and...',
-              maxLines: 2,
-              required: false,
-            ),
-            _textField(
-              controller: _repeatNeeded3Controller,
-              label: 'and...',
-              maxLines: 2,
-              required: false,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Starting today I will...',
-                style: Theme.of(context).textTheme.titleMedium,
+              const SizedBox(height: 8),
+              CheckboxListTile(
+                value: _showReactionStarter,
+                onChanged: (val) =>
+                    setState(() => _showReactionStarter = val ?? false),
+                activeColor: Colors.grey.shade500,
+                checkColor: Colors.white,
+                controlAffinity: ListTileControlAffinity.leading,
+                contentPadding: EdgeInsets.zero,
+                title: Text(
+                  _reactionStarters[_selectedReactionType] ?? '',
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Colors.grey.shade600,
+                    fontSize: 13,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
               ),
-            ),
-            const SizedBox(height: 6),
-            _textField(
-              controller: _repeatWill1Controller,
-              label: 'First commitment...',
-              maxLines: 2,
-              required: false,
-            ),
-            _textField(
-              controller: _repeatWill2Controller,
-              label: 'and...',
-              maxLines: 2,
-              required: false,
-            ),
+              const SizedBox(height: 16),
+              _textField(
+                controller: _reactionContinuationController,
+                label: 'OR write in your own words (optional)',
+                maxLines: 3,
+                required: false,
+              ),
+              const SizedBox(height: 16),
+              _noteCard(
+                'Then repeat Steps 3 and 4 with some variation in language so that it\'s not exactly the same.',
+              ),
+              _buildStep4ReminderBox(),
+              Text(
+                'And I want you to know ${_selectedApology.replaceAll('\n', ' ').trim()}.',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              const SizedBox(height: 12),
+              Wrap(
+                crossAxisAlignment: WrapCrossAlignment.end,
+                children: [
+                  Text(
+                    'What I understand now is that you needed something different from me, like',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  _inlineBlank(_repeatNeeded1Controller),
+                  Text('and', style: Theme.of(context).textTheme.bodyLarge),
+                  _inlineBlank(_repeatNeeded2Controller),
+                  Text('and', style: Theme.of(context).textTheme.bodyLarge),
+                  _inlineBlank(_repeatNeeded3Controller, required: false),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Wrap(
+                crossAxisAlignment: WrapCrossAlignment.end,
+                children: [
+                  Text(
+                    'From this point forward, I am making a commitment to',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  _inlineBlank(_repeatWill1Controller),
+                  Text('and', style: Theme.of(context).textTheme.bodyLarge),
+                  _inlineBlank(_repeatWill2Controller),
+                  Text(
+                    'and',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  _inlineBlank(_repeatWill3Controller, required: false),
+                ],
+              ),
+            ],
           ],
         );
       case 5:
@@ -713,12 +1095,14 @@ class _ApologyScriptBuilderScreenState
               {
                 'key': 'A',
                 'label': 'Option A: Invitation to share',
-                'text': 'Your experience matters to me, and I\'m here to listen whenever you\'re ready. It could be now, two weeks from now, or a year from now. I want to be here for you in a different way.',
+                'text':
+                    'Your experience matters to me, and I\'m here to listen whenever you\'re ready. It could be now, two weeks from now, or a year from now. I want to be here for you in a different way.',
               },
               {
                 'key': 'B',
-                'label': 'Option B: Permission to explain',
-                'text': 'If it would help to hear a little more about why things happened the way they did, I\'m happy to share that. But not everyone wants that - and it\'s completely okay if you don\'t. Either way, it doesn\'t change that it wasn\'t what you needed, and I see that now.',
+                'label': 'Option B: Offer to explain',
+                'text':
+                    'If it would help to hear a little more about why things happened the way they did, I\'m happy to share that. But not everyone wants that and it\'s completely okay if you don\'t. Either way, it doesn\'t change that it wasn\'t what you needed, and I see that now.',
               },
             ].map((option) {
               final isSelected = _selectedAddOn == option['key'];
@@ -747,11 +1131,12 @@ class _ApologyScriptBuilderScreenState
                     children: [
                       Text(
                         option['label']!,
-                        style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                          color: isSelected
-                              ? AppColors.primary
-                              : Colors.black87,
-                        ),
+                        style: Theme.of(context).textTheme.titleMedium!
+                            .copyWith(
+                              color: isSelected
+                                  ? AppColors.primary
+                                  : Colors.black87,
+                            ),
                       ),
                       const SizedBox(height: 6),
                       Text(
@@ -826,12 +1211,21 @@ class _ApologyScriptBuilderScreenState
           const SizedBox(height: 8),
           Text(subtitle, style: Theme.of(context).textTheme.bodyLarge!),
           const SizedBox(height: 24),
-          Expanded(child: SingleChildScrollView(child: Column(children: fields))),
-          _navigationRow(onNext: () {
-            if (_validateCurrentStep()) {
-              setState(() => _currentStep++);
-            }
-          }),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: fields,
+              ),
+            ),
+          ),
+          _navigationRow(
+            onNext: () {
+              if (_validateCurrentStep()) {
+                setState(() => _currentStep++);
+              }
+            },
+          ),
         ],
       ),
     );
@@ -851,22 +1245,25 @@ class _ApologyScriptBuilderScreenState
           const SizedBox(height: 8),
           Text(subtitle, style: Theme.of(context).textTheme.bodyLarge!),
           const SizedBox(height: 24),
-          Expanded(child: SingleChildScrollView(child: Column(children: fields))),
-          _navigationRow(onNext: () {
-            if (_currentStep == 2 && _selectedApology.isEmpty) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Please select an option.')),
-              );
-              return;
-            }
-            if (_currentStep == 4 && _reactionContinuationController.text.trim().isEmpty) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Please add your own words.')),
-              );
-              return;
-            }
-            setState(() => _currentStep++);
-          }),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: fields,
+              ),
+            ),
+          ),
+          _navigationRow(
+            onNext: () {
+              if (_currentStep == 2 && _selectedApology.isEmpty) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Please select an option.')),
+                );
+                return;
+              }
+              setState(() => _currentStep++);
+            },
+          ),
         ],
       ),
     );
@@ -908,10 +1305,15 @@ class _ApologyScriptBuilderScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Your Apology Script', style: Theme.of(context).textTheme.headlineMedium),
+          Text(
+            'Your Apology Script',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
           const SizedBox(height: 8),
-          Text('Here is your complete therapeutic apology:',
-              style: Theme.of(context).textTheme.bodyLarge!),
+          Text(
+            'Here is your complete therapeutic apology:',
+            style: Theme.of(context).textTheme.bodyLarge!,
+          ),
           const SizedBox(height: 20),
           Expanded(
             child: Container(
@@ -922,7 +1324,10 @@ class _ApologyScriptBuilderScreenState
                 border: Border.all(color: AppColors.primary.withOpacity(0.3)),
               ),
               child: SingleChildScrollView(
-                child: Text(script, style: Theme.of(context).textTheme.bodyLarge!),
+                child: Text(
+                  script,
+                  style: Theme.of(context).textTheme.bodyLarge!,
+                ),
               ),
             ),
           ),
@@ -937,8 +1342,10 @@ class _ApologyScriptBuilderScreenState
                 );
               },
               icon: const Icon(Icons.copy, color: Colors.white),
-              label: const Text('Copy to Clipboard',
-                  style: TextStyle(color: Colors.white)),
+              label: const Text(
+                'Copy to Clipboard',
+                style: TextStyle(color: Colors.white),
+              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primary,
                 padding: const EdgeInsets.symmetric(vertical: 14),
@@ -1003,16 +1410,21 @@ class _ApologyScriptBuilderScreenState
                 _currentStep = 0;
                 _injuryController.clear();
                 _uniqueImpactController.clear();
+                _scaredEventController.clear();
                 _scaredBecause1Controller.clear();
                 _scaredBecause2Controller.clear();
+                _sadEventController.clear();
                 _sadBecause1Controller.clear();
                 _sadBecause2Controller.clear();
+                _ashamedEventController.clear();
                 _ashamedBecause1Controller.clear();
                 _ashamedBecause2Controller.clear();
+                _angryEventController.clear();
                 _angryBecause1Controller.clear();
                 _angryBecause2Controller.clear();
-                _lonelyOptionalController.clear();
                 _apologyController.clear();
+                _selectedApology = '';
+                _isCustomApology = false;
                 _whatTheyNeededController.clear();
                 _whatWillChangeController.clear();
                 _reactionContinuationController.clear();
@@ -1021,13 +1433,20 @@ class _ApologyScriptBuilderScreenState
                 _whatNeeded2Controller.clear();
                 _whatNeeded3Controller.clear();
                 _willChange2Controller.clear();
+                _willChange3Controller.clear();
                 _repeatNeeded1Controller.clear();
                 _repeatNeeded2Controller.clear();
                 _repeatNeeded3Controller.clear();
                 _repeatWill1Controller.clear();
                 _repeatWill2Controller.clear();
+                _repeatWill3Controller.clear();
                 _customAddOnController.clear();
                 _selectedAddOn = '';
+                _showNeeded3 = false;
+                _showWillChange2 = false;
+                _showCommitmentNote = false;
+                _showLoneliness = false;
+                _lonelyOrOverwhelmed = 'lonely';
                 _selectedReactionType = 'anger';
                 _recordingPath = null;
               }),

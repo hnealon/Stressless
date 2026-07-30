@@ -4,10 +4,7 @@
 /// the category alongside each option so they keep learning the underlying
 /// skill, not just memorizing sentences.
 class CategorizedOption {
-  const CategorizedOption({
-    required this.category,
-    required this.text,
-  });
+  const CategorizedOption({required this.category, required this.text});
 
   final String category;
   final String text;
