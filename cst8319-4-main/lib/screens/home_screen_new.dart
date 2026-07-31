@@ -43,8 +43,8 @@ class HomeScreenNew extends StatelessWidget {
             ).animate().fadeIn(delay: 100.ms),
             const SizedBox(height: 16),
             Text(
-              'StressLess app is a practical tool for parents and caregivers who are already showing up for the young people in their lives '
-              'and want to add a few more tools to their toolkit.',
+              'Drawing on the principles and techniques of Emotion-Focused Family Therapy,'
+              ' StressLess offers parents and caregivers the opportunity to learn and practice new tools to round out their toolkit.',
               style: textTheme.bodyLarge,
             ).animate().fadeIn(delay: 200.ms),
             const SizedBox(height: 24),
@@ -126,7 +126,7 @@ class HomeScreenNew extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Icon(
-                    Icons.favorite_border,
+                    Icons.star_border_outlined,
                     color: Theme.of(context).colorScheme.primary,
                     size: 24,
                   ),
@@ -215,8 +215,8 @@ class HomeScreenNew extends StatelessWidget {
           vertical: 12,
         ),
         leading: const Icon(
-          Icons.handshake_rounded,
-          //Icons.wallet_giftcard_rounded,
+          //Icons.handshake_rounded,
+          Icons.wallet_giftcard_rounded,
           color: AppColors.primary,
           size: 26,
         ),

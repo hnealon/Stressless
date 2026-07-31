@@ -82,7 +82,7 @@ class _MainScreenState extends State<MainScreen> {
               label: 'Build VS',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_border),
+              icon: Icon(Icons.star_border_outlined),
               label: 'Advanced',
             ),
           ],

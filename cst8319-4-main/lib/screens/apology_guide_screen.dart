@@ -447,7 +447,7 @@ Permission to explain: "If it would help to hear a little more about why things 
                         color: Colors.white,
                         size: 20,
                       ),
-                      label: const Text('Build your personal apology script.'),
+                      label: const Text('Build your personal therapeutic apology script.'),
                     ),
                   ),
                 ],
