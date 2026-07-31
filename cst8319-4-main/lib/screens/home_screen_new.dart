@@ -44,14 +44,14 @@ class HomeScreenNew extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               'StressLess app is a practical tool for parents and caregivers who are already showing up for the young people in their lives '
-                  'and want to add a few more tools to their toolkit.',
+              'and want to add a few more tools to their toolkit.',
               style: textTheme.bodyLarge,
             ).animate().fadeIn(delay: 200.ms),
             const SizedBox(height: 24),
 
             const SizedBox(height: 24),
 
-            // Card 0: What is StressLess? (moved from About, Adele-approved content)
+            // Card 0: What is StressLess?
             _buildInfoCard(
               context,
               title: 'What is StressLess?',
@@ -65,13 +65,13 @@ class HomeScreenNew extends StatelessWidget {
                   const SizedBox(height: 12),
                   Text(
                     'The application uses short scenario-based practice sessions based on the emotional and '
-                        'relational support modules of Emotion-Focused Family Therapy (EFFT).',
+                    'relational support modules of Emotion-Focused Family Therapy (EFFT).',
                     style: textTheme.bodyLarge,
                   ),
                   const SizedBox(height: 12),
                   Text(
                     'The goal of this app is to support parents to increase skill and fluency with new emotional '
-                        'and relational skills through short, repeatable practice sessions.',
+                    'and relational skills through short, repeatable practice sessions.',
                     style: textTheme.bodyLarge,
                   ),
                 ],
@@ -85,8 +85,8 @@ class HomeScreenNew extends StatelessWidget {
               title: 'You\'re not alone in this',
               child: Text(
                 'Parenting isn\'t easy. It\'s even harder in moments of tension, stress, and distress. '
-                    'We all know what it\'s like to be at a loss for what to say or how to say it - and even '
-                    'the most caring, attuned parents find themselves there sometimes. This app is here to help.',
+                'We all know what it\'s like to be at a loss for what to say or how to say it - and even '
+                'the most caring, attuned parents find themselves there sometimes. This app is here to help.',
                 style: textTheme.bodyLarge,
               ),
             ).animate().fadeIn(delay: 300.ms),
@@ -101,16 +101,16 @@ class HomeScreenNew extends StatelessWidget {
                 children: [
                   Text(
                     'The tools here are grounded in Emotion-Focused Family Therapy (EFFT), a well-researched approach that '
-                        'recognizes caregivers as key agents of healing and growth in their children\'s lives. Informed by neurobiology, '
-                        'the Validation & Support Framework at the heart of this app is designed to help shift children from a place of '
-                        'stress and reactivity to one of openness, flexibility, and engagement, and caregivers are uniquely positioned to make that possible.',
+                    'recognizes caregivers as key agents of healing and growth in their children\'s lives. Informed by neurobiology, '
+                    'the Validation & Support Framework at the heart of this app is designed to help shift children from a place of '
+                    'stress and reactivity to one of openness, flexibility, and engagement, and caregivers are uniquely positioned to make that possible.',
                     style: textTheme.bodyLarge,
                   ),
                   const SizedBox(height: 12),
                   Text(
                     'You\'ll find teachings that walk you through the Validation & Support framework, opportunities to practice, '
-                        'and a script builder to help you find your own words. Whether you\'re navigating everyday stress or more emotionally charged moments, '
-                        'these tools offer a compassionate, structured way to find your way together. ',
+                    'and a script builder to help you find your own words. Whether you\'re navigating everyday stress or more emotionally charged moments, '
+                    'these tools offer a compassionate, structured way to find your way together. ',
                     style: textTheme.bodyLarge,
                   ),
                 ],
@@ -134,7 +134,7 @@ class HomeScreenNew extends StatelessWidget {
                   Expanded(
                     child: Text(
                       'For those who want to deepen their skills, this app also includes the opportunity to learn about EFFT\'s Therapeutic Apology, '
-                          'an advanced validation and support technique for repairing ruptures and deepening trust with your child, among other potential benefits.',
+                      'an advanced validation and support technique for repairing ruptures and deepening trust with your child, among other potential benefits.',
                       style: textTheme.bodyLarge,
                     ),
                   ),
@@ -152,7 +152,7 @@ class HomeScreenNew extends StatelessWidget {
                 children: [
                   Text(
                     'This app is designed to complement the support of an EFFT-trained clinician. Think of it as a companion resource, '
-                        'a place to revisit what you\'re learning, practice new skills, and build confidence between sessions.',
+                    'a place to revisit what you\'re learning, practice new skills, and build confidence between sessions.',
                     style: textTheme.bodyLarge,
                   ),
                   const SizedBox(height: 12),
@@ -215,18 +215,19 @@ class HomeScreenNew extends StatelessWidget {
           vertical: 12,
         ),
         leading: const Icon(
-          Icons.attach_money,
+          Icons.handshake_rounded,
+          //Icons.wallet_giftcard_rounded,
           color: AppColors.primary,
           size: 26,
         ),
         title: Text(
-          'Support this app',
+          'Contribute',
           style: Theme.of(context).textTheme.titleMedium,
         ),
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 4.0),
           child: Text(
-            'Optional - helps fund development and access to care for families who need it.',
+            'Contribute - help fund development and access to care for families who need it.',
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),

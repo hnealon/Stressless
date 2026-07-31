@@ -100,7 +100,7 @@ class _SupportAppScreenState extends State<SupportAppScreen> {
         backgroundColor: AppColors.background,
         elevation: 0,
         title: Text(
-          'Support this app',
+          'Contribute',
           style: GoogleFonts.cormorantGaramond(
             fontSize: 20,
             fontWeight: FontWeight.w600,
@@ -132,12 +132,9 @@ class _SupportAppScreenState extends State<SupportAppScreen> {
         ),
         const SizedBox(height: 16),
         Text(
-          'If it\'s been useful to you and your family, and you are able, '
-          'we invite you to leave a contribution below. A portion goes '
-          'toward keeping these and other resources growing, and a '
-          'portion goes toward helping families access therapeutic '
-          'support they might not otherwise be able to afford. Thank you '
-          'for being here.',
+          'If this resource has been useful to you and your family, and you\'re able, we invite you to make a contribution.'
+          ' A portion of funds goes toward keeping these and other resources growing, and another portion goes toward helping '
+          'families access therapeutic support they might not otherwise be able to afford. Thank you for your generosity ',
           style: GoogleFonts.nunito(
             fontSize: 15,
             color: AppColors.textSecondary,
@@ -232,7 +229,7 @@ class _SupportAppScreenState extends State<SupportAppScreen> {
             Icon(Icons.favorite, color: AppColors.primary, size: 40),
             const SizedBox(height: 20),
             Text(
-              'Thank you for your contribution.',
+              'Thank you very much for your contribution.',
               style: GoogleFonts.cormorantGaramond(
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
