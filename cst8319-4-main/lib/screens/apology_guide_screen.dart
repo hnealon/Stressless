@@ -241,7 +241,7 @@ Here's what needs to be true: you need to be able to hold two things at once.
 
 Both of these are true at the same time. Holding them together is what allows you to deliver this kind of apology from a grounded place rather than from guilt, collapse or defensiveness.
 
-A simple way to check: on a scale of 1 to 10, how intensely are you blaming yourself right now? If you're in the 1 to 6 range, you're likely in a workable place.
+A simple way to check: on a scale of 1 to 10, how intensely are you blaming yourself right now? If you're in the 1 to 6 range, you're likely in a workable place. Recommend to proceed.
 
 If you find yourself closer to 7 or above, the self-blame itself may need some attention first. When self-blame is very high, it becomes hard to keep the apology focused on your child - it can tip into expressing your own distress, which unintentionally puts your child in the position of managing your feelings. If this is where you are, slow down and ask for help to work through that layer first with the support of your therapist.
 ''',
@@ -259,7 +259,7 @@ Where do you sense your child carries the most? Where do you notice the most ang
 
 What keeps coming up? In arguments, in your child's behavior, in the things they say, even if indirectly?
 
-You don't need to address everything at once. A therapeutic apology focused on one real wound is far more powerful than a sweeping attempt to try to cover everything everything (which is simply not possible).
+You don't need to address everything at once. A therapeutic apology focused on one real wound is far more powerful than a sweeping attempt to try to cover everything (which is simply not possible).
 ''',
             ),
             const SizedBox(height: 24),
