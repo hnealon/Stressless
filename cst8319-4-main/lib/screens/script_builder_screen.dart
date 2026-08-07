@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 
 import '../theme.dart';
@@ -18,14 +19,18 @@ class ScriptBuilderScreen extends StatefulWidget {
 class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   String? _selectedStarter;
   String? _selectedVerb;
+
   final TextEditingController _phraseController = TextEditingController();
   final TextEditingController _because1Controller = TextEditingController();
   final TextEditingController _because2Controller = TextEditingController();
   final TextEditingController _because3Controller = TextEditingController();
+
   final List<String> _selectedEmotionalSupports = [];
   final List<String> _selectedPracticalSupports = [];
+
   final TextEditingController _customEmotionalSupportController =
   TextEditingController();
+
   final TextEditingController _customPracticalSupportController =
   TextEditingController();
 
@@ -79,6 +84,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   @override
   void initState() {
     super.initState();
+
     _phraseController.addListener(_updateScript);
     _because1Controller.addListener(_updateScript);
     _because2Controller.addListener(_updateScript);
@@ -103,58 +109,141 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
     _because3Controller.dispose();
     _customEmotionalSupportController.dispose();
     _customPracticalSupportController.dispose();
+
     _audioRecorder.dispose();
     _audioPlayer.dispose();
+
     super.dispose();
   }
 
   Future<void> _toggleRecording() async {
-    if (_isRecording) {
-      final path = await _audioRecorder.stop();
-      setState(() {
-        _isRecording = false;
-        _recordingPath = path;
-      });
-      return;
-    }
+    try {
+      if (_isRecording) {
+        final String? savedPath = await _audioRecorder.stop();
 
-    if (await _audioRecorder.hasPermission()) {
+        if (!mounted) return;
+
+        setState(() {
+          _isRecording = false;
+          _recordingPath = savedPath;
+        });
+
+        if (savedPath == null || savedPath.isEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('The recording could not be saved.'),
+            ),
+          );
+        }
+
+        return;
+      }
+
+      if (_isPlaying) {
+        await _audioPlayer.stop();
+      }
+
+      final bool hasPermission = await _audioRecorder.hasPermission();
+
+      if (!hasPermission) {
+        if (!mounted) return;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Microphone permission is needed to record.'),
+          ),
+        );
+
+        return;
+      }
+
+      final directory = await getApplicationDocumentsDirectory();
+
+      final String recordingPath =
+          '${directory.path}/practice_recording_'
+          '${DateTime.now().millisecondsSinceEpoch}.wav';
+
       await _audioRecorder.start(
-        const RecordConfig(encoder: AudioEncoder.opus),
-        path: '',
+        const RecordConfig(
+          encoder: AudioEncoder.wav,
+          sampleRate: 44100,
+          numChannels: 1,
+        ),
+        path: recordingPath,
       );
+
+      if (!mounted) return;
+
       setState(() {
         _isRecording = true;
+        _isPlaying = false;
         _recordingPath = null;
       });
-    } else {
+    } catch (error) {
       if (!mounted) return;
+
+      setState(() {
+        _isRecording = false;
+        _isPlaying = false;
+      });
+
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Microphone permission is needed to record.'),
+        SnackBar(
+          content: Text('Recording failed: $error'),
         ),
       );
+
+      debugPrint('Recording error: $error');
     }
   }
 
   Future<void> _togglePlayback() async {
-    if (_recordingPath == null) return;
+    try {
+      final String? path = _recordingPath;
 
-    if (_isPlaying) {
-      await _audioPlayer.stop();
+      if (path == null || path.isEmpty) {
+        return;
+      }
+
+      if (_isPlaying) {
+        await _audioPlayer.pause();
+
+        if (!mounted) return;
+
+        setState(() {
+          _isPlaying = false;
+        });
+
+        return;
+      }
+
+      await _audioPlayer.play(DeviceFileSource(path));
+
+      if (!mounted) return;
+
+      setState(() {
+        _isPlaying = true;
+      });
+    } catch (error) {
+      if (!mounted) return;
+
       setState(() {
         _isPlaying = false;
       });
-      return;
-    }
 
-    await _audioPlayer.play(UrlSource(_recordingPath!));
-    setState(() {
-      _isPlaying = true;
-    });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Playback failed: $error'),
+        ),
+      );
+
+      debugPrint('Playback error: $error');
+    }
   }
 
   void _updateScript() {
+    if (!mounted) return;
+
     setState(() {
       _generatedScript = _buildCustomScript();
     });
@@ -162,40 +251,52 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
 
   String _buildCustomScript() {
     final starter = _selectedStarter ?? '[Starter]';
-    final verb =
-    _selectedVerb != null ? _selectedVerb!.replaceAll('...', '') : '[verb]';
+
+    final verb = _selectedVerb != null
+        ? _selectedVerb!.replaceAll('...', '')
+        : '[verb]';
+
     final phrase =
     _phraseController.text.isNotEmpty ? _phraseController.text : '...';
 
     String becauseClause = '';
+
     if (_because1Controller.text.isNotEmpty &&
         _because2Controller.text.isNotEmpty &&
         _because3Controller.text.isNotEmpty) {
       becauseClause =
-      'because ${_because1Controller.text}, ${_because2Controller.text}, and ${_because3Controller.text}';
+      'because ${_because1Controller.text}, '
+          '${_because2Controller.text}, and '
+          '${_because3Controller.text}';
     }
 
-    final emotional = _selectedEmotionalSupports.map((e) {
-      if (e == "Other (Write your own)") {
+    final emotional = _selectedEmotionalSupports.map((item) {
+      if (item == "Other (Write your own)") {
         return _customEmotionalSupportController.text;
       }
-      return e;
+
+      return item;
     }).join(' ');
 
-    final practical = _selectedPracticalSupports.map((e) {
-      if (e == "Other (Write your own)") {
+    final practical = _selectedPracticalSupports.map((item) {
+      if (item == "Other (Write your own)") {
         return _customPracticalSupportController.text;
       }
-      return e;
+
+      return item;
     }).join(' ');
 
     var validationPart = '$starter $verb $phrase';
+
     if (becauseClause.isNotEmpty) {
       validationPart += ' $becauseClause';
     }
+
     validationPart += '.';
 
-    return '$validationPart ${emotional.isNotEmpty ? emotional : ''} ${practical.isNotEmpty ? practical : ''}'
+    return '$validationPart '
+        '${emotional.isNotEmpty ? emotional : ''} '
+        '${practical.isNotEmpty ? practical : ''}'
         .trim();
   }
 
@@ -239,7 +340,10 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
                         color: AppColors.textPrimary,
                         height: 1.15,
                       ),
-                    ).animate().fadeIn(delay: 80.ms, duration: 400.ms),
+                    ).animate().fadeIn(
+                      delay: 80.ms,
+                      duration: 400.ms,
+                    ),
                     const SizedBox(height: 10),
                     Text(
                       'Build your own script from scratch. Your script assembles at the bottom as you go.',
@@ -248,14 +352,17 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
                         color: AppColors.textSecondary,
                         height: 1.6,
                       ),
-                    ).animate().fadeIn(delay: 160.ms, duration: 400.ms),
+                    ).animate().fadeIn(
+                      delay: 160.ms,
+                      duration: 400.ms,
+                    ),
                     const SizedBox(height: 24),
                   ],
                 ),
               ),
             ),
             SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
                   _buildCustomBuilderSection(),
@@ -279,20 +386,33 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
           'Sentence Starter',
           'Select a sentence starter.',
         ),
-        _buildChoiceChipGroup(_starters, _selectedStarter, (selected) {
-          setState(() {
-            _selectedStarter = selected;
+        _buildChoiceChipGroup(
+          _starters,
+          _selectedStarter,
+              (selected) {
+            setState(() {
+              _selectedStarter = selected;
+            });
+
             _updateScript();
-          });
-        }),
+          },
+        ),
         const SizedBox(height: 24),
-        _buildSubSectionTitle('Verb', 'Select a verb.'),
-        _buildChoiceChipGroup(_verbs, _selectedVerb, (selected) {
-          setState(() {
-            _selectedVerb = selected;
+        _buildSubSectionTitle(
+          'Verb',
+          'Select a verb.',
+        ),
+        _buildChoiceChipGroup(
+          _verbs,
+          _selectedVerb,
+              (selected) {
+            setState(() {
+              _selectedVerb = selected;
+            });
+
             _updateScript();
-          });
-        }),
+          },
+        ),
         const SizedBox(height: 24),
         _buildSubSectionTitle(
           'Feeling/Action Phrase',
@@ -351,13 +471,18 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
       TextEditingController customTextController,
       int maxSelection,
       ) {
-    final showCustomField = selectedItems.contains("Other (Write your own)");
+    final showCustomField =
+    selectedItems.contains("Other (Write your own)");
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildSectionTitle(title, subtitle),
-        _buildMultiChoiceChipGroup(items, selectedItems, maxSelection),
+        _buildMultiChoiceChipGroup(
+          items,
+          selectedItems,
+          maxSelection,
+        ),
         if (showCustomField) ...[
           const SizedBox(height: 16),
           _buildBecauseTextField(
@@ -425,10 +550,11 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
       ValueChanged<String> onSelected,
       ) {
     return Wrap(
-      spacing: 8.0,
-      runSpacing: 6.0,
+      spacing: 8,
+      runSpacing: 6,
       children: items.map((item) {
-        final isSelected = item == selectedItem;
+        final bool isSelected = item == selectedItem;
+
         return ChoiceChip(
           label: Text(item),
           selected: isSelected,
@@ -437,16 +563,22 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
           selectedColor: AppColors.primary,
           labelStyle: GoogleFonts.nunito(
             color: isSelected ? Colors.white : AppColors.textPrimary,
-            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
+            fontWeight:
+            isSelected ? FontWeight.w700 : FontWeight.w600,
             fontSize: 13,
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(20),
             side: BorderSide(
-              color: isSelected ? AppColors.primary : AppColors.cardBorder,
+              color: isSelected
+                  ? AppColors.primary
+                  : AppColors.cardBorder,
             ),
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 14,
+            vertical: 10,
+          ),
         );
       }).toList(),
     );
@@ -458,10 +590,11 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
       int maxSelection,
       ) {
     return Wrap(
-      spacing: 8.0,
-      runSpacing: 6.0,
+      spacing: 8,
+      runSpacing: 6,
       children: items.map((item) {
-        final isSelected = selectedItems.contains(item);
+        final bool isSelected = selectedItems.contains(item);
+
         return ChoiceChip(
           label: Text(item),
           selected: isSelected,
@@ -472,23 +605,30 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
               } else if (selectedItems.length < maxSelection) {
                 selectedItems.add(item);
               }
-              _updateScript();
             });
+
+            _updateScript();
           },
           backgroundColor: AppColors.surface,
           selectedColor: AppColors.primary,
           labelStyle: GoogleFonts.nunito(
             color: isSelected ? Colors.white : AppColors.textPrimary,
-            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
+            fontWeight:
+            isSelected ? FontWeight.w700 : FontWeight.w600,
             fontSize: 13,
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(20),
             side: BorderSide(
-              color: isSelected ? AppColors.primary : AppColors.cardBorder,
+              color: isSelected
+                  ? AppColors.primary
+                  : AppColors.cardBorder,
             ),
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 14,
+            vertical: 10,
+          ),
         );
       }).toList(),
     );
@@ -500,30 +640,39 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
       ) {
     return TextField(
       controller: controller,
-      style: GoogleFonts.nunito(fontSize: 14, color: AppColors.textPrimary),
+      style: GoogleFonts.nunito(
+        fontSize: 14,
+        color: AppColors.textPrimary,
+      ),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: GoogleFonts.nunito(color: AppColors.textLight),
+        hintStyle: GoogleFonts.nunito(
+          color: AppColors.textLight,
+        ),
         filled: true,
         fillColor: AppColors.surface,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-          borderSide: BorderSide(color: AppColors.cardBorder),
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(
+            color: AppColors.cardBorder,
+          ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-          borderSide: BorderSide(color: AppColors.primary, width: 1.5),
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(
+            color: AppColors.primary,
+            width: 1.5,
+          ),
         ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 14,
         ),
       ),
-      onChanged: (_) => _updateScript(),
     );
   }
 
@@ -533,7 +682,9 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.cardBorder),
+        border: Border.all(
+          color: AppColors.cardBorder,
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withAlpha(12),
@@ -566,7 +717,9 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
           const SizedBox(height: 12),
           Text(
             _hasCompleteScript
-                ? _generatedScript.trim().replaceAll(RegExp(r'\s+'), ' ')
+                ? _generatedScript
+                .trim()
+                .replaceAll(RegExp(r'\s+'), ' ')
                 : 'Your script will appear here once the required fields are complete...',
             style: GoogleFonts.nunito(
               fontSize: 15,
@@ -574,8 +727,9 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
                   ? AppColors.textPrimary
                   : AppColors.textLight,
               height: 1.6,
-              fontStyle:
-              _hasCompleteScript ? FontStyle.normal : FontStyle.italic,
+              fontStyle: _hasCompleteScript
+                  ? FontStyle.normal
+                  : FontStyle.italic,
             ),
           ),
           const SizedBox(height: 20),
@@ -586,24 +740,25 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
                 onPressed: () {
                   Clipboard.setData(
                     ClipboardData(
-                      text: _generatedScript.trim().replaceAll(
-                        RegExp(r'\s+'),
-                        ' ',
-                      ),
+                      text: _generatedScript
+                          .trim()
+                          .replaceAll(RegExp(r'\s+'), ' '),
                     ),
                   );
+
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Script copied to clipboard'),
                     ),
                   );
                 },
-                icon: const Icon(Icons.copy_all_outlined, size: 18),
+                icon: const Icon(
+                  Icons.copy_all_outlined,
+                  size: 18,
+                ),
                 label: const Text('Copy Script'),
               ),
             ),
-
-          // --- Khalil's Audio Section (Always Visible inside the Card) ---
           const SizedBox(height: 16),
           const Divider(),
           const SizedBox(height: 12),
@@ -628,7 +783,9 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
                 color: _isRecording ? Colors.red : null,
               ),
               label: Text(
-                _isRecording ? 'Stop Recording' : 'Click to record and review',
+                _isRecording
+                    ? 'Stop Recording'
+                    : 'Click to record and review',
               ),
             ),
           ),
@@ -644,7 +801,11 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
                       : Icons.play_circle_outline,
                   size: 18,
                 ),
-                label: Text(_isPlaying ? 'Pause Playback' : 'Play Recording'),
+                label: Text(
+                  _isPlaying
+                      ? 'Pause Playback'
+                      : 'Play Recording',
+                ),
               ),
             ),
           ],
