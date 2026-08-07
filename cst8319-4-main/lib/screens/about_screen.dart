@@ -75,11 +75,17 @@ class AboutScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children:
                             ([
-                                  'Matthew Miceli',
-                                  'Yeonhee Lee',
-                                  'Sheldon Maxwell',
-                                  'Prabhsimsan Kaur',
-                                  'Navleen Kaur',
+                                  // 'Matthew Miceli',
+                                  // 'Yeonhee Lee',
+                                  // 'Sheldon Maxwell',
+                                  // 'Prabhsimsan Kaur',
+                                  // 'Navleen Kaur',
+                                  'Ramona Alcantara-McHugh',
+                                  'Gohar Khosrupanah',
+                                  'Haleigh Nealon',
+                                  'Ren You',
+                                  'Rachel Mokhtari',
+                                  'Khalil Toure',
                                 ])
                                 .map(
                                   (name) => Padding(

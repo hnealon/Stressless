@@ -20,7 +20,7 @@ class ScriptScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          'Your emotional support script',
+          'Your validation and support script',
           style: GoogleFonts.cormorantGaramond(
             fontSize: 24,
             fontWeight: FontWeight.w600,
