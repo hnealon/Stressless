@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/screens/home_screen_new.dart';
+import 'home_screen_new.dart';
 import 'practice_screen.dart';
 import 'learn_screen.dart';
 import 'apology_guide_screen.dart';
 import 'script_builder_screen.dart';
-import 'apology_script_builder_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
