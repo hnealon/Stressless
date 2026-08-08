@@ -598,8 +598,8 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
     ],
     practicalSupport: [
       CategorizedOption(category: 'Behavioral Plan', text: 'Let\'s choose one tiny thing we can do together today — something so small it feels actually doable.'),
-      CategorizedOption(category: 'Soothing Activity', text: 'How about we take a break from the heavy stuff and just be together for a bit?'),
-      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Let\'s think about just the next hour, not the big picture — what would help right now, in this moment?'),
+      CategorizedOption(category: 'Soothing Activity', text: 'Let\'s take a break from the heavy stuff and just be together for a bit.'),
+      CategorizedOption(category: 'Behavioral Plan', text: 'Let\'s just focus on getting through the next hour together - I\'ll help you figure out what that looks like.'),
     ],
   ),
   ScriptLibraryExample(
@@ -624,7 +624,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
     ],
     practicalSupport: [
       CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Let\'s take a moment and name even one small thing that came from your efforts — however tiny.'),
-      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'What if we tried something just a little different, together, and see what happens?'),
+      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Let\'s try something just a little different together and see what happens.'),
       CategorizedOption(category: 'Soothing Activity', text: 'Can we just take a break right now — not give up, just pause — and give your system a rest?'),
     ],
   ),
@@ -649,9 +649,9 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(category: 'Reassurance', text: 'Being here for you is not too much for me.'),
     ],
     practicalSupport: [
-      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Let\'s talk about what kind of support feels okay for you — we can figure it out together.'),
-      CategorizedOption(category: 'Behavioral Plan', text: 'Is there one small way I can make things feel a little less heavy for you today?'),
-      CategorizedOption(category: 'Reconnect Plan', text: 'How about we do something that doesn\'t have to do with any of the hard stuff — just something that\'s for you?'),
+      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Let\'s set up a regular time each week — like Sunday nights — where we check in on how you\'re really doing.'),
+      CategorizedOption(category: 'Behavioral Plan', text: 'I\'m going to take one thing off your plate today, like handling dinner or a chore, so you have a little more room to breathe.'),
+      CategorizedOption(category: 'Reconnect Plan', text: 'Let\'s plan a half hour this weekend to do something just for fun — no talking about the hard stuff, just time together.'),
     ],
   ),
   ScriptLibraryExample(
@@ -675,9 +675,9 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(category: 'Togetherness', text: 'You are not invisible to me. I see you.'),
     ],
     practicalSupport: [
-      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Can you help me understand even just one part of how it feels? I\'m really listening.'),
-      CategorizedOption(category: 'Reconnect Plan', text: 'Let\'s see if there\'s one person, place, or thing that makes you feel a little less alone.'),
-      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Would it help to try putting it in writing — a note, a text, a drawing — whatever works for you?'),
+      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Let\'s start with just one part of how it feels — I really want to understand.'),
+      CategorizedOption(category: 'Reconnect Plan', text: 'Let\'s see if there\'s one person, place, or thing that makes you feel a little less alone and let\'s make a plan to get you connected.'),
+      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Let\'s try putting it in writing — a note, a text, a drawing — whatever feels less challenging.'),
     ],
   ),
   ScriptLibraryExample(
@@ -703,7 +703,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
     practicalSupport: [
       CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Let\'s look together at what\'s making school feel the hardest right now and figure out what kind of support might actually help.'),
       CategorizedOption(category: 'Reconnect Plan', text: 'Can we talk to your teacher or a school counsellor together about what you\'re experiencing?'),
-      CategorizedOption(category: 'Behavioral Plan', text: 'Is there one subject or one part of school that feels a little more okay? Let\'s start there.'),
+      CategorizedOption(category: 'Behavioral Plan', text: 'Is there one subject or one part of school that feels a little more okay? Let\'s start with that and then I can help you with the tougher stuff.'),
     ],
   ),
   ScriptLibraryExample(
@@ -727,9 +727,9 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(category: 'Comfort / Love', text: 'I love you regardless of what you decide about this.'),
     ],
     practicalSupport: [
-      CategorizedOption(category: 'Behavioral Plan', text: 'Before you decide for good, would you want to take a break from it for a bit and see how you feel?'),
-      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Can we talk about what changed — what made it stop feeling good?'),
-      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Is there a way to make it feel more manageable, or is this something you genuinely need to step away from for now?'),
+      CategorizedOption(category: 'Behavioral Plan', text: 'Let\'s take a two-week break from it instead of deciding for good right now, and then see how you feel.'),
+      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Let\'s sit down this week and go through what\'s changed - I want to understand what made it stop feeling good.'),
+      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'I\'ll talk to your coach/teacher about scaling back your involvement for now, so it feels more manageable unless this is something you genuinely need to step away from for now?'),
     ],
   ),
   ScriptLibraryExample(
@@ -753,9 +753,9 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(category: 'Comfort / Love', text: 'I love you and I\'m not going anywhere.'),
     ],
     practicalSupport: [
-      CategorizedOption(category: 'Soothing Activity', text: 'Let\'s take a quiet moment together — maybe sit close — whatever feels comforting to you.'),
-      CategorizedOption(category: 'Behavioral Plan', text: 'Is there something that might help you feel a little better right now?'),
-      CategorizedOption(category: 'Space + a Plan', text: 'Do you want to talk about it, or would it help more just to be together quietly for a while?'),
+      CategorizedOption(category: 'Soothing Activity', text: 'Let\'s sit close together on the couch for a few minutes — just being near each other.'),
+      CategorizedOption(category: 'Behavioral Plan', text: 'I\'m going to make you your favorite snack and bring it over in a bit.'),
+      CategorizedOption(category: 'Space + a Plan', text: 'We can talk about it over a drive, or just sit together quietly for a while — whichever feels right'),
     ],
   ),
   ScriptLibraryExample(
@@ -779,9 +779,9 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(category: 'Sharing a Perspective', text: 'Missing things that mattered is one of the most human feelings there is.'),
     ],
     practicalSupport: [
-      CategorizedOption(category: 'Space + a Plan', text: 'Would it help to talk about what you miss, or would you just like to be together for a while?'),
-      CategorizedOption(category: 'Soothing Activity', text: 'Is there something comforting we could do together — something quiet or gentle?'),
-      CategorizedOption(category: 'Reconnect Plan', text: 'How about we find a small way to honor what\'s changed, so it doesn\'t feel like it\'s just disappearing?'),
+      CategorizedOption(category: 'Space + a Plan', text: 'We can talk about what you miss, or just sit together for a while — I\'ll follow your lead on which one feels right. '),
+      CategorizedOption(category: 'Soothing Activity', text: 'Let\'s make some hot chocolate and wrap ourselves up in your favorite blanket for a bit.'),
+      CategorizedOption(category: 'Reconnect Plan', text: 'Let\'s find a small way to honor what\'s changed, so it doesn\'t feel like it\'s just disappearing'),
     ],
   ),
   ScriptLibraryExample(
@@ -806,7 +806,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
     ],
     practicalSupport: [
       CategorizedOption(category: 'Reconnect Plan', text: 'Let\'s take a moment to reconnect — maybe a walk, a snack, or just sitting side by side.'),
-      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Can you tell me more about what happened so I can really understand?'),
+      CategorizedOption(category: 'Share a Skill / Brainstorm', text: ' Let\'s go through what happened together, step by step, so I really understand what you\'re feeling left out of'),
       CategorizedOption(category: 'Reconnect Plan', text: 'Let\'s think together about who in your life really does see you, and how we can nurture those relationships.'),
     ],
   ),
@@ -832,8 +832,8 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
     ],
     practicalSupport: [
       CategorizedOption(category: 'Soothing Activity', text: 'Let\'s slow things down — maybe breathe together or find something soft and grounding.'),
-      CategorizedOption(category: 'Soothing Activity', text: 'What would feel comforting right now — even something simple?'),
-      CategorizedOption(category: 'Behavioral Plan', text: 'Is there something we can do that usually makes you feel a little better?'),
+      CategorizedOption(category: 'Soothing Activity', text: ' Let\'s grab your favorite blanket and just sit together for a few minutes'),
+      CategorizedOption(category: 'Behavioral Plan', text: 'Let\'s put on some calm music and just be together for a while.'),
     ],
   ),
   ScriptLibraryExample(
@@ -857,9 +857,9 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(category: 'Comfort / Love', text: 'I love you, and I\'m glad you\'re with me right now.'),
     ],
     practicalSupport: [
-      CategorizedOption(category: 'Reconnect Plan', text: 'Can I sit close? Or would doing something gentle together feel comforting?'),
-      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Let\'s think about one person or connection that might help — someone you could reach out to.'),
-      CategorizedOption(category: 'Reconnect Plan', text: 'Is there a way we can build in more real, connecting time for just you and me?'),
+      CategorizedOption(category: 'Reconnect Plan', text: ' Let\'s sit close together for a few minutes — I\'ll stay right here with you.'),
+      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Let\'s think of one person you could reach out to today, and I\'ll help you send them a message.'),
+      CategorizedOption(category: 'Reconnect Plan', text: 'Let\'s set up a regular time each week that\'s just for the two of us.'),
     ],
   ),
   ScriptLibraryExample(
@@ -884,8 +884,8 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
     ],
     practicalSupport: [
       CategorizedOption(category: 'Soothing Activity', text: 'Let\'s choose one small comforting thing — a blanket, a warm drink, or just resting together.'),
-      CategorizedOption(category: 'Behavioral Plan', text: 'Can we cancel or move anything on your plate so you can actually rest today?'),
-      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'What does your body most need right now?'),
+      CategorizedOption(category: 'Behavioral Plan', text: 'I\'m going to clear something off your plate today so you can actually rest.'),
+      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Let\'s get you into comfortable clothes and onto the couch for a while.'),
     ],
   ),
   ScriptLibraryExample(
@@ -909,9 +909,9 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(category: 'Comfort / Love', text: 'I love you, and I\'m not going anywhere.'),
     ],
     practicalSupport: [
-      CategorizedOption(category: 'Space + a Plan', text: 'Would you like to talk, rest, or just be still together for a bit?'),
-      CategorizedOption(category: 'Soothing Activity', text: 'Is there something that would help you feel more settled right now?'),
-      CategorizedOption(category: 'Behavioral Plan', text: 'Let\'s take this one day at a time and check in with each other as we go.'),
+      CategorizedOption(category: 'Space + a Plan', text: 'Let\'s sit together on the couch for a bit — we can talk about it, rest, or just be still, whatever feels right. '),
+      CategorizedOption(category: 'Soothing Activity', text: ' Let\'s make some lemonade and sit together for a bit to help you settle'),
+      CategorizedOption(category: 'Behavioral Plan', text: 'Let\'s check in with each other tonight and again tomorrow morning, so you\'re not carrying this alone one day at a time'),
     ],
   ),
   ScriptLibraryExample(
@@ -935,9 +935,9 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(category: 'Comfort / Love', text: 'I love you and I\'m right here.'),
     ],
     practicalSupport: [
-      CategorizedOption(category: 'Reconnect Plan', text: 'Is there a way we could honor what this was — celebrate it somehow — before fully letting go?'),
-      CategorizedOption(category: 'Behavioral Plan', text: 'Can we plan something to look forward to, even something small?'),
-      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Would it help to talk about your favourite parts of it while things settle?'),
+      CategorizedOption(category: 'Reconnect Plan', text: 'Let\'s do something to celebrate what this meant to you -— maybe look back at photos or keep something small to remember it by.'),
+      CategorizedOption(category: 'Behavioral Plan', text: 'Let\'s plan something to look forward to this weekend, even something small.'),
+      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Let\'s talk about your favourite parts of it while things settle.'),
     ],
   ),
   ScriptLibraryExample(
@@ -961,8 +961,8 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(category: 'Positive Regard', text: 'Your love for this person is real, and it matters.'),
     ],
     practicalSupport: [
-      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Is there a way you could connect with them — even a message or a drawing?'),
-      CategorizedOption(category: 'Reconnect Plan', text: 'Can we do something that feels connected to them or to that relationship?'),
+      CategorizedOption(category: 'Share a Skill / Brainstorm', text: ' Let\'s send them a message or make something for them together right now.'),
+      CategorizedOption(category: 'Reconnect Plan', text: ' Let\'s send them a message or make something for them together right now.'),
       CategorizedOption(category: 'Soothing Activity', text: 'Let\'s just be together for a bit — no pressure, just comfort.'),
     ],
   ),
@@ -987,8 +987,8 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(category: 'Sharing a Perspective', text: 'They were lucky to be so well loved.'),
     ],
     practicalSupport: [
-      CategorizedOption(category: 'Reconnect Plan', text: 'Would you like to do something to remember them — make something, write something, look at pictures together?'),
-      CategorizedOption(category: 'Soothing Activity', text: 'Is there something comforting we can do together right now?'),
+      CategorizedOption(category: 'Reconnect Plan', text: 'Let\'s make something together to remember them -— a small memory box or a photo you can keep.'),
+      CategorizedOption(category: 'Soothing Activity', text: ' Let\'s sit together with a blanket for a while -— I\'m right here.'),
       CategorizedOption(category: 'Space + a Plan', text: 'Let\'s give you some time to just feel this — no need to rush to feeling better.'),
     ],
   ),
@@ -1013,9 +1013,9 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(category: 'Togetherness', text: 'I\'m here for you, no matter how your friendships shift.'),
     ],
     practicalSupport: [
-      CategorizedOption(category: 'Share a Skill / Brainstorm', text: 'Can you tell me more about what happened? I want to understand.'),
+      CategorizedOption(category: 'Share a Skill / Brainstorm', text: ' Let\'s go through what happened together, step by step, so I really understand.'),
       CategorizedOption(category: 'Reconnect Plan', text: 'Let\'s think about the other people in your life who value you — they\'re there even if it doesn\'t feel that way right now.'),
-      CategorizedOption(category: 'Soothing Activity', text: 'Is there something we could do together today that might help your heart feel a little lighter?'),
+      CategorizedOption(category: 'Soothing Activity', text: ' Let\'s do something together today — like baking or a walk — to help your heart feel a little lighter.'),
     ],
   ),
   ScriptLibraryExample(

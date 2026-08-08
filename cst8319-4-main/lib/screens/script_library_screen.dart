@@ -351,7 +351,7 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
       children: options.map((option) {
         final isSelected = selected.contains(option.text);
         return ChoiceChip(
-          label: Text(option.text),
+          label: Text('[${option.category}] ${option.text}'),
           selected: isSelected,
           onSelected: (_) {
             setState(() {
