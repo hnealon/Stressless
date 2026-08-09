@@ -80,15 +80,15 @@ class _ApologyScriptBuilderScreenState
 
   static const Map<String, String> _reactionStarters = {
     'Anger':
-    "I can understand why you'd feel angry. It probably feels like too little, too late..",
+        "I can understand why you'd feel angry. It probably feels like too little, too late..",
     'Silence':
-    "I can understand why you'd remain silent. It can be a lot and you've tried to show me this many times and I didn't see it or I responded with defensiveness.",
+        "I can understand why you'd remain silent. It can be a lot and you've tried to show me this many times and I didn't see it or I responded with defensiveness.",
     'Reassurance':
-    "I can understand why you'd want to reassure me right now. You've seen me struggle before, and I know that's been really hard.",
+        "I can understand why you'd want to reassure me right now. You've seen me struggle before, and I know that's been really hard.",
     'Denial':
-    "I can understand why this might be hard to take in. It's a lot to hear, and it's completely okay if you're not ready to go there yet.",
+        "I can understand why this might be hard to take in. It's a lot to hear, and it's completely okay if you're not ready to go there yet.",
     'Pain/Grief':
-    "I can understand why you'd feel that pain. This is something you've been carrying for a long time without getting the attention it deserved.",
+        "I can understand why you'd feel that pain. This is something you've been carrying for a long time without getting the attention it deserved.",
   };
 
   @override
@@ -216,8 +216,8 @@ class _ApologyScriptBuilderScreenState
     // Step 1 - Identify the injury
     sections.add(
       'I want to talk to you about ${_injuryController.text.trim()} '
-          'and how hard that must have been for you. '
-          'Especially because ${_uniqueImpactController.text.trim()}.',
+      'and how hard that must have been for you. '
+      'Especially because ${_uniqueImpactController.text.trim()}.',
     );
 
     // Step 2 - Validate emotions (only include ones the user filled in)
@@ -346,15 +346,15 @@ class _ApologyScriptBuilderScreenState
     if (_selectedAddOn == 'A') {
       sections.add(
         "Your experience matters to me, and I'm here to listen whenever you're ready. "
-            "It could be now, two weeks from now, or a year from now. "
-            "I want to be here for you in a different way.",
+        "It could be now, two weeks from now, or a year from now. "
+        "I want to be here for you in a different way.",
       );
     } else if (_selectedAddOn == 'B') {
       sections.add(
         "If it would help to hear a little more about why things happened the way they did, "
-            "I'm happy to share that. That said, not everyone wants that because it can feel like excuses "
-            "and so it's completely okay if you'd rather not. "
-            "Either way, it doesn't change that what happened wasn't what you needed, and I see that now.",
+        "I'm happy to share that. That said, not everyone wants that because it can feel like excuses "
+        "and so it's completely okay if you'd rather not. "
+        "Either way, it doesn't change that what happened wasn't what you needed, and I see that now.",
       );
     } else if (_selectedAddOn == 'C' &&
         _customAddOnController.text.trim().isNotEmpty) {
@@ -445,10 +445,10 @@ class _ApologyScriptBuilderScreenState
   }
 
   Widget _inlineBlank(
-      TextEditingController controller, {
-        double width = 140,
-        bool required = true,
-      }) {
+    TextEditingController controller, {
+    double width = 140,
+    bool required = true,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: SizedBox(
@@ -577,7 +577,7 @@ class _ApologyScriptBuilderScreenState
         return _stepScaffold(
           title: 'Step 1: Identify the Injury, Event or Pattern',
           subtitle:
-          'Describe what happened. You can also refer to the unique impact it had on your child.',
+              'Describe what happened. You can also refer to the unique impact it had on your child.',
           fields: [
             _textField(
               controller: _injuryController,
@@ -607,7 +607,7 @@ class _ApologyScriptBuilderScreenState
             _noteCard(
               // REPLACE WITH WORKSHEET TEXT (verbatim caution note)
               "It is important to resist the temptation to include "
-                  "rationales for the unfolding of events.",
+              "rationales for the unfolding of events.",
             ),
           ],
         );
@@ -615,7 +615,7 @@ class _ApologyScriptBuilderScreenState
         return _stepScaffold(
           title: 'Step 2: Validate the Emotional experiences ',
           subtitle:
-          'Label and validate the emotional reactions associated with the event. Fill in the blanks for each of these emotions.',
+              'Label and validate the emotional reactions associated with the event. Fill in the blanks for each of these emotions.',
           fields: [
             _noteCard("Attend to each emotion listed."),
             Text(
@@ -628,10 +628,9 @@ class _ApologyScriptBuilderScreenState
               crossAxisAlignment: WrapCrossAlignment.end,
               children: [
                 Text(
-                  'I can imagine that when',
+                  'I can imagine that when this ',
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                _inlineBlank(_scaredEventController),
                 Text(
                   'occurred, you might have felt scared because',
                   style: Theme.of(context).textTheme.bodyLarge,
@@ -894,7 +893,7 @@ class _ApologyScriptBuilderScreenState
         return _stepScaffold(
           title: 'Step 4: Name What They Needed',
           subtitle:
-          'Knowing what you know now, state what they needed instead, and what will change starting today.',
+              'Knowing what you know now, state what they needed instead, and what will change starting today.',
           fields: [
             _noteCard("Ensure follow through is possible."),
             Text(
@@ -982,7 +981,7 @@ class _ApologyScriptBuilderScreenState
         return _stepScaffoldNoValidation(
           title: 'Step 5: Validate Their Reaction, Then Repeat Steps 3 & 4',
           subtitle:
-          'Select how your child is most likely to respond, then continue in your own words.',
+              'Select how your child is most likely to respond, then continue in your own words.',
           fields: [
             Center(
               child: Wrap(
@@ -1013,17 +1012,35 @@ class _ApologyScriptBuilderScreenState
                 value: _showReactionStarter,
                 onChanged: (val) =>
                     setState(() => _showReactionStarter = val ?? false),
-                activeColor: Colors.grey.shade500,
+                activeColor: AppColors.primary,
                 checkColor: Colors.white,
                 controlAffinity: ListTileControlAffinity.leading,
                 contentPadding: EdgeInsets.zero,
-                title: Text(
-                  _reactionStarters[_selectedReactionType] ?? '',
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    color: Colors.grey.shade600,
-                    fontSize: 13,
-                    fontStyle: FontStyle.italic,
-                  ),
+                tileColor: AppColors.primary.withOpacity(0.08),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  side: BorderSide(color: AppColors.primary.withOpacity(0.25)),
+                ),
+                title: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.format_quote_rounded,
+                      size: 18,
+                      color: AppColors.primary,
+                    ),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        _reactionStarters[_selectedReactionType] ?? '',
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          color: AppColors.primary,
+                          fontSize: 13,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 16),
@@ -1091,13 +1108,13 @@ class _ApologyScriptBuilderScreenState
                 'key': 'A',
                 'label': 'Option A: Invitation to share',
                 'text':
-                'Your experience matters to me, and I\'m here to listen whenever you\'re ready. It could be now, two weeks from now, or a year from now. I want to be here for you in a different way.',
+                    'Your experience matters to me, and I\'m here to listen whenever you\'re ready. It could be now, two weeks from now, or a year from now. I want to be here for you in a different way.',
               },
               {
                 'key': 'B',
                 'label': 'Option B: Offer to explain',
                 'text':
-                'If it would help to hear a little more about why things happened the way they did, I\'m happy to share that. That said, not everyone wants that because it can feel like excuses and so it\'s completely okay if you\'d rather not. Either way, it doesn\'t change that what happened wasn\'t what you needed, and I see that now.',
+                    'If it would help to hear a little more about why things happened the way they did, I\'m happy to share that. That said, not everyone wants that because it can feel like excuses and so it\'s completely okay if you\'d rather not. Either way, it doesn\'t change that what happened wasn\'t what you needed, and I see that now.',
               },
             ].map((option) {
               final isSelected = _selectedAddOn == option['key'];
@@ -1128,10 +1145,10 @@ class _ApologyScriptBuilderScreenState
                         option['label']!,
                         style: Theme.of(context).textTheme.titleMedium!
                             .copyWith(
-                          color: isSelected
-                              ? AppColors.primary
-                              : Colors.black87,
-                        ),
+                              color: isSelected
+                                  ? AppColors.primary
+                                  : Colors.black87,
+                            ),
                       ),
                       const SizedBox(height: 6),
                       Text(
@@ -1254,6 +1271,10 @@ class _ApologyScriptBuilderScreenState
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Please select an option.')),
                 );
+                return;
+              }
+              if (_currentStep == 4 &&
+                  !(_formKey.currentState?.validate() ?? false)) {
                 return;
               }
               setState(() => _currentStep++);
