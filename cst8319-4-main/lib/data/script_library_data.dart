@@ -400,7 +400,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       'because you really cared about doing this well and it didn\'t go the way you hoped',
       'because it didn\'t turn out the way you worked so hard for',
       'because you might be worried about what I think of you right now',
-      'because when we care about something and it goes wrong, it can feel like it says something about who we are — even when it doesn\'t',
+      'because when we care about something and it goes wrong, it can feel like it says something about who we are - even when it doesn\'t',
       'because it\'s hard not to feel bad when you know you could have done things differently',
     ],
     emotionalSupport: [
@@ -455,7 +455,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
     becauseStatements: [
       'because you care deeply about our relationship and maybe you didn\'t want to let me down',
       'because you were hoping I\'d be proud, and you\'re not sure right now if I am',
-      'because when we love someone, we want them to feel good about us — and right now maybe you\'re not sure I do',
+      'because when we love someone, we want them to feel good about us - and right now maybe you\'re not sure I do',
       'because it can be really scary to imagine that someone important to you is disappointed',
       'because you hold yourself to a high standard when it comes to the people you love',
     ],
@@ -568,7 +568,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
     becauseStatements: [
       'because you\'ve been carrying this by yourself for a while now, and it might feel really heavy',
       'because it\'s really hard when your brain keeps telling you that this is all your fault',
-      'because you were doing the best you could in a hard moment — even if it doesn\'t feel that way right now',
+      'because you were doing the best you could in a hard moment - even if it doesn\'t feel that way right now',
       'because blaming yourself can feel like the right thing to do when something goes wrong',
       'because you care so much about doing the right thing, and it hurts when you feel like you didn\'t',
     ],
@@ -882,7 +882,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Soothing Activity',
         text:
-            'Let\'s find something fun to watch — sometimes a little distraction helps.',
+            'Let\'s find something fun to watch - sometimes a little distraction helps.',
       ),
       CategorizedOption(
         category: 'Space + a Plan',
@@ -938,7 +938,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Soothing Activity',
         text:
-            'Let\'s talk about what happened, or do something fun to take your mind off it for a bit — whichever you\'d rather.',
+            'Let\'s talk about what happened, or do something fun to take your mind off it for a bit - whichever you\'d rather.',
       ),
       CategorizedOption(
         category: 'Share a Skill / Brainstorm',
@@ -999,7 +999,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Share a Skill / Brainstorm',
         text:
-            'Let\'s sit down together tonight and go through exactly what kind of support would help most — whether that\'s help fixing it, someone to talk to, or just some space to think.',
+            'Let\'s sit down together tonight and go through exactly what kind of support would help most - whether that\'s help fixing it, someone to talk to, or just some space to think.',
       ),
     ],
   ),
@@ -2140,12 +2140,12 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       'because your nervous system picked up on something that felt like a threat, even if we can\'t name it',
       'because part of you is trying really hard to keep you safe, and this is how it does that',
       'because anxiety can come on fast, especially when you\'re already carrying a lot',
-      'because your body is doing its job — it might just be working a little too hard right now',
+      'because your body is doing its job - it might just be working a little too hard right now',
     ],
     emotionalSupport: [
       CategorizedOption(
         category: 'Togetherness',
-        text: 'I\'m right here — we can face this feeling together.',
+        text: 'I\'m right here - we can face this feeling together.',
       ),
       CategorizedOption(
         category: 'Reassurance',
@@ -2154,7 +2154,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Togetherness',
         text:
-            'I\'m not going to tell you to calm down — let\'s just settle together, slowly.',
+            'I\'m not going to tell you to calm down - let\'s just settle together, slowly.',
       ),
       CategorizedOption(
         category: 'Sharing a Perspective',
@@ -2171,7 +2171,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Share a Skill / Brainstorm',
         text:
-            'Put your feet flat on the floor and tell me five things you can see — let\'s do that together.',
+            'Put your feet flat on the floor and tell me five things you can see - let\'s do that together.',
       ),
       CategorizedOption(
         category: 'Space + a Plan',
@@ -2198,7 +2198,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Togetherness',
         text:
-            'You don\'t have to figure this out alone — I\'ll walk with you through it.',
+            'You don\'t have to figure this out alone - I\'ll walk with you through it.',
       ),
       CategorizedOption(
         category: 'Positive Regard',
@@ -2265,7 +2265,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Sharing a Perspective',
         text:
-            'Your anxiety is not a flaw — it\'s a sign of how much heart you have.',
+            'Your anxiety is not a flaw - it\'s a sign of how much heart you have.',
       ),
       CategorizedOption(
         category: 'Togetherness',
@@ -2304,10 +2304,10 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
     validationOpener: 'Your anxiety makes complete sense…',
     becauseStatements: [
       'because your body reacted before your mind had time to catch up',
-      'because your nervous system is trying to warn you — it\'s just being extra cautious',
+      'because your nervous system is trying to warn you - it\'s just being extra cautious',
       'because anxiety doesn\'t need a logical reason to feel very, very real',
       'because the body has its own kind of memory that kicks in sometimes',
-      'because that\'s just how our nervous systems are designed — they\'re built to protect us, sometimes too much',
+      'because that\'s just how our nervous systems are designed - they\'re built to protect us, sometimes too much',
     ],
     emotionalSupport: [
       CategorizedOption(
@@ -2318,7 +2318,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Positive Regard',
         text:
-            'You\'re not being dramatic or overreacting — your body is doing something very normal.',
+            'You\'re not being dramatic or overreacting - your body is doing something very normal.',
       ),
       CategorizedOption(
         category: 'Togetherness',
@@ -2337,7 +2337,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Share a Skill / Brainstorm',
         text:
-            'Let\'s gently separate "what my body feels" from "what\'s actually happening right now" — together.',
+            'Let\'s gently separate "what my body feels" from "what\'s actually happening right now" - together.',
       ),
       CategorizedOption(
         category: 'Share a Skill / Brainstorm',
@@ -2368,7 +2368,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Togetherness',
         text:
-            'I\'m with you — you don\'t have to manage all of those pieces alone.',
+            'I\'m with you - you don\'t have to manage all of those pieces alone.',
       ),
       CategorizedOption(
         category: 'Togetherness',
@@ -2377,7 +2377,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Sharing a Perspective',
         text:
-            'You\'re not supposed to be able to hold all of that at once — that\'s not a failing.',
+            'You\'re not supposed to be able to hold all of that at once - that\'s not a failing.',
       ),
       CategorizedOption(
         category: 'Togetherness',
@@ -2397,7 +2397,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Share a Skill / Brainstorm',
         text:
-            'Can we write out all the pieces and then decide together what actually needs attention?',
+            'Let\'s write out everything on your plate and figure out together what actually needs attention first.',
       ),
       CategorizedOption(
         category: 'Behavioral Plan',
@@ -2416,14 +2416,14 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
     becauseStatements: [
       'because you want to make a good choice and the stakes feel high',
       'because the consequences of getting it wrong feel really important',
-      'because you care about doing the right thing — and that comes from a really good place',
+      'because you care about doing the right thing and that comes from a really good place',
       'because making a mistake might feel like something that says something about who you are, even though it doesn\'t',
       'because a part of you wants to get it right so much that the idea of getting it wrong is really scary',
     ],
     emotionalSupport: [
       CategorizedOption(
         category: 'Sharing a Perspective',
-        text: 'Your anxiety shows your values — that matters.',
+        text: 'Your anxiety shows your values - that matters.',
       ),
       CategorizedOption(
         category: 'Sharing a Perspective',
@@ -2448,7 +2448,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Share a Skill / Brainstorm',
         text:
-            'Let\'s explore the options together and see which one feels most right — not perfect, just right.',
+            'Let\'s explore the options together and see which one feels most right - not perfect, just right.',
       ),
       CategorizedOption(
         category: 'Share a Skill / Brainstorm',
@@ -2471,7 +2471,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
     becauseStatements: [
       'because your body is responding to something that feels intense or overwhelming',
       'because your nervous system is trying to protect you from something it sees as a threat',
-      'because anxiety lives in the body — in the chest, the stomach, the throat — and that\'s really uncomfortable',
+      'because anxiety lives in the body - in the chest, the stomach, the throat - and that\'s really uncomfortable',
       'because your body is asking for support in the way it knows how to ask',
       'because when anxiety shows up physically, it can feel especially scary, and that adds to the feeling',
     ],
@@ -2479,7 +2479,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Togetherness',
         text:
-            'I\'m right here — you don\'t have to "calm down"; let\'s settle together.',
+            'I\'m right here - you don\'t have to "calm down"; let\'s settle together.',
       ),
       CategorizedOption(
         category: 'Sharing a Perspective',
@@ -2504,7 +2504,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Share a Skill / Brainstorm',
         text:
-            'Try putting your hand where it feels strongest and breathing slowly into that spot — let\'s do it together.',
+            'Try putting your hand where it feels strongest and breathing slowly into that spot - let\'s do it together.',
       ),
       CategorizedOption(
         category: 'Space + a Plan',
@@ -2514,7 +2514,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Soothing Activity',
         text:
-            'Let\'s shake out our hands and arms, or take a short walk — movement can really help.',
+            'Let\'s shake out our hands and arms, or take a short walk - movement can really help.',
       ),
     ],
   ),
@@ -2528,7 +2528,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
     becauseStatements: [
       'because your mind is scanning ahead and trying to prepare for the unknown',
       'because imagining the worst can be a way your brain tries to protect you from being surprised',
-      'because a part of you wants to be ready, just in case — and that\'s actually a pretty smart instinct',
+      'because a part of you wants to be ready, just in case - and that\'s actually a pretty smart instinct',
       'because you\'ve been through things before that caught you off guard, and your brain doesn\'t want that to happen again',
       'because the feeling is completely real, even if what you\'re worried about hasn\'t happened',
     ],
@@ -2536,7 +2536,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Sharing a Perspective',
         text:
-            'Let\'s thank that part of you for trying to look out for you — and then gently guide it.',
+            'Let\'s thank that part of you for trying to look out for you - and then gently guide it.',
       ),
       CategorizedOption(
         category: 'Togetherness',
@@ -2560,7 +2560,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Share a Skill / Brainstorm',
         text:
-            'Let\'s name the worry once — just say it out loud — and then name three things that are actually true and safe right now.',
+            'Let\'s name the worry once - just say it out loud - and then name three things that are actually true and safe right now.',
       ),
       CategorizedOption(
         category: 'Behavioral Plan',
@@ -2570,7 +2570,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Soothing Activity',
         text:
-            'Can we do something that brings you into the present moment — something concrete and sensory?',
+            'Can we do something that brings you into the present moment - something concrete and sensory?',
       ),
     ],
   ),
@@ -2582,7 +2582,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
         '$kScriptLibrarySourceDocument → ANXIETY → 9. Anxiety Linked to Past Experiences',
     validationOpener: 'I can understand your anxiety…',
     becauseStatements: [
-      'because this moment touches something familiar — something that was hard before',
+      'because this moment touches something familiar - something that was hard before',
       'because your body and brain remember painful things, even when you\'d rather they didn\'t',
       'because memories of difficult experiences can show up in present moments without warning',
       'because your anxiety is trying to protect you from going through something hard again',
@@ -2592,7 +2592,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Sharing a Perspective',
         text:
-            'Your body\'s memory is welcome here — we\'ll move through this together.',
+            'Your body\'s memory is welcome here - we\'ll move through this together.',
       ),
       CategorizedOption(
         category: 'Reassurance',
@@ -2627,7 +2627,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Soothing Activity',
         text:
-            'Let\'s do something grounding together — something that helps you feel safe and in the present.',
+            'Let\'s do something grounding together - something that helps you feel safe and in the present.',
       ),
     ],
   ),
@@ -2654,7 +2654,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Togetherness',
         text:
-            'You are not alone in finding school overwhelming — a lot of kids do.',
+            'You are not alone in finding school overwhelming - a lot of kids do.',
       ),
       CategorizedOption(
         category: 'Sharing a Perspective',
@@ -2741,7 +2741,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Behavioral Plan',
         text:
-            'Can we come up with an exit plan — something that makes it feel more okay to go, knowing you can leave if you need to?',
+            'Can we come up with an exit plan - something that makes it feel more okay to go, knowing you can leave if you need to?',
       ),
     ],
   ),
@@ -2826,7 +2826,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Togetherness',
         text:
-            'Night fears are so common — you are not the only kid who feels this way.',
+            'Night fears are so common - you are not the only kid who feels this way.',
       ),
       CategorizedOption(
         category: 'Comfort / Love',
@@ -2842,7 +2842,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Behavioral Plan',
         text:
-            'Let\'s figure out something that helps your room feel safer at night — a light, a comfort object, a check-in routine.',
+            'Let\'s figure out something that helps your room feel safer at night - a light, a comfort object, a check-in routine.',
       ),
       CategorizedOption(
         category: 'Behavioral Plan',
@@ -2852,7 +2852,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Soothing Activity',
         text:
-            'Is there something we can do before bed — like talking, reading together, or a breathing exercise — that helps your body and mind wind down?',
+            'Let\'s set up a wind-down routine before bed - reading together and a few slow breaths.',
       ),
     ],
   ),
