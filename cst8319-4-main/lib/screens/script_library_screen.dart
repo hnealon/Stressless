@@ -343,15 +343,6 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
           _libraryPractical,
           example.practicalCount,
         ),
-        const SizedBox(height: 16),
-        Text(
-          example.sourceReference,
-          style: GoogleFonts.nunito(
-            fontSize: 11,
-            color: AppColors.textLight,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
       ],
     );
   }
