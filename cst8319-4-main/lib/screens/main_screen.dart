@@ -14,8 +14,6 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  // One GlobalKey per tab so each Navigator keeps its own history
-  // even when the user switches tabs and comes back.
   final List<GlobalKey<NavigatorState>> _navigatorKeys = [
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
@@ -23,7 +21,6 @@ class _MainScreenState extends State<MainScreen> {
     GlobalKey<NavigatorState>(),
   ];
 
-  // The root widget for each tab.
   static const List<Widget> _tabRoots = <Widget>[
     HomeScreenNew(),
     LearnScreen(),
@@ -33,7 +30,6 @@ class _MainScreenState extends State<MainScreen> {
 
   void _onItemTapped(int index) {
     if (index == _selectedIndex) {
-      // Tapping the current tab pops to that tab's root.
       _navigatorKeys[index].currentState?.popUntil((route) => route.isFirst);
     } else {
       setState(() {
@@ -42,7 +38,6 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
-  // Build a Navigator for a single tab.
   Widget _buildTabNavigator(int index) {
     return Navigator(
       key: _navigatorKeys[index],
@@ -58,8 +53,6 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      // If we can pop within the current tab's Navigator, do that
-      // instead of exiting the app on Android back button.
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) return;

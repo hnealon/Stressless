@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 
 import '../theme.dart';
@@ -25,9 +26,9 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   final List<String> _selectedEmotionalSupports = [];
   final List<String> _selectedPracticalSupports = [];
   final TextEditingController _customEmotionalSupportController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _customPracticalSupportController =
-      TextEditingController();
+  TextEditingController();
 
   String _generatedScript = '';
 
@@ -109,52 +110,129 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   }
 
   Future<void> _toggleRecording() async {
-    if (_isRecording) {
-      final path = await _audioRecorder.stop();
-      setState(() {
-        _isRecording = false;
-        _recordingPath = path;
-      });
-      return;
-    }
+    try {
+      if (_isRecording) {
+        final String? savedPath = await _audioRecorder.stop();
 
-    if (await _audioRecorder.hasPermission()) {
+        if (!mounted) return;
+
+        setState(() {
+          _isRecording = false;
+          _recordingPath = savedPath;
+        });
+
+        if (savedPath == null || savedPath.isEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('The recording could not be saved.'),
+            ),
+          );
+        }
+
+        return;
+      }
+
+      if (_isPlaying) {
+        await _audioPlayer.stop();
+      }
+
+      final bool hasPermission = await _audioRecorder.hasPermission();
+
+      if (!hasPermission) {
+        if (!mounted) return;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Microphone permission is needed to record.'),
+          ),
+        );
+
+        return;
+      }
+
+      final directory = await getApplicationDocumentsDirectory();
+
+      final String recordingPath =
+          '${directory.path}/practice_recording_'
+          '${DateTime.now().millisecondsSinceEpoch}.wav';
+
       await _audioRecorder.start(
-        const RecordConfig(encoder: AudioEncoder.opus),
-        path: '',
+        const RecordConfig(
+          encoder: AudioEncoder.wav,
+          sampleRate: 44100,
+          numChannels: 1,
+        ),
+        path: recordingPath,
       );
+
+      if (!mounted) return;
+
       setState(() {
         _isRecording = true;
+        _isPlaying = false;
         _recordingPath = null;
       });
-    } else {
+    } catch (error) {
       if (!mounted) return;
+
+      setState(() {
+        _isRecording = false;
+        _isPlaying = false;
+      });
+
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Microphone permission is needed to record.'),
-        ),
+        SnackBar(content: Text('Recording failed: $error')),
       );
+
+      debugPrint('Recording error: $error');
     }
   }
 
   Future<void> _togglePlayback() async {
-    if (_recordingPath == null) return;
+    try {
+      final String? path = _recordingPath;
 
-    if (_isPlaying) {
-      await _audioPlayer.stop();
+      if (path == null || path.isEmpty) {
+        return;
+      }
+
+      if (_isPlaying) {
+        await _audioPlayer.pause();
+
+        if (!mounted) return;
+
+        setState(() {
+          _isPlaying = false;
+        });
+
+        return;
+      }
+
+      await _audioPlayer.play(DeviceFileSource(path));
+
+      if (!mounted) return;
+
+      setState(() {
+        _isPlaying = true;
+      });
+    } catch (error) {
+      if (!mounted) return;
+
       setState(() {
         _isPlaying = false;
       });
-      return;
-    }
 
-    await _audioPlayer.play(UrlSource(_recordingPath!));
-    setState(() {
-      _isPlaying = true;
-    });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Playback failed: $error')),
+      );
+
+      debugPrint('Playback error: $error');
+    }
   }
 
   void _updateScript() {
+    if (!mounted) return;
+
     setState(() {
       _generatedScript = _buildCustomScript();
     });
@@ -174,31 +252,33 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
         _because2Controller.text.isNotEmpty &&
         _because3Controller.text.isNotEmpty) {
       becauseClause =
-          'because ${_because1Controller.text}, ${_because2Controller.text}, and ${_because3Controller.text}';
+      'because ${_because1Controller.text}, ${_because2Controller.text}, and ${_because3Controller.text}';
     }
 
     final emotional = _selectedEmotionalSupports
         .map((e) {
-          if (e == "Other (Write your own)") {
-            return _customEmotionalSupportController.text;
-          }
-          return e;
-        })
+      if (e == "Other (Write your own)") {
+        return _customEmotionalSupportController.text;
+      }
+      return e;
+    })
         .join(' ');
 
     final practical = _selectedPracticalSupports
         .map((e) {
-          if (e == "Other (Write your own)") {
-            return _customPracticalSupportController.text;
-          }
-          return e;
-        })
+      if (e == "Other (Write your own)") {
+        return _customPracticalSupportController.text;
+      }
+      return e;
+    })
         .join(' ');
 
     var validationPart = '$starter $verb $phrase';
+
     if (becauseClause.isNotEmpty) {
       validationPart += ' $becauseClause';
     }
+
     validationPart += '.';
 
     return '$validationPart ${emotional.isNotEmpty ? emotional : ''} ${practical.isNotEmpty ? practical : ''}'
@@ -261,7 +341,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
               ),
             ),
             SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
                   _buildCustomBuilderSection(),
@@ -285,16 +365,16 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
         _buildChoiceChipGroup(_starters, _selectedStarter, (selected) {
           setState(() {
             _selectedStarter = selected;
-            _updateScript();
           });
+          _updateScript();
         }),
         const SizedBox(height: 24),
         _buildSubSectionTitle('Verb', 'Select a verb.'),
         _buildChoiceChipGroup(_verbs, _selectedVerb, (selected) {
           setState(() {
             _selectedVerb = selected;
-            _updateScript();
           });
+          _updateScript();
         }),
         const SizedBox(height: 24),
         _buildSubSectionTitle(
@@ -347,13 +427,13 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   }
 
   Widget _buildSupportSection(
-    String title,
-    String subtitle,
-    List<String> items,
-    List<String> selectedItems,
-    TextEditingController customTextController,
-    int maxSelection,
-  ) {
+      String title,
+      String subtitle,
+      List<String> items,
+      List<String> selectedItems,
+      TextEditingController customTextController,
+      int maxSelection,
+      ) {
     final showCustomField = selectedItems.contains("Other (Write your own)");
 
     return Column(
@@ -423,15 +503,16 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   }
 
   Widget _buildChoiceChipGroup(
-    List<String> items,
-    String? selectedItem,
-    ValueChanged<String> onSelected,
-  ) {
+      List<String> items,
+      String? selectedItem,
+      ValueChanged<String> onSelected,
+      ) {
     return Wrap(
-      spacing: 8.0,
-      runSpacing: 6.0,
+      spacing: 8,
+      runSpacing: 6,
       children: items.map((item) {
-        final isSelected = item == selectedItem;
+        final bool isSelected = item == selectedItem;
+
         return ChoiceChip(
           label: Text(item),
           selected: isSelected,
@@ -444,7 +525,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
             fontSize: 13,
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(20),
             side: BorderSide(
               color: isSelected ? AppColors.primary : AppColors.cardBorder,
             ),
@@ -456,15 +537,16 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   }
 
   Widget _buildMultiChoiceChipGroup(
-    List<String> items,
-    List<String> selectedItems,
-    int maxSelection,
-  ) {
+      List<String> items,
+      List<String> selectedItems,
+      int maxSelection,
+      ) {
     return Wrap(
-      spacing: 8.0,
-      runSpacing: 6.0,
+      spacing: 8,
+      runSpacing: 6,
       children: items.map((item) {
-        final isSelected = selectedItems.contains(item);
+        final bool isSelected = selectedItems.contains(item);
+
         return ChoiceChip(
           label: Text(item),
           selected: isSelected,
@@ -475,8 +557,8 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
               } else if (selectedItems.length < maxSelection) {
                 selectedItems.add(item);
               }
-              _updateScript();
             });
+            _updateScript();
           },
           backgroundColor: AppColors.surface,
           selectedColor: AppColors.primary,
@@ -486,7 +568,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
             fontSize: 13,
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(20),
             side: BorderSide(
               color: isSelected ? AppColors.primary : AppColors.cardBorder,
             ),
@@ -498,9 +580,9 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   }
 
   Widget _buildBecauseTextField(
-    TextEditingController controller,
-    String hintText,
-  ) {
+      TextEditingController controller,
+      String hintText,
+      ) {
     return TextField(
       controller: controller,
       style: GoogleFonts.nunito(fontSize: 14, color: AppColors.textPrimary),
@@ -510,23 +592,22 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
         filled: true,
         fillColor: AppColors.surface,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: AppColors.cardBorder),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-          borderSide: BorderSide(color: AppColors.primary, width: 1.5),
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
         ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 14,
         ),
       ),
-      onChanged: (_) => _updateScript(),
     );
   }
 
@@ -604,8 +685,6 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
                 label: const Text('Copy Script'),
               ),
             ),
-
-          // --- Khalil's Audio Section (Always Visible inside the Card) ---
           const SizedBox(height: 16),
           const Divider(),
           const SizedBox(height: 12),

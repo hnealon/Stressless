@@ -386,10 +386,10 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
   }
 
   Widget _buildOptionMultiSelect(
-    List<CategorizedOption> options,
-    List<String> selected,
-    int maxSelection,
-  ) {
+      List<CategorizedOption> options,
+      List<String> selected,
+      int maxSelection,
+      ) {
     return Wrap(
       spacing: 8,
       runSpacing: 6,
@@ -439,10 +439,10 @@ class _ScriptLibraryScreenState extends State<ScriptLibraryScreen> {
   }
 
   Widget _buildMultiSelect(
-    List<String> items,
-    List<String> selected,
-    int maxSelection,
-  ) {
+      List<String> items,
+      List<String> selected,
+      int maxSelection,
+      ) {
     return Wrap(
       spacing: 8,
       runSpacing: 6,

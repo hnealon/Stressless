@@ -1,9 +1,11 @@
 import '../models/script_library_example.dart';
 
+/// Script Library — wording verbatim from the client document.
 const String kScriptLibrarySourceDocument =
     'EC_Scripts_Youth_Ages_8-12.revised.docx';
 
 const List<ScriptLibraryExample> scriptLibraryExamples = [
+  // --- ANGER (6 Scenarios) ---
   ScriptLibraryExample(
     id: 'anger-feeling-misunderstood',
     emotion: 'Anger',
@@ -38,19 +40,14 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       ),
       CategorizedOption(
         category: 'Positive Regard',
-        text: 'I know you’re doing the best you can right now',
+        text: 'I know you\'re doing the best you can right now',
       ),
     ],
     practicalSupport: [
       CategorizedOption(
         category: 'Space + a Plan',
         text:
-            'How about we take a short break and then sit down so I can really listen, without any distractions?',
-      ),
-      CategorizedOption(
-        category: 'Share a Skill / Brainstorm',
-        text:
-            'Can you walk me through exactly what happened, from the beginning? I want to get the whole picture.',
+            'Let\'s take a short break and then sit down together so I can really listen, without distractions.',
       ),
       CategorizedOption(
         category: 'Reconnect Plan',
@@ -60,10 +57,284 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       CategorizedOption(
         category: 'Behavioral Plan',
         text:
-            'Let’s figure out a plan to prevent this from happening again. What if __________?',
+            'Let\'s figure out a plan to prevent this from happening again. What if I check in with you to make sure I understand what you are trying to say?',
       ),
     ],
   ),
+  ScriptLibraryExample(
+    id: 'anger-feeling-powerless',
+    emotion: 'Anger',
+    title: 'Feeling Powerless',
+    sourceReference:
+        '$kScriptLibrarySourceDocument → ANGER → 2. Feeling Powerless',
+    validationOpener: "No wonder you're angry…",
+    becauseStatements: [
+      'because so much of this feels out of your control right now',
+      'because you\'ve been trying so hard with so little actually changing',
+      'because it can feel really unfair when things won\'t budge no matter what you do',
+      'because you want things to be different and you don\'t know how to make that happen',
+      'because having no say in something that matters to you is really frustrating',
+    ],
+    emotionalSupport: [
+      CategorizedOption(
+        category: 'Positive Regard',
+        text:
+            'I see how hard you\'ve been trying, and I want you to know that.',
+      ),
+      CategorizedOption(
+        category: 'Belief in Them',
+        text: 'I believe you can get through this, and I\'m going to help.',
+      ),
+      CategorizedOption(
+        category: 'Togetherness',
+        text: 'You don\'t have to figure this out alone.',
+      ),
+      CategorizedOption(
+        category: 'Belief in Them',
+        text:
+            'I\'m proud of you for keeping at it even when it\'s been this hard.',
+      ),
+      CategorizedOption(
+        category: 'Positive Regard',
+        text: 'Your feelings make total sense to me.',
+      ),
+    ],
+    practicalSupport: [
+      CategorizedOption(
+        category: 'Behavioral Plan',
+        text:
+            'Let\'s find one small thing we can actually change together, just one thing to start.',
+      ),
+      CategorizedOption(
+        category: 'Share a Skill / Brainstorm',
+        text:
+            'Let\'s start with the part of this that feels most out of control.',
+      ),
+      CategorizedOption(
+        category: 'Soothing Activity',
+        text:
+            'Let\'s take a break from the big stuff and do something fun for a bit, then come back to it.',
+      ),
+    ],
+  ),
+  ScriptLibraryExample(
+    id: 'anger-boundary-crossed',
+    emotion: 'Anger',
+    title: 'A Boundary Was Crossed',
+    sourceReference:
+        '$kScriptLibrarySourceDocument → ANGER → 3. A Boundary Was Crossed',
+    validationOpener: "I could understand why you'd feel really angry…",
+    becauseStatements: [
+      'because something that really matters to you wasn\'t respected',
+      'because you expected to be treated differently than that',
+      'because it might feel like no one is taking your side right now',
+      'because when someone crosses a line, it can feel both upsetting and scary at the same time',
+      'because it\'s not okay for someone to treat you that way, and part of you knows that',
+    ],
+    emotionalSupport: [
+      CategorizedOption(
+        category: 'Positive Regard',
+        text: 'Your feelings make complete sense to me.',
+      ),
+      CategorizedOption(
+        category: 'Reassurance',
+        text: 'I want to make space for what happened and help you feel safe.',
+      ),
+      CategorizedOption(
+        category: 'Positive Regard',
+        text: 'I\'m glad you told me, you were right to.',
+      ),
+      CategorizedOption(
+        category: 'Togetherness',
+        text: 'You deserve to be treated with respect, and I am on your side.',
+      ),
+      CategorizedOption(
+        category: 'Togetherness',
+        text: 'I\'m here, and I\'m not going to brush this off.',
+      ),
+    ],
+    practicalSupport: [
+      CategorizedOption(
+        category: 'Share a Skill / Brainstorm',
+        text:
+            'Let\'s go through exactly what happened together, so I can really understand.',
+      ),
+      CategorizedOption(
+        category: 'Behavioral Plan',
+        text:
+            'Let\'s talk about what you need right now to feel safe and okay.',
+      ),
+      CategorizedOption(
+        category: 'Share a Skill / Brainstorm',
+        text:
+            'Together let\'s figure out what we want to do about this, you don\'t have to decide alone.',
+      ),
+    ],
+  ),
+  ScriptLibraryExample(
+    id: 'anger-feeling-overwhelmed',
+    emotion: 'Anger',
+    title: 'Feeling Overwhelmed',
+    sourceReference:
+        '$kScriptLibrarySourceDocument → ANGER → 6. Feeling Overwhelmed',
+    validationOpener: "No wonder you're feeling overwhelmed…",
+    becauseStatements: [
+      'because everything has piled up at once and it is a lot to carry',
+      'because you haven\'t had a moment to breathe and just be yourself',
+      'because when too many things happen at once, anger can show up to say "this is too much"',
+      'because you might feel stuck with no way out right now',
+      'because you\'ve been dealing with a lot more than most people realize',
+    ],
+    emotionalSupport: [
+      CategorizedOption(
+        category: 'Togetherness',
+        text: 'I\'m right here with you.',
+      ),
+      CategorizedOption(
+        category: 'Positive Regard',
+        text: 'It\'s completely okay to feel this way.',
+      ),
+      CategorizedOption(
+        category: 'Togetherness',
+        text: 'You don\'t have to hold all of this by yourself.',
+      ),
+      CategorizedOption(
+        category: 'Belief in Them',
+        text:
+            'I see how much you\'ve been dealing with, and I think you\'ve been really brave.',
+      ),
+      CategorizedOption(
+        category: 'Togetherness',
+        text: 'We can figure this out together, one thing at a time.',
+      ),
+    ],
+    practicalSupport: [
+      CategorizedOption(
+        category: 'Soothing Activity',
+        text:
+            'Let\'s step outside or take a few minutes away from everything to reset.',
+      ),
+      CategorizedOption(
+        category: 'Share a Skill / Brainstorm',
+        text:
+            'Let\'s figure out together what the most pressing thing is and start just there, one thing.',
+      ),
+      CategorizedOption(
+        category: 'Behavioral Plan',
+        text:
+            'I\'m going to take one thing off your plate right now, just for today.',
+      ),
+    ],
+  ),
+  ScriptLibraryExample(
+    id: 'anger-old-hurts',
+    emotion: 'Anger',
+    title: 'Old Hurts Coming Up',
+    sourceReference:
+        '$kScriptLibrarySourceDocument → ANGER → 9. Old Hurts Coming Up',
+    validationOpener: "It makes sense that you'd react right now…",
+    becauseStatements: [
+      'because this situation brings up something hard that happened before',
+      'because when something hurt you in the past, it can come rushing back in moments like this',
+      'because your body and brain remember painful things, even when you\'d rather they didn\'t',
+      'because upset feelings can sometimes be a way of saying "I don\'t want this to happen again"',
+      'because you\'ve been through some hard things, and that leaves a mark, and that is not your fault',
+    ],
+    emotionalSupport: [
+      CategorizedOption(
+        category: 'Togetherness',
+        text: 'I\'m here with you in this, not on the other side of it.',
+      ),
+      CategorizedOption(
+        category: 'Togetherness',
+        text: 'You don\'t have to carry this by yourself.',
+      ),
+      CategorizedOption(
+        category: 'Positive Regard',
+        text:
+            'What you\'re feeling makes total sense, even if it\'s hard to explain.',
+      ),
+      CategorizedOption(
+        category: 'Reassurance',
+        text:
+            'I\'m not scared of what you\'re feeling and I\'m not going anywhere.',
+      ),
+      CategorizedOption(category: 'Reassurance', text: 'You are safe with me.'),
+    ],
+    practicalSupport: [
+      CategorizedOption(
+        category: 'Space + a Plan',
+        text: 'We can go as slowly as you need, there\'s no rush here.',
+      ),
+      CategorizedOption(
+        category: 'Space + a Plan',
+        text:
+            'Let\'s take a break and then come back to it when your body feels a little calmer.',
+      ),
+      CategorizedOption(
+        category: 'Soothing Activity',
+        text:
+            'Is there something that would help you feel a bit safer right now? Let\'s start by making a list of your favorite activities and choose one.',
+      ),
+    ],
+  ),
+  ScriptLibraryExample(
+    id: 'anger-at-themselves',
+    emotion: 'Anger',
+    title: 'Angry at Themselves',
+    sourceReference:
+        '$kScriptLibrarySourceDocument → ANGER → 12. Angry at Themselves',
+    validationOpener: "I can understand why you'd feel angry right now…",
+    becauseStatements: [
+      'because you care so much about doing things well and this didn\'t go the way you wanted',
+      'because it\'s really frustrating when you know you can do better',
+      'because maybe you feel like you let yourself or someone else down',
+      'because being hard on yourself can sometimes feel like the right thing to do when things go wrong',
+      'because you hold yourself to high standards and it stings when you don\'t meet them',
+    ],
+    emotionalSupport: [
+      CategorizedOption(
+        category: 'Togetherness',
+        text: 'Everyone makes mistakes, it doesn\'t change how I see you.',
+      ),
+      CategorizedOption(
+        category: 'Belief in Them',
+        text: 'I\'m really proud of how much you care.',
+      ),
+      CategorizedOption(
+        category: 'Sharing a Perspective',
+        text:
+            'Being kind to yourself is just as important as doing your best, and I want to help you with that.',
+      ),
+      CategorizedOption(
+        category: 'Sharing a Perspective',
+        text: 'You are so much more than this one moment.',
+      ),
+      CategorizedOption(
+        category: 'Comfort / Love',
+        text: 'I love you no matter what.',
+      ),
+    ],
+    practicalSupport: [
+      CategorizedOption(
+        category: 'Set a Limit',
+        text:
+            'Being mean to yourself with harsh words isn\'t something we\'re going to allow, let\'s find a kinder way to talk to yourself.',
+      ),
+      CategorizedOption(
+        category: 'Share a Skill / Brainstorm',
+        text:
+            'Let\'s think about what you\'d say to a good friend who made the same mistake, and try saying that to yourself.',
+      ),
+      CategorizedOption(
+        category: 'Behavioral Plan',
+        text:
+            'Let\'s figure out one small thing you could do to help make it right.',
+      ),
+    ],
+  ),
+
+  // --- EMBARRASSMENT (15 Scenarios, renamed from Shame per Adele's review) ---
   ScriptLibraryExample(
     id: 'shame-withdraw-shutdown',
     emotion: 'Embarrassment',
@@ -129,7 +400,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       'because you really cared about doing this well and it didn\'t go the way you hoped',
       'because it didn\'t turn out the way you worked so hard for',
       'because you might be worried about what I think of you right now',
-      'because when we care about something and it goes wrong, it can feel like it says something about who we are - even when it doesn\'t',
+      'because when we care about something and it goes wrong, it can feel like it says something about who we are — even when it doesn\'t',
       'because it\'s hard not to feel bad when you know you could have done things differently',
     ],
     emotionalSupport: [
@@ -184,7 +455,7 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
     becauseStatements: [
       'because you care deeply about our relationship and maybe you didn\'t want to let me down',
       'because you were hoping I\'d be proud, and you\'re not sure right now if I am',
-      'because when we love someone, we want them to feel good about us - and right now maybe you\'re not sure I do',
+      'because when we love someone, we want them to feel good about us — and right now maybe you\'re not sure I do',
       'because it can be really scary to imagine that someone important to you is disappointed',
       'because you hold yourself to a high standard when it comes to the people you love',
     ],
@@ -288,13 +559,16 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
     id: 'shame-self-blame',
     emotion: 'Embarrassment',
     title: "When They're Stuck in Self-Blame",
+    // TODO: no Source reference in Adele's reviewed doc — flagged (with Sadness 4
+    // and Anxiety 8) as possibly newly written rather than from the client source
+    // doc. Confirm with Adele whether this reference should stay, change, or be removed.
     sourceReference:
         '$kScriptLibrarySourceDocument → SHAME → 4. When They\'re Stuck in Self-Blame',
     validationOpener: "I can understand why you'd feel to blame…",
     becauseStatements: [
       'because you\'ve been carrying this by yourself for a while now, and it might feel really heavy',
       'because it\'s really hard when your brain keeps telling you that this is all your fault',
-      'because you were doing the best you could in a hard moment - even if it doesn\'t feel that way right now',
+      'because you were doing the best you could in a hard moment — even if it doesn\'t feel that way right now',
       'because blaming yourself can feel like the right thing to do when something goes wrong',
       'because you care so much about doing the right thing, and it hurts when you feel like you didn\'t',
     ],
@@ -858,6 +1132,9 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       'because part of you might think that needing help is a weakness - and I want to show you it isn\'t',
     ],
     emotionalSupport: [
+      // NOTE: this line still says "ashamed" in Adele's reviewed doc even though
+      // the validation opener above and the title were both changed to "embarrassed" —
+      // worth a quick check with her on whether this one was meant to be updated too.
       CategorizedOption(
         category: 'Positive Regard',
         text: 'Your feelings are never something to be ashamed of.',
@@ -899,278 +1176,8 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       ),
     ],
   ),
-  ScriptLibraryExample(
-    id: 'anger-feeling-powerless',
-    emotion: 'Anger',
-    title: 'Feeling Powerless',
-    sourceReference:
-        '$kScriptLibrarySourceDocument → ANGER → 2. Feeling Powerless',
-    validationOpener: "No wonder you're angry…",
-    becauseStatements: [
-      'because so much of this feels out of your control right now',
-      'because you\'ve been trying so hard with so little actually changing',
-      'because it can feel really unfair when things won\'t budge no matter what you do',
-      'because you want things to be different and you don\'t know how to make that happen',
-      'because having no say in something that matters to you is really frustrating',
-    ],
-    emotionalSupport: [
-      CategorizedOption(
-        category: 'Positive Regard',
-        text:
-            'I see how hard you\'ve been trying, and I want you to know that.',
-      ),
-      CategorizedOption(
-        category: 'Belief in Them',
-        text: 'I believe you can get through this, and I\'m going to help.',
-      ),
-      CategorizedOption(
-        category: 'Togetherness',
-        text: 'You don\'t have to figure this out alone.',
-      ),
-      CategorizedOption(
-        category: 'Belief in Them',
-        text:
-            'I\'m proud of you for keeping at it even when it\'s been this hard.',
-      ),
-      CategorizedOption(
-        category: 'Positive Regard',
-        text: 'Your feelings make total sense to me.',
-      ),
-    ],
-    practicalSupport: [
-      CategorizedOption(
-        category: 'Behavioral Plan',
-        text:
-            'Let\'s find one small thing we can actually change together — just one thing to start.',
-      ),
-      CategorizedOption(
-        category: 'Share a Skill / Brainstorm',
-        text:
-            'What part of this feels most out of control? Let\'s start there.',
-      ),
-      CategorizedOption(
-        category: 'Soothing Activity',
-        text:
-            'How about we take a break from the big stuff and do something fun for a bit, and then come back to it?',
-      ),
-    ],
-  ),
-  ScriptLibraryExample(
-    id: 'anger-boundary-crossed',
-    emotion: 'Anger',
-    title: 'A Boundary Was Crossed',
-    sourceReference:
-        '$kScriptLibrarySourceDocument → ANGER → 3. A Boundary Was Crossed',
-    validationOpener: "I could understand why you'd feel really angry…",
-    becauseStatements: [
-      'because something that really matters to you wasn\'t respected',
-      'because you expected to be treated differently than that',
-      'because it might feel like no one is taking your side right now',
-      'because when someone crosses a line, it can feel both upsetting and scary at the same time',
-      'because it\'s not okay for someone to treat you that way, and part of you knows that',
-    ],
-    emotionalSupport: [
-      CategorizedOption(
-        category: 'Positive Regard',
-        text: 'Your feelings make complete sense to me.',
-      ),
-      CategorizedOption(
-        category: 'Reassurance',
-        text: 'I want to make space for what happened and help you feel safe.',
-      ),
-      CategorizedOption(
-        category: 'Positive Regard',
-        text: 'I\'m glad you told me — you were right to.',
-      ),
-      CategorizedOption(
-        category: 'Togetherness',
-        text: 'You deserve to be treated with respect, and I am on your side.',
-      ),
-      CategorizedOption(
-        category: 'Togetherness',
-        text: 'I\'m here, and I\'m not going to brush this off.',
-      ),
-    ],
-    practicalSupport: [
-      CategorizedOption(
-        category: 'Share a Skill / Brainstorm',
-        text:
-            'Can you tell me more about exactly what happened so I can really understand?',
-      ),
-      CategorizedOption(
-        category: 'Behavioral Plan',
-        text:
-            'Let\'s talk about what you need right now to feel safe and okay.',
-      ),
-      CategorizedOption(
-        category: 'Share a Skill / Brainstorm',
-        text:
-            'Together let\'s figure out what we want to do about this — you don\'t have to decide alone.',
-      ),
-    ],
-  ),
-  ScriptLibraryExample(
-    id: 'anger-feeling-overwhelmed',
-    emotion: 'Anger',
-    title: 'Feeling Overwhelmed',
-    sourceReference:
-        '$kScriptLibrarySourceDocument → ANGER → 6. Feeling Overwhelmed',
-    validationOpener: "No wonder you're feeling overwhelmed…",
-    becauseStatements: [
-      'because everything has piled up at once and it is a lot to carry',
-      'because you haven\'t had a moment to breathe and just be yourself',
-      'because when too many things happen at once, anger can show up to say "this is too much"',
-      'because you might feel stuck with no way out right now',
-      'because you\'ve been dealing with a lot more than most people realize',
-    ],
-    emotionalSupport: [
-      CategorizedOption(
-        category: 'Togetherness',
-        text: 'I\'m right here with you.',
-      ),
-      CategorizedOption(
-        category: 'Positive Regard',
-        text: 'It\'s completely okay to feel this way.',
-      ),
-      CategorizedOption(
-        category: 'Togetherness',
-        text: 'You don\'t have to hold all of this by yourself.',
-      ),
-      CategorizedOption(
-        category: 'Belief in Them',
-        text:
-            'I see how much you\'ve been dealing with, and I think you\'ve been really brave.',
-      ),
-      CategorizedOption(
-        category: 'Togetherness',
-        text: 'We can figure this out together, one thing at a time.',
-      ),
-    ],
-    practicalSupport: [
-      CategorizedOption(
-        category: 'Soothing Activity',
-        text:
-            'How about we step outside or take a few minutes away from everything to reset?',
-      ),
-      CategorizedOption(
-        category: 'Share a Skill / Brainstorm',
-        text:
-            'Let\'s figure out together what the most pressing thing is and start just there — one thing.',
-      ),
-      CategorizedOption(
-        category: 'Behavioral Plan',
-        text:
-            'Is there something we can take off your plate right now, even just for today?',
-      ),
-    ],
-  ),
-  ScriptLibraryExample(
-    id: 'anger-old-hurts',
-    emotion: 'Anger',
-    title: 'Old Hurts Coming Up',
-    sourceReference:
-        '$kScriptLibrarySourceDocument → ANGER → 9. Old Hurts Coming Up',
-    validationOpener: "It makes sense that you'd react right now…",
-    becauseStatements: [
-      'because this situation brings up something hard that happened before',
-      'because when something hurt you in the past, it can come rushing back in moments like this',
-      'because your body and brain remember painful things, even when you\'d rather they didn\'t',
-      'because upset feelings can sometimes be a way of saying "I don\'t want this to happen again"',
-      'because you\'ve been through some hard things, and that leaves a mark — and that is not your fault',
-    ],
-    emotionalSupport: [
-      CategorizedOption(
-        category: 'Togetherness',
-        text: 'I\'m here with you in this — not on the other side of it.',
-      ),
-      CategorizedOption(
-        category: 'Togetherness',
-        text: 'You don\'t have to carry this by yourself.',
-      ),
-      CategorizedOption(
-        category: 'Positive Regard',
-        text:
-            'What you\'re feeling makes total sense, even if it\'s hard to explain.',
-      ),
-      CategorizedOption(
-        category: 'Reassurance',
-        text:
-            'I\'m not scared of what you\'re feeling and I\'m not going anywhere.',
-      ),
-      CategorizedOption(category: 'Reassurance', text: 'You are safe with me.'),
-    ],
-    practicalSupport: [
-      CategorizedOption(
-        category: 'Space + a Plan',
-        text: 'We can go as slowly as you need — there\'s no rush here.',
-      ),
-      CategorizedOption(
-        category: 'Space + a Plan',
-        text:
-            'Let\'s take a break and then come back to it when your body feels a little calmer.',
-      ),
-      CategorizedOption(
-        category: 'Soothing Activity',
-        text:
-            'Is there something that would help you feel a bit safer right now?',
-      ),
-    ],
-  ),
-  ScriptLibraryExample(
-    id: 'anger-at-themselves',
-    emotion: 'Anger',
-    title: 'Angry at Themselves',
-    sourceReference:
-        '$kScriptLibrarySourceDocument → ANGER → 12. Angry at Themselves',
-    validationOpener: "I can understand why you'd feel angry right now…",
-    becauseStatements: [
-      'because you care so much about doing things well and this didn\'t go the way you wanted',
-      'because it\'s really frustrating when you know you can do better',
-      'because maybe you feel like you let yourself or someone else down',
-      'because being hard on yourself can sometimes feel like the right thing to do when things go wrong',
-      'because you hold yourself to high standards and it stings when you don\'t meet them',
-    ],
-    emotionalSupport: [
-      CategorizedOption(
-        category: 'Togetherness',
-        text: 'Everyone makes mistakes — it doesn\'t change how I see you.',
-      ),
-      CategorizedOption(
-        category: 'Belief in Them',
-        text: 'I\'m really proud of how much you care.',
-      ),
-      CategorizedOption(
-        category: 'Sharing a Perspective',
-        text:
-            'Being kind to yourself is just as important as doing your best, and I want to help you with that.',
-      ),
-      CategorizedOption(
-        category: 'Sharing a Perspective',
-        text: 'You are so much more than this one moment.',
-      ),
-      CategorizedOption(
-        category: 'Comfort / Love',
-        text: 'I love you no matter what.',
-      ),
-    ],
-    practicalSupport: [
-      CategorizedOption(
-        category: 'Share a Skill / Brainstorm',
-        text:
-            'Let\'s talk about what happened so we can learn from it together — not to blame you, but to help.',
-      ),
-      CategorizedOption(
-        category: 'Share a Skill / Brainstorm',
-        text:
-            'What would you say to a good friend who made the same mistake? Let\'s try saying that to yourself.',
-      ),
-      CategorizedOption(
-        category: 'Behavioral Plan',
-        text:
-            'Is there something you could do to help make it right, even just a little bit?',
-      ),
-    ],
-  ),
+
+  // --- HOPELESSNESS (6 Scenarios) ---
   ScriptLibraryExample(
     id: 'hopelessness-nothing-will-ever-change',
     emotion: 'Hopelessness',
@@ -1515,6 +1522,8 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       ),
     ],
   ),
+
+  // --- SADNESS (11 Scenarios) ---
   ScriptLibraryExample(
     id: 'sadness-hurt-by-something-that-happened',
     emotion: 'Sadness',
@@ -2117,6 +2126,8 @@ const List<ScriptLibraryExample> scriptLibraryExamples = [
       ),
     ],
   ),
+
+  // --- ANXIETY (13 Scenarios) ---
   ScriptLibraryExample(
     id: 'anxiety-when-anxiety-spikes-suddenly',
     emotion: 'Anxiety',
