@@ -76,13 +76,13 @@ class _MainScreenState extends State<MainScreen> {
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Learn VS'),
+            BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Learn VS'),
             BottomNavigationBarItem(
               icon: Icon(Icons.edit_note_rounded),
               label: 'Build VS',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.star_border_outlined),
+              icon: Icon(Icons.star),
               label: 'Advanced',
             ),
           ],
