@@ -383,14 +383,17 @@ class _ApologyScriptBuilderScreenState
             child: Row(
               children: List.generate(6, (index) {
                 return Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 3),
-                    height: 6,
-                    decoration: BoxDecoration(
-                      color: index <= _currentStep
-                          ? AppColors.primary
-                          : AppColors.primary.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(3),
+                  child: GestureDetector(
+                    onTap: () => setState(() => _currentStep = index),
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 3),
+                      height: 6,
+                      decoration: BoxDecoration(
+                        color: index <= _currentStep
+                            ? AppColors.primary
+                            : AppColors.primary.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(3),
+                      ),
                     ),
                   ),
                 );
@@ -1050,7 +1053,10 @@ class _ApologyScriptBuilderScreenState
                   _inlineBlank(_repeatNeeded1Controller),
                   Text('and', style: Theme.of(context).textTheme.bodyLarge),
                   _inlineBlank(_repeatNeeded2Controller),
-                  Text('and', style: Theme.of(context).textTheme.bodyLarge),
+                  Text(
+                    'and (optional)',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
                   _inlineBlank(_repeatNeeded3Controller, required: false),
                 ],
               ),
@@ -1066,7 +1072,7 @@ class _ApologyScriptBuilderScreenState
                   Text('and', style: Theme.of(context).textTheme.bodyLarge),
                   _inlineBlank(_repeatWill2Controller),
                   Text(
-                    'and',
+                    'and (optional)',
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   _inlineBlank(_repeatWill3Controller, required: false),
@@ -1390,7 +1396,16 @@ class _ApologyScriptBuilderScreenState
               ),
             ),
           ],
-
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton(
+              onPressed: () => setState(() {
+                _currentStep = 0;
+              }),
+              child: const Text('Edit a Step'),
+            ),
+          ),
           const SizedBox(height: 12),
           SizedBox(
             width: double.infinity,
