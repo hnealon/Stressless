@@ -55,10 +55,11 @@ const List<LearnSection> _overviewSections = [
   LearnSection(
     heading: 'What caregivers gain',
     body:
-        'When you validate before you fix or reassure, something can shift for your child and for you.',
+        'When you validate before you fix or reassure, something can shift - not just for your child, '
+        'but for the relationship between you, and for the nervous system each of you carries into the next moment.',
     bullets: [
       'More flexibility and cooperation over time',
-      'More confidence handling big emotions, yours and theirs',
+      'More confidence handling stressful moments, yours and theirs',
       'A stronger sense of connection, even in difficult moments',
     ],
   ),
@@ -66,17 +67,17 @@ const List<LearnSection> _overviewSections = [
     heading: 'The 45-second loop',
     body:
         'The full Validation and Support framework can take as little as 45 seconds. '
-        'It has two steps: validate first, then support. That\'s it. The more you practise, the more natural it becomes.',
+        'It has two steps: validate first, then support. The order matters most. The more you practice the more natural it becomes.',
   ),
   LearnSection(
     heading: 'Why Order Matters',
     body:
         'The order of operations is essential for success. '
-        'Validation \u2192 Emotional Support \u2192 Practical Support follows the neural requirements for moving from a state of stress '
+        'Validation \u2192 Emotional Support \u2192 Practical Support follows the brain requirements for moving from a state of stress '
         'or threat to a state of increased connectedness and flexibility.',
     body2:
         'If the order is reversed (e.g., giving advice before validation), the brain\'s threat detection remains active, and the thinking '
-        'brain (or pre-frontal cortex) never fully engages, leading to unproductive conversation and increased distress.',
+        'brain (or pre-frontal cortex) never fully engages, which can lead to unproductive conversation and increased distress.',
   ),
   LearnSection(
     heading: 'Adapting the Framework',
@@ -87,9 +88,11 @@ const List<LearnSection> _overviewSections = [
       'Sometimes a quick validation + 1 because-statement can be enough to shift things in a meaningful direction. '
           'Other times, you might need to do a few rounds of because-statements, + emotional and practical support for your child to de-escalate and '
           'trust your efforts.',
-      '"Drive-thru" validation with just one because-statement (and nothing more) might be the place to start for some kids who feel '
-          'awkward with validation or emotion-talk.\nWhichever is true for you, our suggestion is for you to learn the framework to acquire the '
-          'skill and develop fluency, and then the capacity for discernment in its application will come with time and practice.',
+      '"Drive-thru" validation with just one because-statement (and nothing more) might be the place '
+          'to start for some kids who feel awkward with validation or emotion-talk. '
+          '\nWhichever is true for you, our suggestion is the same: learn the framework '
+          'first to build the skill and fluency, and trust that the discernment - knowing when'
+          ' and how to adapt it - will come with time and practice.',
     ],
   ),
 ];
@@ -122,14 +125,15 @@ const List<LearnTopic> _topics = [
           '"But"-ing: "I hear you, but..."',
         ],
         callout:
-            'These reactions aren\'t wrong, but they work better after your child\'s brain is in a more flexible state.',
+            'These reactions aren\'t wrong - they just work better once validation has already helped your child\'s brain settle into a more flexible state.',
       ),
       LearnSection(
         heading: 'Why noticing matters',
         body:
-            'The first step in reducing your reliance on automatic responses is simply awareness. Once you notice your tendency to go there, you '
-            'have a choice to try validation instead. Once validation opens the door, you can then consider one of the above-responses and it is '
-            'likely to go better.',
+            'The first step in reducing your reliance on automatic responses is awareness. '
+            'Once you notice your tendency to go there (to reassure, use logic or fix as a first step), you '
+            'have a choice to lead with validation instead. Once validation opens the door, '
+            'you can then consider one of these more familiar responses (to reassure, use logic or fix) and it is likely to go better.',
       ),
     ],
   ),
@@ -143,7 +147,7 @@ const List<LearnTopic> _topics = [
         heading: 'Help Their Brain Feel Safe',
         body:
             'When a child is upset, no matter the reason, their brain becomes activated and they can\'t think (as) clearly. '
-            'Validation sends a simple signal: "I get it, I\'m not against you". Especially when using a tentative, '
+            'Over time, validation sends a simple signal: "I get it, I\'m not against you". Especially when using a tentative, '
             'caring tone ("I can understand you might be frustrated because..."), a validating statement helps them begin to '
             'process what they\'re experiencing as well. When they feel your genuine attempt to understand what\'s going on for them, even if you '
             'are off the mark, they are more likely to be more open and maybe even more flexible too.',
@@ -152,9 +156,11 @@ const List<LearnTopic> _topics = [
         heading: 'What validation really means',
         body:
             'Validation involves making an effort to understand your child\'s experience, whether it\'s an emotion, a thought, an urge, '
-            'a behaviour, or a state, and from their point of view.',
+            'a behaviour, or a state, and from their point of view. The genuine heart-centered effort matters more than getting it “right”.',
         callout:
-            'You\'re not necessarily agreeing with them. You\'re showing you get why it makes sense from inside of their experience. That opens the door.',
+            'If you\'re worried that validation will come across as approval in the wrong context,'
+            ' remember that validation doesn\'t equal agreement. You\'re showing you get why it makes sense from inside their experience. '
+            'That opens the door.',
       ),
       LearnSection(
         heading: 'More than just feelings',
@@ -195,15 +201,12 @@ const List<LearnTopic> _topics = [
       LearnSection(
         heading: 'The power of because-statements',
         body:
-            'Because-statements are the heart of validation. They show your child that you\'ve thought about their experience from the inside.',
+            'Because-statements are at the heart of validation. They show your child that you\'ve thought about their experience from the inside.',
         bullets: [
           'Aim for 3 because-statements',
           'End each one with a downward tone, not a question',
-          'The most powerful ones reflect your child\'s normal urge to increase good feelings, decrease hard feelings and increase feelings of connection. '
-              'When in doubt, use the 3 Hs: "it\'s hard", "it\'s heavy", "it hurts"',
+          'The most powerful ones reflect your child\'s normal urge to increase good feelings, decrease hard feelings and increase feelings of connection. ',
         ],
-        callout:
-            '"No wonder you feel that way because it\'s hard, and it\'s heavy, and it might really hurt."',
       ),
     ],
   ),
@@ -216,8 +219,8 @@ const List<LearnTopic> _topics = [
       LearnSection(
         heading: 'Build the Bridge',
         body:
-            'Once they\'re a little calmer, or feel like you\'re on the same team, they need to feel your warmth before they can open up further. '
-            'Communications of comfort, encouragement, reassurance and togetherness are great options. Without this step, any suggestion you offer may feel like pressure, or unwelcome, or just too soon.',
+            'Once they\'re a little calmer on the inside, or feel like you\'re on the same team, they need to feel your warmth before they can open up further. '
+            'Communications of comfort, encouragement, reassurance and togetherness are great options. Without this step, any suggestion you offer may end up feeling like pressure, or unwelcome, or simply too soon.',
       ),
       LearnSection(
         heading: 'Choose 2\u20133 of these options',
@@ -234,7 +237,8 @@ const List<LearnTopic> _topics = [
         ],
         callout:
             'When it comes to the number of emotional sentences, follow your child\'s lead. '
-            'Some moments call for one or two emotional support sentences, others for longer presence.',
+            'Some moments call for one or two emotional support sentences, others for longer presence.'
+            ' When in doubt, aim for two emotional support sentences.',
       ),
     ],
   ),
@@ -264,10 +268,8 @@ const List<LearnTopic> _topics = [
       LearnSection(
         heading: 'Sometimes nothing more is needed',
         body:
-            'Once a child feels validated and emotionally supported, '
-            'the moment may already be complete. Presence alone can be the most powerful thing you offer.',
-        callout:
-            '"Right now, I can just be with you." This is a complete and valid response.',
+            'Once a child feels validated and emotionally supported, something in their brain re-engages, '
+                'and they may not need anything more from you. Presence alone can be the most powerful thing you offer in that situation.',
       ),
     ],
   ),
@@ -280,14 +282,15 @@ const List<LearnTopic> _topics = [
       LearnSection(
         heading: 'Questions are great... and...',
         body:
-            'This framework uses educated guesses (e.g. "I can imagine you might feel...") '
-            'instead of questions ("How do you feel?") for a specific reason. Here are some potential benefits of making educated guesses or suggestions:',
+            'If you\'d prefer to ask questions first to feel more secure in your attempts to validate, you absolutely can. '
+                'That said, this framework is structured around educated guesses (e.g. "I can imagine you might feel...") '
+            'instead of questions ("How do you feel?") for a few specific reasons. Here are some potential benefits of making educated guesses or suggestions:',
       ),
       LearnSection(
         heading: 'Benefits for Validation',
         body: 'Suggestions can be helpful when a child has:',
         bullets: [
-          'A limited vocabulary for emotions or lacks clarity about their internal experience',
+          'A limited vocabulary for emotions or lacks clarity about what’s going on inside ',
           'Clarity about their internal experience, but feels embarrassed expressing what\'s inside',
         ],
       ),
@@ -296,10 +299,10 @@ const List<LearnTopic> _topics = [
         body: 'Suggestions can also be helpful for support when a child has:',
         bullets: [
           'A lack of clarity about what they need',
-          'Clarity about needing support, but feels embarrassed asking for it',
+          'Clarity about their internal experience, but feels embarrassed expressing it',
         ],
         callout:
-            'That said, questions are not wrong. Feel free to use questions if they feel useful to you and your child.',
+            'But again, questions are not wrong. Feel free to use questions if they feel useful to you and your child.',
       ),
     ],
   ),
@@ -345,7 +348,7 @@ class LearnScreen extends StatelessWidget {
                     ).animate().fadeIn(delay: 80.ms, duration: 400.ms),
                     const SizedBox(height: 10),
                     Text(
-                      'Everything you need to learn the framework, all on one page.',
+                      'Information to help you learn the framework, all on one page.',
                       style: GoogleFonts.nunito(
                         fontSize: 14,
                         color: AppColors.textSecondary,
@@ -374,7 +377,11 @@ class LearnScreen extends StatelessWidget {
                           const SizedBox(height: 8),
                           Text(
                             'These scripts were developed within Emotion-Focused Family Therapy (EFFT), and it is '
-                            'advised that this content be explored with the guidance of a therapist trained in this model. An EFFT therapist can help you identify which scripts are most relevant to your child and situation, work through any blocks that might get in the way of connecting with your child emotionally, and adapt the language to feel natural for your family. They can also support you through what can be a meaningful and sometimes emotionally complex process. This app was meant to serve as a resource alongside that professional support.',
+                            'advised that this content be explored with the guidance of a provider trained in this model. '
+                            'An EFFT provider can help you identify which scripts are most relevant to your child and situation, '
+                            'work through any blocks that might get in the way of connection, '
+                            'and adapt the language in away that feel naturals for your family. They can also support you through what can be a '
+                            'meaningful and sometimes emotionally complex process. This app was meant to serve as a resource alongside that kind of support.',
                             style: GoogleFonts.nunito(
                               fontSize: 13,
                               color: AppColors.textSecondary,
@@ -565,18 +572,18 @@ class _SectionBlock extends StatelessWidget {
 
     Widget buildTheActualTable() {
       final rows = [
-        ['Step 1', 'Validation', '\u2193 Amygdala', 'From Threat to Safe'],
+        ['Step 1', 'Validation', '\u2193 Amygdala', 'From Threat to Safer'],
         [
           'Step 2A',
           'Emotional Support',
           '\u2191 Oxytocin (Relational)',
-          'From Safe to Connected',
+          'From Safer to More Connected',
         ],
         [
           'Step 2B',
           'Practical Support',
           '\u2191 Prefrontal Cortex (Cognitive)',
-          'From Connected to Active',
+          'From More Connected to Engaged',
         ],
       ];
 

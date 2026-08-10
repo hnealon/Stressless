@@ -152,21 +152,25 @@ class PracticeScreen extends StatelessWidget {
         number: '02',
         title: 'Validation',
         description:
-            'Validate your loved one’s experience from their perspective, the perspective of the relationship, and your own perspective. You can also validate possible underlying emotions such as sadness, fear, hopelessness, embarrassment, or anger.',
+            'Validate your loved one\'s experience from their perspective (“because you might be frustrated”), '
+            'the perspective of the relationship (“because we haven’t been spending as much time together”), '
+            'and your own perspective (“because if I’m being honest, I have been distracted today”). '
+            'You can also validate possible underlying emotions such as sadness, fear, hopelessness, embarrassment, '
+            'or anger (“I can imagine that underneath that frustration, you might be feeling sad that we haven’t talked about this before”).',
         color: const Color(0xFF4A7C6F),
       ),
       _FrameworkStep(
         number: '03',
         title: 'Emotional Support',
         description:
-            'Communicate that there is space to build trust, no pressure to engage, time to go at their own pace, and that you will be there for them no matter what.',
+            'Communicate that you love them, you believe in them,  you are in it together and you will be there for them no matter what.',
         color: const Color(0xFF7B68AB),
       ),
       _FrameworkStep(
         number: '04',
         title: 'Practical Support',
         description:
-            'Offer low-pressure support such as a soothing activity, spending time together, or simply letting your loved one know that you are there for them.',
+            'Offer support such as a soothing activity, spending time together, or helping them with problem-solving.',
         color: const Color(0xFF5B8FC9),
       ),
     ];
@@ -241,7 +245,7 @@ class PracticeScreen extends StatelessWidget {
 
   Widget _buildDisclaimer() {
     return Text(
-      'StressLess is an educational tool based on the principles of emotional support from Emotion-Focused Family Therapy. It is not a crisis resource and does not replace professional mental health support.',
+      'StressLess is an educational tool based on the intervention modules from Emotion-Focused Family Therapy. It is not a crisis resource and does not replace professional mental health support.',
       style: GoogleFonts.nunito(
         fontSize: 12,
         color: AppColors.textLight,
