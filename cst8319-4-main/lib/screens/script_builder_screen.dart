@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -110,124 +111,61 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
   }
 
   Future<void> _toggleRecording() async {
-    try {
-      if (_isRecording) {
-        final String? savedPath = await _audioRecorder.stop();
-
-        if (!mounted) return;
-
-        setState(() {
-          _isRecording = false;
-          _recordingPath = savedPath;
-        });
-
-        if (savedPath == null || savedPath.isEmpty) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('The recording could not be saved.'),
-            ),
-          );
-        }
-
-        return;
-      }
-
-      if (_isPlaying) {
-        await _audioPlayer.stop();
-      }
-
-      final bool hasPermission = await _audioRecorder.hasPermission();
-
-      if (!hasPermission) {
-        if (!mounted) return;
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Microphone permission is needed to record.'),
-          ),
-        );
-
-        return;
-      }
-
-      final directory = await getApplicationDocumentsDirectory();
-
-      final String recordingPath =
-          '${directory.path}/practice_recording_'
-          '${DateTime.now().millisecondsSinceEpoch}.wav';
-
-      await _audioRecorder.start(
-        const RecordConfig(
-          encoder: AudioEncoder.wav,
-          sampleRate: 44100,
-          numChannels: 1,
-        ),
-        path: recordingPath,
-      );
-
-      if (!mounted) return;
-
-      setState(() {
-        _isRecording = true;
-        _isPlaying = false;
-        _recordingPath = null;
-      });
-    } catch (error) {
-      if (!mounted) return;
-
+    if (_isRecording) {
+      final path = await _audioRecorder.stop();
       setState(() {
         _isRecording = false;
-        _isPlaying = false;
+        _recordingPath = path;
       });
+      return;
+    }
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Recording failed: $error')),
+    if (await _audioRecorder.hasPermission()) {
+      String recordingPath = '';
+      if (!kIsWeb) {
+        final directory = await getTemporaryDirectory();
+        recordingPath =
+        '${directory.path}/practice_recording_'
+            '${DateTime.now().millisecondsSinceEpoch}.wav';
+      }
+
+      await _audioRecorder.start(
+        RecordConfig(encoder: kIsWeb ? AudioEncoder.opus : AudioEncoder.wav),
+        path: recordingPath,
       );
-
-      debugPrint('Recording error: $error');
+      setState(() {
+        _isRecording = true;
+        _recordingPath = null;
+      });
+    } else {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Microphone permission is needed to record.'),
+        ),
+      );
     }
   }
 
   Future<void> _togglePlayback() async {
-    try {
-      final String? path = _recordingPath;
+    if (_recordingPath == null) return;
 
-      if (path == null || path.isEmpty) {
-        return;
-      }
-
-      if (_isPlaying) {
-        await _audioPlayer.pause();
-
-        if (!mounted) return;
-
-        setState(() {
-          _isPlaying = false;
-        });
-
-        return;
-      }
-
-      await _audioPlayer.play(DeviceFileSource(path));
-
-      if (!mounted) return;
-
-      setState(() {
-        _isPlaying = true;
-      });
-    } catch (error) {
-      if (!mounted) return;
-
+    if (_isPlaying) {
+      await _audioPlayer.stop();
       setState(() {
         _isPlaying = false;
       });
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Playback failed: $error')),
-      );
-
-      debugPrint('Playback error: $error');
+      return;
     }
+
+    if (kIsWeb) {
+      await _audioPlayer.play(UrlSource(_recordingPath!));
+    } else {
+      await _audioPlayer.play(DeviceFileSource(_recordingPath!));
+    }
+    setState(() {
+      _isPlaying = true;
+    });
   }
 
   void _updateScript() {
