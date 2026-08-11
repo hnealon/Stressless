@@ -269,7 +269,7 @@ const List<LearnTopic> _topics = [
         heading: 'Sometimes nothing more is needed',
         body:
             'Once a child feels validated and emotionally supported, something in their brain re-engages, '
-                'and they may not need anything more from you. Presence alone can be the most powerful thing you offer in that situation.',
+            'and they may not need anything more from you. Presence alone can be the most powerful thing you offer in that situation.',
       ),
     ],
   ),
@@ -283,7 +283,7 @@ const List<LearnTopic> _topics = [
         heading: 'Questions are great... and...',
         body:
             'If you\'d prefer to ask questions first to feel more secure in your attempts to validate, you absolutely can. '
-                'That said, this framework is structured around educated guesses (e.g. "I can imagine you might feel...") '
+            'That said, this framework is structured around educated guesses (e.g. "I can imagine you might feel...") '
             'instead of questions ("How do you feel?") for a few specific reasons. Here are some potential benefits of making educated guesses or suggestions:',
       ),
       LearnSection(
@@ -556,11 +556,20 @@ class _SectionBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget buildTableCell(String text, {bool isHeader = false}) {
+    Widget buildTableCell(
+      String text, {
+      bool isHeader = false,
+      bool isStepColumn = false,
+    }) {
       return Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: EdgeInsets.symmetric(
+          horizontal: isStepColumn ? 6.0 : 10.0,
+          vertical: 10.0,
+        ),
         child: Text(
           text,
+          softWrap: false,
+          overflow: TextOverflow.visible,
           style: GoogleFonts.nunito(
             fontSize: 13,
             fontWeight: isHeader ? FontWeight.w700 : FontWeight.normal,
@@ -572,7 +581,12 @@ class _SectionBlock extends StatelessWidget {
 
     Widget buildTheActualTable() {
       final rows = [
-        ['Step 1', 'Validation', '\u2193 Amygdala', 'From Threat to Safer'],
+        [
+          'Step 1',
+          'Validation',
+          '\u2193 Amygdala',
+          'From Threat to Safer',
+        ],
         [
           'Step 2A',
           'Emotional Support',
@@ -590,7 +604,7 @@ class _SectionBlock extends StatelessWidget {
       return Table(
         border: TableBorder.all(color: AppColors.cardBorder, width: 1.5),
         columnWidths: const {
-          0: IntrinsicColumnWidth(),
+          0: FixedColumnWidth(78),
           1: FlexColumnWidth(),
           2: FlexColumnWidth(),
           3: FlexColumnWidth(),
@@ -599,7 +613,7 @@ class _SectionBlock extends StatelessWidget {
           TableRow(
             decoration: BoxDecoration(color: AppColors.surface),
             children: [
-              buildTableCell('Step', isHeader: true),
+              buildTableCell('Step', isHeader: true, isStepColumn: true),
               buildTableCell('Action', isHeader: true),
               buildTableCell('Neural Focus', isHeader: true),
               buildTableCell('State', isHeader: true),
@@ -608,7 +622,7 @@ class _SectionBlock extends StatelessWidget {
           ...rows.map(
             (row) => TableRow(
               children: [
-                buildTableCell(row[0]),
+                buildTableCell(row[0], isStepColumn: true),
                 buildTableCell(row[1]),
                 buildTableCell(row[2]),
                 buildTableCell(row[3]),
