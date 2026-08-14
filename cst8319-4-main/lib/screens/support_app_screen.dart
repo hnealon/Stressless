@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme.dart';
 
@@ -8,48 +9,18 @@ import '../theme.dart';
 // This screen currently models the UI/UX flow only — no real
 // purchase is made. `_submitContribution()` simulates success.
 //
-// Steps required to go live:
+// UI (current): preset amounts $5–$100 PLUS optional custom
+// amount entry (minimum $5, no $100 cap). Still UI-only until
+// billing is wired. Note: store IAP usually needs fixed product
+// tiers; custom amounts may require a different payment path.
 //
-// 1. PLATFORM ACCOUNTS (do first, takes days, not minutes)
-//    - Apple: enroll in Apple Developer Program, complete the
-//      Paid Applications Agreement in App Store Connect
-//      (Agreements, Tax, and Banking), submit banking + tax info.
-//    - Google: set up a Google Payments merchant account via
-//      Play Console > Monetization, submit banking + tax info.
-//    Both require account-level setup and verification lag time.
+// Steps required to go live: see prior checklist in git history /
+// README (Apple/Google agreements, IAP products, in_app_purchase).
 //
-// 2. CREATE IAP PRODUCT LISTINGS
-//    - iOS: App Store Connect > In-App Purchases > Consumable,
-//      labeled "Contribute". NOTE: Apple IAP may not natively
-//      support arbitrary user-entered amounts. Confirm whether
-//      true custom-amount entry is possible, or whether this
-//      needs fixed-price tiers instead.
-//    - Android: Play Console > Monetize > In-app products,
-//      same "Contribute" label.
-//
-// 3. FLUTTER INTEGRATION
-//    - Add the `in_app_purchase` package.
-//    - Implement product query (queryProductDetails), purchase
-//      call (buyConsumable), and a purchase stream listener for
-//      success/failure/cancellation.
-//    - Android requires explicitly acknowledging/consuming the
-//      purchase, or it auto-refunds after 3 days. iOS requires
-//      finishing the transaction.
-//    - Replace _submitContribution() below with the real call.
-//    - Only show the thank you state on a CONFIRMED successful
-//      purchase callback, not optimistically.
-//
-// 4. TESTING
-//    - iOS: Sandbox Tester accounts (App Store Connect).
-//    - Android: License Testing accounts (Play Console internal
-//      testing track).
-//    - Test cancellation/failure paths, not just the happy path.
-//
-// 5. BEFORE SUBMISSION
-//    - Re-check against Adele's checklist: no "donate" language,
-//      no default/suggested amount, no feature gating, single
-//      non-repeated entry point, no contributor/non-contributor
-//      visible distinction.
+// BEFORE SUBMISSION
+// - Re-check Adele's checklist: no "donate" language in UI copy,
+//   no feature gating, single entry point, no contributor
+//   distinction.
 // ============================================================
 class SupportAppScreen extends StatefulWidget {
   const SupportAppScreen({super.key});
@@ -59,21 +30,75 @@ class SupportAppScreen extends StatefulWidget {
 }
 
 class _SupportAppScreenState extends State<SupportAppScreen> {
-  final TextEditingController _amountController = TextEditingController();
+  /// Preset Contribute amounts from $5 to $100 (UI only for now).
+  static const List<int> _presetAmounts = [5, 10, 25, 50, 75, 100];
+  static const double _minAmount = 5;
+
+  final TextEditingController _customAmountController = TextEditingController();
+  final FocusNode _customFocusNode = FocusNode();
+
+  int? _selectedPreset;
   bool _isSubmitting = false;
   bool _showThankYou = false;
 
   @override
+  void initState() {
+    super.initState();
+    _customFocusNode.addListener(() {
+      if (_customFocusNode.hasFocus && _selectedPreset != null) {
+        setState(() => _selectedPreset = null);
+      }
+    });
+  }
+
+  @override
   void dispose() {
-    _amountController.dispose();
+    _customAmountController.dispose();
+    _customFocusNode.dispose();
     super.dispose();
   }
 
-  bool get _canSubmit {
-    final text = _amountController.text.trim();
-    if (text.isEmpty) return false;
+  /// Resolved amount from preset chip or custom field.
+  double? get _resolvedAmount {
+    if (_selectedPreset != null) {
+      return _selectedPreset!.toDouble();
+    }
+    final text = _customAmountController.text.trim();
+    if (text.isEmpty) return null;
     final value = double.tryParse(text);
-    return value != null && value > 0;
+    if (value == null) return null;
+    if (value < _minAmount) return null;
+    return value;
+  }
+
+  bool get _canSubmit => _resolvedAmount != null;
+
+  String get _amountLabel {
+    final amount = _resolvedAmount;
+    if (amount == null) return 'Contribute';
+    if (amount == amount.roundToDouble()) {
+      return 'Contribute \$${amount.toInt()}';
+    }
+    return 'Contribute \$${amount.toStringAsFixed(2)}';
+  }
+
+  String? get _customErrorText {
+    final text = _customAmountController.text.trim();
+    if (text.isEmpty) return null;
+    final value = double.tryParse(text);
+    if (value == null) return 'Enter a valid amount';
+    if (value < _minAmount) {
+      return 'Please enter at least \$${_minAmount.toInt()}';
+    }
+    return null;
+  }
+
+  void _selectPreset(int amount) {
+    setState(() {
+      _selectedPreset = amount;
+      _customAmountController.clear();
+    });
+    _customFocusNode.unfocus();
   }
 
   Future<void> _submitContribution() async {
@@ -81,8 +106,7 @@ class _SupportAppScreenState extends State<SupportAppScreen> {
 
     setState(() => _isSubmitting = true);
 
-    // TODO(billing): replace with real IAP / Play Billing purchase call.
-    // See file header for full integration checklist.
+    // TODO(billing): replace with real purchase / donation call.
     await Future.delayed(const Duration(milliseconds: 800));
 
     if (!mounted) return;
@@ -119,6 +143,8 @@ class _SupportAppScreenState extends State<SupportAppScreen> {
   }
 
   Widget _buildContributionForm() {
+    final customError = _customErrorText;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -132,9 +158,11 @@ class _SupportAppScreenState extends State<SupportAppScreen> {
         ),
         const SizedBox(height: 16),
         Text(
-          'If this resource has been useful to you and your family, and you\'re able, we invite you to make a contribution.'
-          ' A portion of funds goes toward keeping these and other resources growing, and another portion goes toward helping '
-          'families access therapeutic support they might not otherwise be able to afford. Thank you for your generosity ',
+          'If this resource has been useful to you and your family, and you\'re able, '
+          'we invite you to make a contribution. A portion of funds goes toward keeping '
+          'these and other resources growing, and another portion goes toward helping '
+          'families access therapeutic support they might not otherwise be able to afford. '
+          'Thank you for your generosity.',
           style: GoogleFonts.nunito(
             fontSize: 15,
             color: AppColors.textSecondary,
@@ -142,9 +170,51 @@ class _SupportAppScreenState extends State<SupportAppScreen> {
           ),
         ),
         const SizedBox(height: 32),
-
         Text(
-          'Contribution amount',
+          'Choose an amount',
+          style: GoogleFonts.nunito(
+            fontSize: 14,
+            fontWeight: FontWeight.w700,
+            color: AppColors.textPrimary,
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          'Select a preset, or enter a custom amount (minimum \$${_minAmount.toInt()}; amounts over \$100 are welcome).',
+          style: GoogleFonts.nunito(
+            fontSize: 13,
+            color: AppColors.textLight,
+          ),
+        ),
+        const SizedBox(height: 14),
+        Wrap(
+          spacing: 10,
+          runSpacing: 10,
+          children: _presetAmounts.map((amount) {
+            final selected = _selectedPreset == amount;
+            return ChoiceChip(
+              label: Text('\$$amount'),
+              selected: selected,
+              onSelected: (_) => _selectPreset(amount),
+              selectedColor: AppColors.primary.withValues(alpha: 0.18),
+              backgroundColor: AppColors.surface,
+              side: BorderSide(
+                color: selected ? AppColors.primary : AppColors.cardBorder,
+                width: selected ? 1.5 : 1,
+              ),
+              labelStyle: GoogleFonts.nunito(
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+                color: selected ? AppColors.primary : AppColors.textPrimary,
+              ),
+              showCheckmark: false,
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            );
+          }).toList(),
+        ),
+        const SizedBox(height: 20),
+        Text(
+          'Or enter a custom amount',
           style: GoogleFonts.nunito(
             fontSize: 14,
             fontWeight: FontWeight.w700,
@@ -153,14 +223,25 @@ class _SupportAppScreenState extends State<SupportAppScreen> {
         ),
         const SizedBox(height: 10),
         TextField(
-          controller: _amountController,
+          controller: _customAmountController,
+          focusNode: _customFocusNode,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
-          onChanged: (_) => setState(() {}),
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
+          ],
+          onChanged: (_) {
+            setState(() {
+              if (_customAmountController.text.trim().isNotEmpty) {
+                _selectedPreset = null;
+              }
+            });
+          },
           style: GoogleFonts.nunito(fontSize: 16, color: AppColors.textPrimary),
           decoration: InputDecoration(
             prefixText: '\$ ',
-            hintText: 'Enter an amount',
+            hintText: 'e.g. 15',
             hintStyle: GoogleFonts.nunito(color: AppColors.textLight),
+            errorText: customError,
             filled: true,
             fillColor: AppColors.surface,
             border: OutlineInputBorder(
@@ -175,6 +256,10 @@ class _SupportAppScreenState extends State<SupportAppScreen> {
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(color: AppColors.primary, width: 1.5),
             ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Colors.redAccent),
+            ),
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
               vertical: 14,
@@ -182,7 +267,6 @@ class _SupportAppScreenState extends State<SupportAppScreen> {
           ),
         ),
         const SizedBox(height: 28),
-
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
@@ -206,7 +290,7 @@ class _SupportAppScreenState extends State<SupportAppScreen> {
                     ),
                   )
                 : Text(
-                    'Contribute',
+                    _amountLabel,
                     style: GoogleFonts.nunito(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
