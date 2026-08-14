@@ -1,35 +1,35 @@
 # StressLess
 
-A Flutter app that helps caregivers practice **validation and support** responses based on Emotion-Focused Family Therapy (EFFT).
+A Flutter app that helps caregivers respond to children experiencing stress or distress, using validation and support techniques based on Emotion-Focused Family Therapy (EFFT).
 
 ## Overview
 
-StressLess includes guided learning, practice sessions, a general script builder, and a script library with pre-written examples from client source documents.
+StressLess includes educational content, guided practice sessions, a general script builder, a script library of pre-written examples, and a therapeutic apology builder.
 
 | Tab | Purpose |
 |-----|---------|
-| **Home** | App introduction |
-| **Learn** | Validation and Support framework content |
-| **Practice** | Scenario-based practice sessions |
-| **Build** | General custom script builder |
-| **Library** | Pre-written V&S examples (Anger, Silence, Hopelessness, Sadness, Anxiety) from client documents |
-| **About** | App information |
+| **Home** | App introduction, links to Support and Project Team |
+| **Learn VS** | Validation and Support framework content; entry point to guided Practice and the Script Library |
+| **Build VS** | General custom script builder |
+| **Advanced** | Therapeutic Apology guide and 6-step builder |
 
-## Script Library (Ren)
+The Script Library and guided Practice scenarios are not separate bottom-nav tabs — they're reached via buttons inside **Learn VS**.
 
-The **Script Library** is a separate screen from the general Script Builder. It provides ready-made validation and support scripts that caregivers can customize by selecting phrases from each step.
+## Script Library
+
+The **Script Library** is separate from the general Script Builder. It provides ready-made validation and support scripts that caregivers customize by selecting phrases at each step.
 
 ### Why it is separate from Script Builder
 
-Per client review, the general **Build** tab is for creating scripts from scratch. **Library** holds emotion-specific examples sourced from the client Word document—not mixed into the general builder.
+Per client review, **Build VS** is for creating scripts from scratch. The Library holds emotion-specific examples sourced from the client Word document — not mixed into the general builder.
 
 ### How it works
 
-1. Open the **Library** tab.
-2. Choose an **emotion** (Anger, Silence, Hopelessness, Sadness, or Anxiety).
+1. From **Learn VS**, tap "Begin a practice session" or "continue practicing with emotion based scenarios" to reach the Library.
+2. Choose an **emotion** (Anger, Embarrassment, Hopelessness, Sadness, or Anxiety).
 3. Choose a **scenario**.
 4. Complete the script:
-   - **Step 1 — Validation:** select exactly **3** "because" statements
+   - **Step 1 — Validation:** select the required "because" statements
    - **Step 2 — Emotional Support:** select at least 2 sentences
    - **Step 3 — Practical Support:** select up to 2 suggestions
 5. The assembled script appears at the bottom as **Your Validation and Support Script**.
@@ -40,60 +40,89 @@ Per client review, the general **Build** tab is for creating scripts from scratc
 | Emotion | Scenarios | Source |
 |---------|-----------|--------|
 | **Anger** | 6 | `EC_Scripts_Youth_Ages_8-12.revised.docx` → ANGER |
-| **Silence** | 1 (When They Withdraw or Shut Down) | `EC_Scripts_Youth_Ages_8-12.revised.docx` → SHAME #5 |
+| **Embarrassment** (renamed from Shame; includes "When They Withdraw or Shut Down") | 15 | `EC_Scripts_Youth_Ages_8-12.revised.docx` → SHAME |
 | **Hopelessness** | 6 | `EC_Scripts_Youth_Ages_8-12.revised.docx` → HOPELESSNESS |
 | **Sadness** | 11 | `EC_Scripts_Youth_Ages_8-12.revised.docx` → SADNESS |
 | **Anxiety** | 13 | `EC_Scripts_Youth_Ages_8-12.revised.docx` → ANXIETY |
 
-Each example includes a `sourceReference` field pointing to the exact section in the client document.
-
-### Key files
-
-```
-lib/
-├── data/
-│   └── script_library_data.dart       # Verbatim content from client docx
-├── models/
-│   └── script_library_example.dart    # Data model for library examples
-└── screens/
-    ├── script_library_screen.dart     # Library UI (emotion → scenario → build)
-    └── script_builder_screen.dart     # General custom builder only
-```
+51 scenarios total. Each example includes a `sourceReference` field pointing to the exact section in the client document.
 
 ### Content policy
 
 All Script Library wording comes **verbatim** from the client document (`EC_Scripts_Youth_Ages_8-12.revised.docx`). Do not replace or paraphrase with AI-generated text. When the client sends revised Word documents, update `script_library_data.dart` to match.
 
-## Script Builder (Build tab)
+## Script Builder (Build VS tab)
 
-The **Build** tab is the general-purpose script builder. Users pick sentence starters, verbs, because-statements, and support phrases to create a custom validation and support script from scratch. It does **not** include Anger or Silence library examples.
+The general-purpose builder. Users pick a sentence starter, verb, feeling/action phrase, because-statements, and support phrases to create a custom validation and support script from scratch. It does not include the Library's emotion-specific examples.
+
+## Practice
+
+A guided 4-step flow (Automatic Response → Validation → Emotional Support → Practical Support) across four general scenarios, ending in an assembled script. Both Build VS and the Apology builder also include a **Practice Out Loud** feature to record and play back a spoken attempt.
+
+> **Known limitation:** Practice Out Loud uses `path_provider`, which has no web implementation. It will fail with a `MissingPluginException` if run via `flutter run -d chrome`. Use an Android/iOS device, simulator, or desktop target instead.
+
+## Therapeutic Apology (Advanced tab)
+
+An educational guide followed by a 6-step guided builder for a structured therapeutic apology. Reachable from its own **Advanced** bottom-nav tab.
+
+## Support this app
+
+A "Contribute" screen reachable from Home, with a free-entry amount field. **Not yet wired to real payment processing** (Apple IAP / Google Play Billing) — currently a UI flow only that simulates success.
+
+## Not included in this delivery
+
+- **Interaction Log (SWF5)** — not implemented.
+- App store distribution (Apple App Store / Google Play Store) — requested, but dropped due to timeline and lack of team Mac access for iOS signing.
+- Live payment processing for the Contribute feature — requested, but out of scope.
 
 ## Directory structure
-
-```
-.
+````
+cst8319-4-main/ ← project root
+├── android/
+├── ios/
+│ ├── Flutter/
+│ └── Runner/
+├── linux/
+├── macos/
+├── windows/
 ├── lib/
-│   ├── data/
-│   │   ├── scenario_data.dart
-│   │   └── script_library_data.dart
-│   ├── models/
-│   │   ├── models.dart
-│   │   ├── script_library_example.dart
-│   │   └── session.dart
-│   ├── screens/
-│   │   ├── main_screen.dart
-│   │   ├── script_builder_screen.dart
-│   │   ├── script_library_screen.dart
-│   │   ├── script_screen.dart
-│   │   ├── practice_screen.dart
-│   │   ├── learn_screen.dart
-│   │   └── steps/
-│   ├── widgets/
-│   ├── main.dart
-│   └── theme.dart
-├── pubspec.yaml
-└── README.md
-```
+│ ├── data/
+│ │ ├── scenario_data.dart
+│ │ └── script_library_data.dart
+│ ├── models/
+│ │ ├── models.dart
+│ │ └── script_library_example.dart
+│ ├── screens/
+│ │ ├── steps/
+│ │ │ ├── step_automatic_response.dart
+│ │ │ ├── step_emotional_support.dart
+│ │ │ ├── step_knee_jerk_reaction.dart
+│ │ │ ├── step_practical_support.dart
+│ │ │ └── step_validation.dart
+│ │ ├── about_screen.dart
+│ │ ├── apology_guide_screen.dart
+│ │ ├── apology_script_builder_screen.dart
+│ │ ├── home_screen_new.dart
+│ │ ├── learn_screen.dart
+│ │ ├── main_screen.dart
+│ │ ├── practice_screen.dart
+│ │ ├── scenario_list_screen.dart
+│ │ ├── script_builder_screen.dart
+│ │ ├── script_library_screen.dart
+│ │ ├── script_screen.dart
+│ │ ├── session_screen.dart
+│ │ └── support_app_screen.dart
+│ ├── widgets/
+│ │ └── shared_widgets.dart
+│ ├── main.dart
+│ └── theme.dart
+├── test/
+├── tools/
+├── web/
+├── .gitignore
+├── .metadata
+└── pubspec.yaml
+````
 
 ## Getting started
 
@@ -101,7 +130,7 @@ The **Build** tab is the general-purpose script builder. Users pick sentence sta
 
 - [Flutter SDK](https://docs.flutter.dev/get-started/install) (3.x or later)
 - Dart (included with Flutter)
-- Android Studio / Xcode for device emulators (optional)
+- Xcode (for iOS) and/or Android Studio (for Android)
 
 ### Run locally
 
@@ -117,54 +146,23 @@ flutter run
 flutter analyze
 ```
 
-## Building for release
 
-**Android:**
+## Handoff note
 
-```bash
-flutter build apk --release
-```
-
-Output: `build/app/outputs/apk/release/`
-
-**iOS** (requires Apple Developer account):
-
-```bash
-flutter build ios --release
-```
-
-**Web:**
-
-```bash
-flutter build web
-```
-
-Output: `build/web/`
-
-## Testing checklist
-
-- [ ] App launches without errors
-- [ ] Bottom navigation works across all tabs
-- [ ] **Build** tab: custom script builder only (no Anger/Silence picker)
-- [ ] **Library** tab: Anger and Silence scenarios load and assemble scripts
-- [ ] Library requires 3 because-statements before showing a complete script
-- [ ] Finish screen title reads **Your validation and support script** (Practice flow)
-- [ ] Copy Script works in both Build and Library
+This project is delivered as final source code, not a store-published app. See the included handoff instructions for running it locally on a Mac via Xcode/Flutter — no signed release build or app store account is required.
 
 ## Team ownership
 
-| Feature | Owner |
-|---------|-------|
-| Script Library (Anger) | Ren |
-| Script Library (Silence) | Haleigh |
-| General Script Builder | Team |
-| Therapeutic Apology tab | Rachel |
-| Navigation / integration | Ramona |
-| App Store deployment research | Ren |
+| Feature                             | Owner          |
+|-------------------------------------|----------------|
+| Script Library                      | Ren            |
+| General Script Builder              | Haleigh        |
+| Practice Out Loud (audio recording) | kalil          |
+| Therapeutic Apology tab             | Gohar & Rachel |
+| Navigation / integration / Home     | Ramona         |
 
 ## Related documents
 
 | Document | Use |
 |----------|-----|
-| `EC_Scripts_Youth_Ages_8-12.revised.docx` | Script Library content (Anger + Silence) |
-| `TA.teaching.docx` | Therapeutic Apology tab (future) |
+| `EC_Scripts_Youth_Ages_8-12.revised.docx` | Script Library content |
