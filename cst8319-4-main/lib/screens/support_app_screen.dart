@@ -6,7 +6,9 @@ import '../theme.dart';
 // TODO(billing): Enable real payments before release.
 // ============================================================
 // This screen currently models the UI/UX flow only — no real
-// purchase is made. `_submitContribution()` simulates success.
+// purchase is made. `_submitContribution()` must NOT show a
+// thank-you that implies money moved. Amounts are fixed tiers:
+// $5, $10, $25, $50, $100 (issue #5). No amount is pre-selected.
 //
 // Steps required to go live:
 //
@@ -59,37 +61,19 @@ class SupportAppScreen extends StatefulWidget {
 }
 
 class _SupportAppScreenState extends State<SupportAppScreen> {
-  final TextEditingController _amountController = TextEditingController();
-  bool _isSubmitting = false;
-  bool _showThankYou = false;
+  static const List<int> _amountOptions = [5, 10, 25, 50, 100];
 
-  @override
-  void dispose() {
-    _amountController.dispose();
-    super.dispose();
-  }
+  int? _selectedAmount;
+  bool _showPreviewNotice = false;
 
-  bool get _canSubmit {
-    final text = _amountController.text.trim();
-    if (text.isEmpty) return false;
-    final value = double.tryParse(text);
-    return value != null && value > 0;
-  }
+  bool get _canSubmit => _selectedAmount != null;
 
-  Future<void> _submitContribution() async {
+  void _submitContribution() {
     if (!_canSubmit) return;
-
-    setState(() => _isSubmitting = true);
-
     // TODO(billing): replace with real IAP / Play Billing purchase call.
     // See file header for full integration checklist.
-    await Future.delayed(const Duration(milliseconds: 800));
-
-    if (!mounted) return;
-    setState(() {
-      _isSubmitting = false;
-      _showThankYou = true;
-    });
+    // Do not show a paid thank-you until a purchase is confirmed.
+    setState(() => _showPreviewNotice = true);
   }
 
   @override
@@ -108,8 +92,8 @@ class _SupportAppScreenState extends State<SupportAppScreen> {
         ),
       ),
       body: SafeArea(
-        child: _showThankYou
-            ? _buildThankYouState()
+        child: _showPreviewNotice
+            ? _buildPreviewNotice()
             : SingleChildScrollView(
                 padding: const EdgeInsets.all(24.0),
                 child: _buildContributionForm(),
@@ -132,13 +116,22 @@ class _SupportAppScreenState extends State<SupportAppScreen> {
         ),
         const SizedBox(height: 16),
         Text(
-          'If this resource has been useful to you and your family, and you\'re able, we invite you to make a contribution.'
-          ' A portion of funds goes toward keeping these and other resources growing, and another portion goes toward helping '
-          'families access therapeutic support they might not otherwise be able to afford. Thank you for your generosity ',
+          'If this resource has been useful to you and your family, and you\'re able, we invite you to make a contribution. '
+          'A portion of funds goes toward keeping these and other resources growing, and another portion goes toward helping '
+          'families access therapeutic support they might not otherwise be able to afford. Thank you for your generosity.',
           style: GoogleFonts.nunito(
             fontSize: 15,
             color: AppColors.textSecondary,
             height: 1.65,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          'Payment processing is not live in this version. You can preview the amount, but nothing will be charged.',
+          style: GoogleFonts.nunito(
+            fontSize: 14,
+            color: AppColors.textSecondary,
+            height: 1.5,
           ),
         ),
         const SizedBox(height: 32),
@@ -151,44 +144,43 @@ class _SupportAppScreenState extends State<SupportAppScreen> {
             color: AppColors.textPrimary,
           ),
         ),
-        const SizedBox(height: 10),
-        TextField(
-          controller: _amountController,
-          keyboardType: const TextInputType.numberWithOptions(decimal: true),
-          onChanged: (_) => setState(() {}),
-          style: GoogleFonts.nunito(fontSize: 16, color: AppColors.textPrimary),
-          decoration: InputDecoration(
-            prefixText: '\$ ',
-            hintText: 'Enter an amount',
-            hintStyle: GoogleFonts.nunito(color: AppColors.textLight),
-            filled: true,
-            fillColor: AppColors.surface,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: AppColors.cardBorder),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: AppColors.cardBorder),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: AppColors.primary, width: 1.5),
-            ),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 14,
-            ),
-          ),
+        const SizedBox(height: 12),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: _amountOptions.map((amount) {
+            final isSelected = _selectedAmount == amount;
+            return ChoiceChip(
+              label: Text('\$$amount'),
+              selected: isSelected,
+              showCheckmark: false,
+              onSelected: (_) {
+                setState(() {
+                  _selectedAmount = isSelected ? null : amount;
+                });
+              },
+              backgroundColor: AppColors.surface,
+              selectedColor: AppColors.primary,
+              labelStyle: GoogleFonts.nunito(
+                color: isSelected ? Colors.white : AppColors.textPrimary,
+                fontWeight: FontWeight.w700,
+                fontSize: 14,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide(
+                  color: isSelected ? AppColors.primary : AppColors.cardBorder,
+                ),
+              ),
+            );
+          }).toList(),
         ),
         const SizedBox(height: 28),
 
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: _canSubmit && !_isSubmitting
-                ? _submitContribution
-                : null,
+            onPressed: _canSubmit ? _submitContribution : null,
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primary,
               padding: const EdgeInsets.symmetric(vertical: 16),
@@ -196,46 +188,59 @@ class _SupportAppScreenState extends State<SupportAppScreen> {
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
-            child: _isSubmitting
-                ? const SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      color: Colors.white,
-                    ),
-                  )
-                : Text(
-                    'Contribute',
-                    style: GoogleFonts.nunito(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                    ),
-                  ),
+            child: Text(
+              'Preview contribution',
+              style: GoogleFonts.nunito(
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),
+            ),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildThankYouState() {
+  Widget _buildPreviewNotice() {
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.favorite, color: AppColors.primary, size: 40),
+            Icon(Icons.info_outline, color: AppColors.primary, size: 40),
             const SizedBox(height: 20),
             Text(
-              'Thank you very much for your contribution.',
+              'Nothing was charged.',
               style: GoogleFonts.cormorantGaramond(
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
                 color: AppColors.textPrimary,
               ),
               textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'Payment processing is not connected yet. This screen is a preview only.',
+              style: GoogleFonts.nunito(
+                fontSize: 15,
+                color: AppColors.textSecondary,
+                height: 1.5,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 28),
+            TextButton(
+              onPressed: () => setState(() => _showPreviewNotice = false),
+              child: Text(
+                'Back to amount',
+                style: GoogleFonts.nunito(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.primary,
+                ),
+              ),
             ),
           ],
         ),

@@ -67,7 +67,37 @@ An educational guide followed by a 6-step guided builder for a structured therap
 
 ## Support this app
 
-A "Contribute" screen reachable from Home, with a free-entry amount field. **Not yet wired to real payment processing** (Apple IAP / Google Play Billing) — currently a UI flow only that simulates success.
+A **Contribute** screen reachable from Home. It is a preview of the contribution flow requested in [issue #5](https://github.com/hnealon/Stressless/issues/5). Live Apple IAP / Google Play Billing is **not** connected.
+
+### How it works
+
+1. From **Home**, tap the Contribute card (the only entry point).
+2. Choose one amount: **$5, $10, $25, $50, or $100**. Nothing is pre-selected.
+3. Tap **Preview contribution**.
+4. The next screen says **Nothing was charged.** — this version does not take payment.
+
+The app stays free. Contribute does not unlock features, and the UI does not distinguish contributors from non-contributors. Copy uses “Contribute”, not “donate”.
+
+### Files
+
+| File | Role |
+|------|------|
+| `lib/screens/home_screen_new.dart` | Home entry card |
+| `lib/screens/support_app_screen.dart` | Amount chips and preview notice |
+
+### Going live later
+
+Replace `_submitContribution()` with `in_app_purchase` (`queryProductDetails` / `buyConsumable`). Show thank-you **only** after a confirmed purchase. Create five consumable products that match the chip amounts. See the TODO at the top of `support_app_screen.dart`.
+
+### How to try it
+
+```bash
+cd cst8319-4-main
+flutter pub get
+flutter run -d chrome
+```
+
+Agree to the disclaimer → Home → Contribute. Pick an amount, then confirm the screen says nothing was charged.
 
 ## Not included in this delivery
 

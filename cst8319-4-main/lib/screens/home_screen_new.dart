@@ -227,7 +227,7 @@ class HomeScreenNew extends StatelessWidget {
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 4.0),
           child: Text(
-            'Contribute - help fund development and access to care for families who need it.',
+            'Help fund development and access to care for families who need it.',
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
