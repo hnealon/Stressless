@@ -1,0 +1,83 @@
+{
+  "products" : [
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "C0A70005",
+      "localizations" : [
+        {
+          "description" : "Support StressLess",
+          "displayName" : "Contribute $5",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.stressless.app.contribute.5",
+      "referenceName" : "Contribute $5",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "9.99",
+      "familyShareable" : false,
+      "internalID" : "C0A70010",
+      "localizations" : [
+        {
+          "description" : "Support StressLess",
+          "displayName" : "Contribute $10",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.stressless.app.contribute.10",
+      "referenceName" : "Contribute $10",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "24.99",
+      "familyShareable" : false,
+      "internalID" : "C0A70025",
+      "localizations" : [
+        {
+          "description" : "Support StressLess",
+          "displayName" : "Contribute $25",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.stressless.app.contribute.25",
+      "referenceName" : "Contribute $25",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "49.99",
+      "familyShareable" : false,
+      "internalID" : "C0A70050",
+      "localizations" : [
+        {
+          "description" : "Support StressLess",
+          "displayName" : "Contribute $50",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.stressless.app.contribute.50a",
+      "referenceName" : "Contribute $50",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "99.99",
+      "familyShareable" : false,
+      "internalID" : "C0A70100",
+      "localizations" : [
+        {
+          "description" : "Support StressLess",
+          "displayName" : "Contribute $100",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.stressless.app.contribute.100",
+      "referenceName" : "Contribute $100",
+      "type" : "Consumable"
+    }
+  ],
+  "settings" : {
+  },
+  "subscriptionGroups" : [
+  ]
+}

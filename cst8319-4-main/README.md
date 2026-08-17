@@ -65,45 +65,65 @@ A guided 4-step flow (Automatic Response → Validation → Emotional Support �
 
 An educational guide followed by a 6-step guided builder for a structured therapeutic apology. Reachable from its own **Advanced** bottom-nav tab.
 
+## App identity (store)
+
+| | |
+|--|--|
+| Display name | StressLess |
+| Bundle ID / Application ID | `com.stressless.app` |
+| Apple ID for App Store Connect | `adele@dradelelafrance.com` |
+
+Register this Bundle ID under Identifiers **before** creating the app in App Store Connect. Suggested in-app purchase product IDs (Consumable, reference name Contribute):
+
+- `com.stressless.app.contribute.5`
+- `com.stressless.app.contribute.10`
+- `com.stressless.app.contribute.25`
+- `com.stressless.app.contribute.50a`
+- `com.stressless.app.contribute.100`
+
 ## Support this app
 
-A **Contribute** screen reachable from Home. It is a preview of the contribution flow requested in [issue #5](https://github.com/hnealon/Stressless/issues/5). Live Apple IAP / Google Play Billing is **not** connected.
+A **Contribute** screen reachable from Home ([issue #5](https://github.com/hnealon/Stressless/issues/5)). Amounts above $100 are not offered. The app stays free; Contribute does not unlock features. Copy uses “Contribute”, not “donate”.
 
 ### How it works
 
 1. From **Home**, tap the Contribute card (the only entry point).
 2. Choose one amount: **$5, $10, $25, $50, or $100**. Nothing is pre-selected.
-3. Tap **Preview contribution**.
-4. The next screen says **Nothing was charged.** — this version does not take payment.
-
-The app stays free. Contribute does not unlock features, and the UI does not distinguish contributors from non-contributors. Copy uses “Contribute”, not “donate”.
+3. Tap **Contribute**.
+4. The App Store purchase sheet appears. **Thank you** is shown only after a confirmed purchase. Cancel or failure does not claim that money was received.
 
 ### Files
 
 | File | Role |
 |------|------|
 | `lib/screens/home_screen_new.dart` | Home entry card |
-| `lib/screens/support_app_screen.dart` | Amount chips and preview notice |
+| `lib/screens/support_app_screen.dart` | Amount chips and IAP purchase |
+| `lib/iap/contribute_products.dart` | Product IDs |
+| `ios/Runner/Contribute.storekit` | Local StoreKit products for the iOS Simulator |
 
-### Going live later
+### Testing
 
-Replace `_submitContribution()` with `in_app_purchase` (`queryProductDetails` / `buyConsumable`). Show thank-you **only** after a confirmed purchase. Create five consumable products that match the chip amounts. See the TODO at the top of `support_app_screen.dart`.
+- **iOS Simulator:** Xcode scheme **Runner** uses `Contribute.storekit` (no real charge).
+- **Physical iPhone:** Sandbox Apple ID after the app is signed with Adele’s team.
+- **Chrome / web:** Store is unavailable; nothing is charged.
+
+The first live In-App Purchase must be submitted for review together with an app version. Do not submit until TestFlight sandbox purchases succeed.
 
 ### How to try it
 
 ```bash
 cd cst8319-4-main
 flutter pub get
-flutter run -d chrome
+flutter run -d ios
 ```
 
-Agree to the disclaimer → Home → Contribute. Pick an amount, then confirm the screen says nothing was charged.
+Agree to the disclaimer → Home → Contribute. Pick an amount and complete or cancel the StoreKit sheet.
 
 ## Not included in this delivery
 
 - **Interaction Log (SWF5)** — not implemented.
 - App store distribution (Apple App Store / Google Play Store) — requested, but dropped due to timeline and lack of team Mac access for iOS signing.
-- Live payment processing for the Contribute feature — requested, but out of scope.
+- Google Play Billing for Contribute — iOS In-App Purchase is wired; Play products are not created yet.
 
 ## Directory structure
 ````
