@@ -235,7 +235,7 @@ class PracticeScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
         ),
         child: Text(
-          'Click here to continue practicing with emotion based scenarios',
+          'Click here to continue practicing with emotion-based scenarios',
           textAlign: TextAlign.center,
           style: GoogleFonts.nunito(fontSize: 14, fontWeight: FontWeight.w700),
         ),

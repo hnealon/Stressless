@@ -144,7 +144,7 @@ const List<LearnTopic> _topics = [
     color: Color(0xFF4A7C6F),
     sections: [
       LearnSection(
-        heading: 'Help Their Brain Feel Safe',
+        heading: 'Help Their Brain Feel Safer',
         body:
             'When a child is upset, no matter the reason, their brain becomes activated and they can\'t think (as) clearly. '
             'Over time, validation sends a simple signal: "I get it, I\'m not against you". Especially when using a tentative, '
@@ -204,7 +204,6 @@ const List<LearnTopic> _topics = [
             'Because-statements are at the heart of validation. They show your child that you\'ve thought about their experience from the inside.',
         bullets: [
           'Aim for 3 because-statements',
-          'End each one with a downward tone, not a question',
           'The most powerful ones reflect your child\'s normal urge to increase good feelings, decrease hard feelings and increase feelings of connection. ',
         ],
       ),
@@ -219,7 +218,7 @@ const List<LearnTopic> _topics = [
       LearnSection(
         heading: 'Build the Bridge',
         body:
-            'Once they\'re a little calmer on the inside, or feel like you\'re on the same team, they need to feel your warmth before they can open up further. '
+            'Once they\'re a little calmer on the inside, or feel like you\'re on the same team, feeling your warmth can help them to open up. '
             'Communications of comfort, encouragement, reassurance and togetherness are great options. Without this step, any suggestion you offer may end up feeling like pressure, or unwelcome, or simply too soon.',
       ),
       LearnSection(
@@ -251,8 +250,7 @@ const List<LearnTopic> _topics = [
       LearnSection(
         heading: 'Getting Practical',
         body:
-            'Practical support works best once your child feels heard and feels connected. '
-            'Offered too early, even the most helpful suggestion can feel like you\'re skipping over their experience, and their walls can go up or they can retreat in their shell. When a child feels both understood and connected, even if just a bit, they become more open to thinking through the problem with you, or hearing what you have to say, whether that\'s finding a solution, trying something new, or simply shifting gears with a transition.',
+            'With practical support, when offered too early, even the most helpful suggestion can feel like you\'re skipping over their experience, and their walls can go up or they can retreat in their shell. When a child feels both understood and connected, even if just a bit, they become more open to thinking through the problem with you, or hearing what you have to say, whether that\'s finding a solution, trying something new, or simply shifting gears with a transition.',
       ),
       LearnSection(
         heading: 'Types of practical support',
@@ -563,15 +561,16 @@ class _SectionBlock extends StatelessWidget {
     }) {
       return Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: isStepColumn ? 6.0 : 10.0,
+          horizontal: isStepColumn ? 6.0 : 8.0,
           vertical: 10.0,
         ),
         child: Text(
           text,
-          softWrap: false,
-          overflow: TextOverflow.visible,
+          softWrap: !isStepColumn,
+          overflow: isStepColumn ? TextOverflow.fade : TextOverflow.clip,
           style: GoogleFonts.nunito(
-            fontSize: 13,
+            fontSize: 12,
+            height: 1.35,
             fontWeight: isHeader ? FontWeight.w700 : FontWeight.normal,
             color: isHeader ? AppColors.textPrimary : AppColors.textSecondary,
           ),
@@ -603,11 +602,12 @@ class _SectionBlock extends StatelessWidget {
 
       return Table(
         border: TableBorder.all(color: AppColors.cardBorder, width: 1.5),
+        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
         columnWidths: const {
-          0: FixedColumnWidth(78),
-          1: FlexColumnWidth(),
-          2: FlexColumnWidth(),
-          3: FlexColumnWidth(),
+          0: FixedColumnWidth(72),
+          1: FlexColumnWidth(1.1),
+          2: FlexColumnWidth(1.35),
+          3: FlexColumnWidth(1.35),
         },
         children: [
           TableRow(

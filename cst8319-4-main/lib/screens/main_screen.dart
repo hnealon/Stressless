@@ -76,7 +76,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.star),
-              label: 'Advanced',
+              label: 'Advanced - TA',
             ),
           ],
           currentIndex: _selectedIndex,

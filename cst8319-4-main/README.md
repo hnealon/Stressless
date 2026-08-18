@@ -25,7 +25,7 @@ Per client review, **Build VS** is for creating scripts from scratch. The Librar
 
 ### How it works
 
-1. From **Learn VS**, tap "Begin a practice session" or "continue practicing with emotion based scenarios" to reach the Library.
+1. From **Learn VS**, tap "Begin a practice session" or "continue practicing with emotion-based scenarios" to reach the Library.
 2. Choose an **emotion** (Anger, Embarrassment, Hopelessness, Sadness, or Anxiety).
 3. Choose a **scenario**.
 4. Complete the script:

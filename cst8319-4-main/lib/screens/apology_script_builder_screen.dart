@@ -66,7 +66,7 @@ class _ApologyScriptBuilderScreenState
   bool _reactionTypeChosen = false;
   String _selectedApology = '';
   final _reactionContinuationController = TextEditingController();
-  String _selectedAddOn = ''; // 'A', 'B', 'C', or ''
+  String _selectedAddOn = ''; // 'A', 'B', 'C', 'D' (skip), or ''
   bool _showNeeded3 = false;
   bool _showWillChange2 = false;
   bool _showCommitmentNote = false;
@@ -940,12 +940,12 @@ class _ApologyScriptBuilderScreenState
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 _inlineBlank(_whatWillChangeController),
+                Text('and', style: Theme.of(context).textTheme.bodyLarge),
+                _inlineBlank(_willChange2Controller),
                 Text(
                   'and (optional)',
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                _inlineBlank(_willChange2Controller, required: false),
-                Text('and', style: Theme.of(context).textTheme.bodyLarge),
                 _inlineBlank(_willChange3Controller, required: false),
               ],
             ),
@@ -1202,6 +1202,39 @@ class _ApologyScriptBuilderScreenState
                 maxLines: 3,
                 required: false,
               ),
+            GestureDetector(
+              onTap: () => setState(() {
+                _selectedAddOn = _selectedAddOn == 'D' ? '' : 'D';
+                if (_selectedAddOn == 'D') {
+                  _customAddOnController.clear();
+                }
+              }),
+              child: Container(
+                width: double.infinity,
+                margin: const EdgeInsets.only(bottom: 12),
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: _selectedAddOn == 'D'
+                      ? AppColors.primary.withOpacity(0.12)
+                      : Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: _selectedAddOn == 'D'
+                        ? AppColors.primary
+                        : Colors.grey.shade200,
+                    width: _selectedAddOn == 'D' ? 2 : 1,
+                  ),
+                ),
+                child: Text(
+                  'Option D: Skip this step',
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: _selectedAddOn == 'D'
+                        ? AppColors.primary
+                        : Colors.black87,
+                  ),
+                ),
+              ),
+            ),
           ],
         );
       default:

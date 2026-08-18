@@ -266,7 +266,7 @@ class _ScriptBuilderScreenState extends State<ScriptBuilderScreen> {
                     ).animate().fadeIn(delay: 80.ms, duration: 400.ms),
                     const SizedBox(height: 10),
                     Text(
-                      'Build your own script from scratch. Your script assembles at the bottom as you go.',
+                      'Build your own script from scratch. Your script will assemble as you go to review once complete.',
                       style: GoogleFonts.nunito(
                         fontSize: 14,
                         color: AppColors.textSecondary,
