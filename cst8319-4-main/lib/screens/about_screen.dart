@@ -23,51 +23,29 @@ class AboutScreen extends StatelessWidget {
                 children: [
                   Text('Developed by:', style: textTheme.titleMedium),
                   const SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children:
-                            ([
-                                  'Dr. Adele Lafrance',
-                                  'Matthew Miceli',
-                                  'Yeonhee Lee',
-                                  'Sheldon Maxwell',
-                                  'Prabhsimsan Kaur',
-                                  'Navleen Kaur',
-                                  'Ramona Alcantara-McHugh',
-                                  'Gohar Khosrupanah',
-                                  'Haleigh Nealon',
-                                  'Ren You',
-                                  'Rachel Mokhtari',
-                                  'Khalil Toure',
-                                ])
-                                .map(
-                                  (name) => Padding(
-                                    padding: const EdgeInsets.only(bottom: 4.0),
-                                    child: Text(
-                                      name,
-                                      style: textTheme.bodyMedium,
-                                    ),
-                                  ),
-                                )
-                                .toList(),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: (['Algonquin College', 'Development Project'])
-                            .map(
-                              (name) => Padding(
-                                padding: const EdgeInsets.only(bottom: 4.0),
-                                child: Text(name, style: textTheme.bodyMedium),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ],
-                  ),
+                  ...([
+                        'Dr. Adele Lafrance',
+                        'Matthew Miceli',
+                        'Yeonhee Lee',
+                        'Sheldon Maxwell',
+                        'Prabhsimsan Kaur',
+                        'Navleen Kaur',
+                        'Ramona Alcantara-McHugh',
+                        'Gohar Khosrupanah',
+                        'Haleigh Nealon',
+                        'Ren You',
+                        'Rachel Mokhtari',
+                        'Khalil Toure',
+                      ].map(
+                        (name) => Padding(
+                          padding: const EdgeInsets.only(bottom: 4.0),
+                          child: Text(name, style: textTheme.bodyMedium),
+                        ),
+                      )),
+                  const SizedBox(height: 16),
+                  Text('Algonquin College', style: textTheme.bodyMedium),
+                  const SizedBox(height: 4),
+                  Text('Development Project', style: textTheme.bodyMedium),
                 ],
               ),
             ),

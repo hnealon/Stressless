@@ -1,12 +1,93 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import '../settings/text_size_preferences.dart';
 import '../theme.dart';
 import 'about_screen.dart';
 import 'support_app_screen.dart';
 
 class HomeScreenNew extends StatelessWidget {
   const HomeScreenNew({super.key});
+
+  Future<void> _showTextSizeSheet(BuildContext context) async {
+    await showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: AppColors.surface,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (sheetContext) {
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
+            child: Consumer<TextSizePreferences>(
+              builder: (context, prefs, _) {
+                final textTheme = Theme.of(context).textTheme;
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Container(
+                        width: 40,
+                        height: 4,
+                        decoration: BoxDecoration(
+                          color: AppColors.divider,
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text('Text size', style: textTheme.titleLarge),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Choose a size that feels comfortable to read.',
+                      style: textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: 16),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: TextSizeLevel.values.map((level) {
+                        final selected = prefs.level == level;
+                        return ChoiceChip(
+                          label: Text(level.label),
+                          selected: selected,
+                          onSelected: (_) => prefs.setLevel(level),
+                          selectedColor:
+                              AppColors.primary.withValues(alpha: 0.18),
+                          labelStyle: textTheme.labelLarge?.copyWith(
+                            color: selected
+                                ? AppColors.primary
+                                : AppColors.textSecondary,
+                            fontWeight:
+                                selected ? FontWeight.w700 : FontWeight.w600,
+                          ),
+                          side: BorderSide(
+                            color: selected
+                                ? AppColors.primary
+                                : AppColors.cardBorder,
+                          ),
+                          backgroundColor: AppColors.surface,
+                          showCheckmark: false,
+                        );
+                      }).toList(),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Preview: This is how body text will look.',
+                      style: textTheme.bodyLarge,
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,22 +96,34 @@ class HomeScreenNew extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.favorite_border, color: AppColors.primary),
-            const SizedBox(width: 8),
-            Text(
-              'StressLess',
-              style: GoogleFonts.cormorantGaramond(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: AppColors.textPrimary,
+        leading: IconButton(
+          tooltip: 'Text size',
+          icon: const Icon(Icons.format_size_rounded),
+          color: AppColors.primary,
+          onPressed: () => _showTextSizeSheet(context),
+        ),
+        title: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.favorite_border, color: AppColors.primary),
+              const SizedBox(width: 8),
+              Text(
+                'StressLess',
+                style: GoogleFonts.cormorantGaramond(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textPrimary,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         centerTitle: true,
+        // Balance the leading icon so the title stays visually centered.
+        actions: const [SizedBox(width: 48)],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),

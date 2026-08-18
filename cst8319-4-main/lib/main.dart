@@ -1,21 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'settings/text_size_preferences.dart';
 import 'theme.dart';
 import 'screens/main_screen.dart';
 
-void main() {
-  runApp(const StressLessApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final textSizePreferences = await TextSizePreferences.load();
+  runApp(StressLessApp(textSizePreferences: textSizePreferences));
 }
 
 class StressLessApp extends StatelessWidget {
-  const StressLessApp({super.key});
+  const StressLessApp({super.key, required this.textSizePreferences});
+
+  final TextSizePreferences textSizePreferences;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'StressLess',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.theme,
-      home: const DisclaimerGate(),
+    return ChangeNotifierProvider.value(
+      value: textSizePreferences,
+      child: Consumer<TextSizePreferences>(
+        builder: (context, prefs, _) {
+          return MaterialApp(
+            title: 'StressLess',
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.theme,
+            builder: (context, child) {
+              return MediaQuery(
+                data: MediaQuery.of(context).copyWith(
+                  textScaler: TextScaler.linear(prefs.scale),
+                ),
+                child: child ?? const SizedBox.shrink(),
+              );
+            },
+            home: const DisclaimerGate(),
+          );
+        },
+      ),
     );
   }
 }
