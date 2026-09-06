@@ -12,7 +12,7 @@ class StressLessApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'StressLess',
+      title: 'EFFT Companion',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.theme,
       home: const DisclaimerGate(),

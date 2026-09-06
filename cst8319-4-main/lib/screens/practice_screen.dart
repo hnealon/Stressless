@@ -81,7 +81,7 @@ class PracticeScreen extends StatelessWidget {
             ),
             const SizedBox(width: 12),
             Text(
-              'StressLess',
+              'EFFT Companion',
               style: GoogleFonts.cormorantGaramond(
                 fontSize: 26,
                 fontWeight: FontWeight.w700,
@@ -245,7 +245,7 @@ class PracticeScreen extends StatelessWidget {
 
   Widget _buildDisclaimer() {
     return Text(
-      'StressLess is an educational tool based on the intervention modules from Emotion-Focused Family Therapy. It is not a crisis resource and does not replace professional mental health support.',
+      'EFFT Companion and Script-Builder is an educational tool based on the intervention modules from Emotion-Focused Family Therapy. It is not a crisis resource and does not replace professional mental health support.',
       style: GoogleFonts.nunito(
         fontSize: 12,
         color: AppColors.textLight,

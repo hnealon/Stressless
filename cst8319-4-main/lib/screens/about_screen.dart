@@ -9,7 +9,7 @@ class AboutScreen extends StatelessWidget {
     final textTheme = theme.textTheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('About StressLess')),
+      appBar: AppBar(title: const Text('About EFFT Companion')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(

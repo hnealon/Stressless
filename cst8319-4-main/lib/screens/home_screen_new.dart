@@ -21,7 +21,7 @@ class HomeScreenNew extends StatelessWidget {
             const Icon(Icons.favorite_border, color: AppColors.primary),
             const SizedBox(width: 8),
             Text(
-              'StressLess',
+              'EFFT Companion',
               style: GoogleFonts.cormorantGaramond(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -38,28 +38,28 @@ class HomeScreenNew extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Welcome to StressLess',
+              'Welcome to EFFT Companion',
               style: textTheme.headlineLarge,
             ).animate().fadeIn(delay: 100.ms),
             const SizedBox(height: 16),
             Text(
               'Drawing on the principles and techniques of Emotion-Focused Family Therapy,'
-              ' StressLess offers parents and caregivers the opportunity to learn and practice new tools to round out their toolkit.',
+              ' EFFT Companion and Script-Builder offers parents and caregivers the opportunity to learn and practice new tools to round out their toolkit.',
               style: textTheme.bodyLarge,
             ).animate().fadeIn(delay: 200.ms),
             const SizedBox(height: 24),
 
             const SizedBox(height: 24),
 
-            // Card 0: What is StressLess?
+            // Card 0: What is EFFT Companion?
             _buildInfoCard(
               context,
-              title: 'What is StressLess?',
+              title: 'What is EFFT Companion?',
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'StressLess is a mobile learning tool designed to help caregivers practice supportive responses to children experiencing stress or distress.',
+                    'EFFT Companion and Script-Builder is a mobile learning tool designed to help caregivers practice supportive responses to children experiencing stress or distress.',
                     style: textTheme.bodyLarge,
                   ),
                   const SizedBox(height: 12),
