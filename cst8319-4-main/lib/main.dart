@@ -22,7 +22,7 @@ class StressLessApp extends StatelessWidget {
       child: Consumer<TextSizePreferences>(
         builder: (context, prefs, _) {
           return MaterialApp(
-            title: 'StressLess',
+            title: 'EFFT Companion',
             debugShowCheckedModeBanner: false,
             theme: AppTheme.theme,
             builder: (context, child) {

@@ -1,4 +1,4 @@
-package com.stressless.app
+package com.dradelelafrance.stressless
 
 import io.flutter.embedding.android.FlutterActivity
 
